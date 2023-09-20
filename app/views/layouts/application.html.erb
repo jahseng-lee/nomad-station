@@ -12,6 +12,9 @@
 
   <body>
     <%= render partial: "layouts/navbar" %>
-    <%= yield %>
+    <div class="container pt-3">
+      <% # TODO is every page wrapped in a container a good idea? %>
+      <%= yield %>
+    </div>
   </body>
 </html>

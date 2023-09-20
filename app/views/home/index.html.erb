@@ -1,2 +1,50 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<% # TODO move these styles into a class" %>
+<div class="py-3" style="width: 100%; display: flex; justify-content: center">
+  <div>
+    <h1>Where to next?</h1>
+  </div>
+</div>
+
+<form>
+  <div class="row">
+    <div class="col">
+      <select class="form-select" aria-label="region-select">
+        <option value="" disabled selected hidden>Select region...</option>
+        <option value="0">South-east asia</option>
+        <option value="1">South america</option>
+        <option value="2">Central america</option>
+        <option value="3">etc. (I'm lazy)</option>
+      </select>
+    </div>
+
+    <div class="col">
+      <% # TODO make this disabled until first part is filled %>
+      <select class="form-select" aria-label="country-select" disabled>
+        <option value="" disabled selected hidden>Select country...</option>
+        <option value="0">Thailand</option>
+        <option value="1">Vietnam</option>
+        <option value="2">Camdodia</option>
+        <option value="3">etc. (I'm lazy)</option>
+      </select>
+    </div>
+  </div>
+</form>
+
+<hr />
+
+<div>
+  <div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="..." class="img-fluid rounded-start" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">Thailand</h5>
+          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          <p class="card-text">Overall: </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
