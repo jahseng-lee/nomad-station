@@ -61,21 +61,23 @@
 <hr />
 
 <div class="row row-cols-xl-3 row-cols-md-2 row-cols-sm-1">
-  <% @locations.each_with_index do |location, i| %>
+  <% @locations.each do |location| %>
     <div class="col">
-      <div class="card mb-3" style="max-width: 540px;">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img class="img-fluid rounded-start" alt="...">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title"><%= location.name_utf8 %></h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      <%= link_to location, class: "location-search-result-link" do %>
+        <div class="card mb-3" style="max-width: 540px;">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title"><%= location.name_utf8 %></h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      <% end %>
     </div>
   <% end %>
 </div>

@@ -1,0 +1,13 @@
+.location-search-result-link {
+  text-decoration: none;
+
+  &:hover {
+    color: black;
+    text-decoration: underline;
+
+    .card {
+      border: var(--bs-card-border-width) solid  color-mix(in srgb, var(--bs-card-border-color), #000 20%);
+    }
+  }
+}
+
