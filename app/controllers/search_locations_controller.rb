@@ -12,10 +12,11 @@ class SearchLocationsController < ApplicationController
       @locations = @locations.by_country(search_params[:country_id])
     end
 
-    # TODO use stimulus to update search results and
-    #      dropdown form
-    # TODO ensure URL is set correctly after search
-    render template: "home/index"
+    respond_to do |format|
+      format.html do
+        render template: "home/index"
+      end
+    end
   end
 
   private

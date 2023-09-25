@@ -5,84 +5,10 @@
   </div>
 </div>
 
-<div data-controller="search-locations">
-  <%= form_tag(
-    search_locations_path,
-    method: :get,
-    data: {
-      "search-locations-target": "searchForm",
-    }
-  ) do %>
-    <div class="row">
-      <div class="col">
-        <%= select(
-          "search",
-          :region_id,
-          Region.all.map { |region| [region.name, region.id] },
-          {
-            include_blank: "Select region...",
-            selected: @region && @region.id,
-          },
-          {
-            class: "form-select",
-            aria: {
-              label: "Region select",
-            },
-            data: {
-              action: "search-locations#submitSearch",
-            }
-          }
-        ) %>
-      </div>
-
-      <div class="col">
-        <% if @region.nil? %>
-          <select class="form-select" aria-label="Country select" disabled>
-            <option value="" disabled selected hidden>Select country...</option>
-          </select>
-        <% else %>
-          <%= select(
-            "search",
-            :country_id,
-            @region.countries.map { |country| [country.name, country.id] },
-            {
-              include_blank: "Select country...",
-              selected: @country && @country.id
-            },
-            {
-              class: "form-select",
-              aria: {
-                label: "Country select",
-              },
-              data: {
-                action: "search-locations#submitSearch",
-              }
-            }
-          ) %>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
-</div>
-
-<hr />
-
-<div class="row row-cols-xl-3 row-cols-md-2 row-cols-sm-1">
-  <% @locations.each_with_index do |location, i| %>
-    <div class="col">
-      <div class="card mb-3" style="max-width: 540px;">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img class="img-fluid rounded-start" alt="...">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title"><%= location.name_utf8 %></h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
-</div>
+<%= render partial: "search_locations/location_search_section",
+  locals: {
+    region: @region,
+    country: @country,
+    locations: @locations,
+  }
+%>
