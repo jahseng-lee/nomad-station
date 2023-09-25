@@ -5,9 +5,14 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <% # TODO links in here eventually
-         # https://getbootstrap.com/docs/5.3/components/navbar/#supported-content
-      %>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to root_path, class: "nav-link" do %>
+            <i class="bi bi-search" aria-hidden="true"></i>
+            Explore
+          <% end %>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>
