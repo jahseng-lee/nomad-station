@@ -1,3 +1,5 @@
 class HomeController < ApplicationController
-  def index; end
+  def index
+    @locations = Location.all.limit(50)
+  end
 end

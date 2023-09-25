@@ -4,14 +4,21 @@ RSpec.describe "Navbar", type: :feature, js: true do
   describe "having some regions, countries and locations set up" do
     let(:oceania) { Region.create!(name: "Oceania") }
     let(:se_asia) { Region.create!(name: "South-east asia") }
-    before do
-      nz = Country.create!(name: "New Zealand", region: oceania)
-      thailand = Country.create!(name: "Thailand", region: se_asia)
 
+    let(:nz) { Country.create!(name: "New Zealand", region: oceania) }
+    let(:thailand) { Country.create!(name: "Thailand", region: se_asia) }
+    let(:aus) { Country.create!(name: "Australia", region: oceania) }
+
+    before do
       Location.create!(
         name: "Wellington",
         name_utf8: "Wellington",
         country: nz
+      )
+      Location.create!(
+        name: "Melbourne",
+        name_utf8: "Melbourne",
+        country: aus
       )
       Location.create!(
         name: "Bangkok",
@@ -22,7 +29,7 @@ RSpec.describe "Navbar", type: :feature, js: true do
       visit root_path
     end
 
-    describe "selecting a region" do
+    context "selecting a region" do
       before do
         # Select 'Oceania' option
         find("select[aria-label='Region select']")
@@ -31,8 +38,26 @@ RSpec.describe "Navbar", type: :feature, js: true do
       end
 
       it "filters results based on region" do
-        expect(page).to have_text("New Zealand")
+        expect(page).to have_text("Wellington")
+        expect(page).to have_text("Melbourne")
+
         expect(page).not_to have_text("Bangkok")
+      end
+
+      context "select a country within the region" do
+        before do
+          # Select 'Oceania' option
+          find("select[aria-label='Country select']")
+            .find(:option, nz.name)
+            .select_option
+        end
+
+        it "filters results based on country" do
+          expect(page).to have_text("Wellington")
+
+          expect(page).not_to have_text("Melbourne")
+          expect(page).not_to have_text("Bangkok")
+        end
       end
     end
   end
