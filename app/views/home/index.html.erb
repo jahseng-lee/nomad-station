@@ -5,21 +5,26 @@
   </div>
 </div>
 
-<form>
+<%= form_tag("https://http.cat/404", method: :get) do %>
   <div class="row">
     <div class="col">
-      <select class="form-select" aria-label="region-select">
-        <option value="" disabled selected hidden>Select region...</option>
-        <option value="0">South-east asia</option>
-        <option value="1">South america</option>
-        <option value="2">Central america</option>
-        <option value="3">etc. (I'm lazy)</option>
-      </select>
+      <%= select(
+        "search",
+        :region_id,
+        Region.all.map { |region| [region.name, region.id] },
+        { include_blank: "Select Region..." },
+        {
+          class: "form-select",
+          aria: {
+            label: "Region select",
+          }
+        }
+      ) %>
     </div>
 
     <div class="col">
       <% # TODO make this disabled until first part is filled %>
-      <select class="form-select" aria-label="country-select" disabled>
+      <select class="form-select" aria-label="Country select" disabled>
         <option value="" disabled selected hidden>Select country...</option>
         <option value="0">Thailand</option>
         <option value="1">Vietnam</option>
@@ -28,7 +33,7 @@
       </select>
     </div>
   </div>
-</form>
+<% end %>
 
 <hr />
 
@@ -37,7 +42,7 @@
     <div class="card mb-3" style="max-width: 540px;">
       <div class="row g-0">
         <div class="col-md-4">
-          <img src="..." class="img-fluid rounded-start" alt="...">
+          <img class="img-fluid rounded-start" alt="...">
         </div>
         <div class="col-md-8">
           <div class="card-body">
@@ -53,7 +58,7 @@
     <div class="card mb-3" style="max-width: 540px;">
       <div class="row g-0">
         <div class="col-md-4">
-          <img src="..." class="img-fluid rounded-start" alt="...">
+          <img class="img-fluid rounded-start" alt="...">
         </div>
         <div class="col-md-8">
           <div class="card-body">
@@ -69,7 +74,7 @@
     <div class="card mb-3" style="max-width: 540px;">
       <div class="row g-0">
         <div class="col-md-4">
-          <img src="..." class="img-fluid rounded-start" alt="...">
+          <img class="img-fluid rounded-start" alt="...">
         </div>
         <div class="col-md-8">
           <div class="card-body">

@@ -1,6 +1,5 @@
 {
   "name": "app",
-  "private": "true",
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^7.3.0",
@@ -12,7 +11,7 @@
     "nodemon": "^3.0.1",
     "postcss": "^8.4.30",
     "postcss-cli": "^10.1.0",
-    "sass": "^1.67.0"
+    "sass": "^1.68.0"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=/assets",
@@ -23,5 +22,6 @@
   },
   "browserslist": [
     "defaults"
-  ]
+  ],
+  "packageManager": "yarn@3.6.3"
 }

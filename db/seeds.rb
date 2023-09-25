@@ -6,7 +6,7 @@ require "csv"
   "Europe",
   "Americas",
   "Africa",
-  "Pacific"
+  "Oceania"
 ].each do |region_name|
   Region.create!(name: region_name)
 end
@@ -27,8 +27,8 @@ tables.each_with_index do |row, i|
 
   # see db/seedfiles/worldcities.csv
   Location.create!(
-    city: row["city_ascii"],
-    city_utf8: row["city"],
+    name: row["city_ascii"],
+    name_utf8: row["city"],
     country: country,
     population: row["population"].present? ? row["population"] : 0,
   )

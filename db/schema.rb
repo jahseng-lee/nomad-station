@@ -13,13 +13,13 @@
 ActiveRecord::Schema[7.0].define(version: 2023_09_25_110107) do
   create_table "countries", force: :cascade do |t|
     t.text "name", null: false
-    t.integer "regions_id"
-    t.index ["regions_id"], name: "index_countries_on_regions_id"
+    t.integer "region_id"
+    t.index ["region_id"], name: "index_countries_on_region_id"
   end
 
   create_table "locations", force: :cascade do |t|
-    t.text "city", null: false
-    t.text "city_utf8", null: false
+    t.text "name", null: false
+    t.text "name_utf8", null: false
     t.text "population"
     t.integer "country_id", null: false
     t.datetime "created_at", null: false
