@@ -16,7 +16,10 @@ class SearchLocationsController < ApplicationController
       @locations = @locations.by_country(search_params[:country_id])
     end
 
-    @pagy, @locations = pagy(@locations, items: 18)
+    @pagy, @locations = pagy(
+      @locations.ordered_for_search_results,
+      items: 18
+    )
 
     respond_to do |format|
       format.html do
