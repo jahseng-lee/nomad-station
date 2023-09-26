@@ -60,11 +60,11 @@
 
 <hr />
 
-<div class="row row-cols-xl-3 row-cols-md-2 row-cols-sm-1">
+<div class="row row-cols-xl-3 row-cols-md-2 row-cols-1 ">
   <% @locations.each do |location| %>
     <div class="col">
       <%= link_to location, class: "location-search-result-link" do %>
-        <div class="card mb-3" style="max-width: 540px;">
+        <div class="location-card card overflow-hidden mb-3">
           <div class="row g-0">
             <div class="col-md-4">
               <img class="img-fluid rounded-start" alt="...">
@@ -72,7 +72,11 @@
             <div class="col-md-8">
               <div class="card-body">
                 <h5 class="card-title"><%= location.name_utf8 %></h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text">
+                  <%= helper_location_short_description(
+                    location: location
+                  ) %>
+                </p>
               </div>
             </div>
           </div>
