@@ -141,6 +141,7 @@ GEM
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    pagy (6.0.4)
     pg (1.2.3)
     psych (5.1.0)
       stringio
@@ -259,6 +260,7 @@ DEPENDENCIES
   devise (~> 4.9)
   jbuilder
   jsbundling-rails
+  pagy (~> 6.0)
   pg (>= 0.18, < 2.0)
   puma (~> 5.0)
   pundit

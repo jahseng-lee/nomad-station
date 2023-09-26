@@ -1,4 +1,6 @@
 class SearchLocationsController < ApplicationController
+  include Pagy::Backend
+
   skip_before_action :authenticate_user!
 
   def index
@@ -13,6 +15,8 @@ class SearchLocationsController < ApplicationController
     if @country.present?
       @locations = @locations.by_country(search_params[:country_id])
     end
+
+    @pagy, @locations = pagy(@locations, items: 18)
 
     respond_to do |format|
       format.html do
