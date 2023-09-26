@@ -1,4 +1,6 @@
 class SearchLocationsController < ApplicationController
+  skip_before_action :authenticate_user!
+
   def index
     @region = Region.find_by(id: search_params[:region_id])
     @country = Country.find_by(id: search_params[:country_id])
