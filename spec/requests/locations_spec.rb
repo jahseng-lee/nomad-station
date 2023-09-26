@@ -92,5 +92,34 @@ RSpec.describe "Locations", type: :request do
       end
     end
   end
+
+  describe "PATCH #generate_description" do
+    context "signed in as an admin" do
+      before do
+        sign_in admin
+      end
+
+      it "updates the location with an 'auto-generated' description" do
+        patch generate_description_location_path(location)
+
+        location.reload
+        expect(location.description).to eq(
+          "This content was auto-generated. In production, this should call ChatGPT instead"
+        )
+      end
+    end
+
+    context "not signed in" do
+      before do
+        sign_out :user
+      end
+
+      it "returns http redirect" do
+        patch generate_description_location_path(location)
+
+        expect(response).to have_http_status(:redirect)
+      end
+    end
+  end
 end
 

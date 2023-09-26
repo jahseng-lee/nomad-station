@@ -63,9 +63,22 @@ RSpec.describe "Editing a location", type: :feature, js: true do
                 "Editing #{location.name}, #{location.country.name}"
               )
             end
+          end
 
-            context "auto-generating the description" do
-              pending "TODO"
+          context "auto-generating the description" do
+            before do
+              click_button "Auto-generate"
+            end
+
+            it "automatically generates a description" do
+              expect(page).to have_content("Auto-generation successful")
+
+              expect(page).to have_content(
+                "Editing #{location.name}, #{location.country.name}"
+              )
+              expect(page).to have_content(
+                "This content was auto-generated. In production, this should call ChatGPT instead"
+              )
             end
           end
         end

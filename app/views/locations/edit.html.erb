@@ -1,3 +1,13 @@
+<% if flash[:success_generate_description].present? %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= flash[:success_generate_description] %>
+  </div>
+<% elsif flash[:error_generate_description].present? %>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <%= flash[:error_generate_description] %>
+  </div>
+<% end %>
+
 <% if flash[:error_update_location].present? %>
   <div class="alert alert-danger alert-dismissible fade show" role="alert">
     <%= flash[:error_update_location] %>
@@ -18,5 +28,22 @@
     type: :submit,
     class: "btn btn-primary"
   %>
+
+  <% if @location.description.present? %>
+    <%= f.button "Auto-generate",
+      type: :submit,
+      data: {
+        turbo_confirm: "Are you sure? This location already has a description, this action will overwrite the existing data permanently"
+      },
+      class: "btn btn-danger",
+      formaction: generate_description_location_path(@location)
+    %>
+  <% else %>
+    <%= f.button "Auto-generate",
+      type: :submit,
+      class: "btn btn-secondary",
+      formaction: generate_description_location_path(@location)
+    %>
+  <% end %>
 <% end %>
 
