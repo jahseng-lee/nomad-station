@@ -1,13 +1,25 @@
-.location-search-result-link {
+a.location-search-result-link {
   text-decoration: none;
 
   &:hover {
-    color: black;
-    text-decoration: underline;
-
     .card {
-      border: var(--bs-card-border-width) solid  color-mix(in srgb, var(--bs-card-border-color), #000 20%);
+      border: var(--bs-card-border-width) solid  $primary;
+    }
+
+    .card-body {
+      color: $primary;
     }
   }
 }
 
+.review-summary-row {
+  display: flex;
+  color: $primary;
+
+  .rating {
+    flex-grow: 1;
+
+    font-weight: bold;
+    text-align: end;
+  }
+}
