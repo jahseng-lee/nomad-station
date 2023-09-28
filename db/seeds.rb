@@ -4,9 +4,14 @@ require "csv"
 [
   "Asia",
   "Europe",
-  "Americas",
+  "United Kingdom",
+  "South America",
+  "Central America",
+  "North America",
   "Africa",
-  "Oceania"
+  "Oceania",
+  "Middle East",
+  "Caribbean",
 ].each do |region_name|
   Region.create!(name: region_name)
 end
@@ -34,3 +39,429 @@ tables.each_with_index do |row, i|
   )
 end
 
+# Associate countries with regions
+@region = Region.find_by(name: "Asia")
+[
+  "India",
+  "Philippines",
+  "China",
+  "Korea, South",
+  "Russia",
+  "Thailand",
+  "Bangladesh",
+  "Vietnam",
+  "Malaysia",
+  "Hong Kong",
+  "Singapore",
+  "Myanmar",
+  "Taiwan",
+  "Cambodia",
+  "Mongolia",
+  "Japan",
+  "Brunei",
+  "Indonesia",
+  "Timor-Leste",
+  "Bhutan",
+  "Nepal",
+  "Laos",
+  "Sri Lanka",
+  "Maldives",
+  "Macau",
+  "Armenia",
+  "Pakistan",
+].each do |country_name|
+  Country.find_by(name: country_name).update!(region: @region)
+end
+
+@region = Region.find_by(name: "South America")
+[
+  "Brazil",
+  "Argentina",
+  "Peru",
+  "Colombia",
+  "Chile",
+  "Bolivia",
+  "Ecuador",
+  "Venezuela",
+  "Paraguay",
+  "Uruguay",
+  "Suriname",
+  "Guyana",
+  "Falkland Islands (Islas Malvinas)",
+  "South Georgia And South Sandwich Islands",
+  "French Guiana",
+].each do |country_name|
+  Country.find_by(name: country_name).update!(region: @region)
+end
+
+@region = Region.find_by(name: "Central America")
+[
+  "Mexico",
+  "Guatemala",
+  "Honduras",
+  "Nicaragua",
+  "Panama",
+  "El Salvador",
+  "Costa Rica",
+  "Belize",
+].each do |country_name|
+  Country.find_by(name: country_name).update!(region: @region)
+end
+
+@region = Region.find_by(name: "North America")
+[
+  "United States",
+  "Canada",
+  "Bermuda",
+  "Saint Martin",
+  "Saint Pierre And Miquelon",
+].each do |country_name|
+  Country.find_by(name: country_name).update!(region: @region)
+end
+
+@region = Region.find_by(name: "Europe")
+[
+  "Turkey",
+  "France",
+  "Spain",
+  "Germany",
+  "Italy",
+  "Belarus",
+  "Austria",
+  "Romania",
+  "Poland",
+  "Belgium",
+  "Hungary",
+  "Serbia",
+  "Bulgaria",
+  "Netherlands",
+  "Georgia",
+  "Sweden",
+  "Croatia",
+  "Norway",
+  "Greece",
+  "Finland",
+  "Macedonia",
+  "Moldova",
+  "Latvia",
+  "Denmark",
+  "Lithuania",
+  "Portugal",
+  "Estonia",
+  "Slovakia",
+  "Albania",
+  "Slovenia",
+  "Bosnia And Herzegovina",
+  "Martinique",
+  "Kosovo",
+  "Montenegro",
+  "Curaçao",
+  "Switzerland",
+  "Iceland",
+  "Luxembourg",
+  "Greenland",
+  "Vatican City",
+  "Sint Maarten",
+  "Ireland",
+  "Ukraine",
+  "Azerbaijan",
+  "Czechia",
+  "San Marino",
+  "Malta",
+  "Andorra",
+  "Liechtenstein",
+  "Aruba",
+  "Monaco",
+  "Reunion",
+  "Faroe Islands",
+  "Svalbard",
+].each do |country_name|
+  Country.find_by(name: country_name).update!(region: @region)
+end
+
+@region = Region.find_by(name: "United Kingdom")
+[
+  "United Kingdom",
+  "Gibraltar",
+  "Isle Of Man",
+  "Jersey",
+].each do |country_name|
+  Country.find_by(name: country_name).update!(region: @region)
+end
+
+@region = Region.find_by(name: "Africa")
+[
+  "Egypt",
+  "Nigeria",
+  "Congo (Kinshasa)",
+  "Angola",
+  "Tanzania",
+  "Kenya",
+  "Côte D’Ivoire",
+  "South Africa",
+  "Morocco",
+  "Algeria",
+  "Ethiopia",
+  "Madagascar",
+  "Cameroon",
+  "Ghana",
+  "Zimbabwe",
+  "Somalia",
+  "Mali",
+  "Malawi",
+  "Guinea",
+  "Uganda",
+  "Zambia",
+  "Burkina Faso",
+  "Mozambique",
+  "Senegal",
+  "Rwanda",
+  "Libya",
+  "Chad",
+  "Mauritania",
+  "Tunisia",
+  "Niger",
+  "Liberia",
+  "Eritrea",
+  "Sierra Leone",
+  "Central African Republic",
+  "Togo",
+  "Gabon",
+  "Benin",
+  "Burundi",
+  "Djibouti",
+  "Guinea-Bissau",
+  "Lesotho",
+  "Namibia",
+  "Botswana",
+  "Equatorial Guinea",
+  "Congo (Brazzaville)",
+  "Western Sahara",
+  "Gambia, The",
+  "Swaziland",
+  "Mauritius",
+  "Cabo Verde",
+  "Comoros",
+  "Sao Tome And Principe",
+  "Mayotte",
+  "Seychelles",
+  "South Sudan",
+].each do |country_name|
+  Country.find_by(name: country_name).update!(region: @region)
+end
+
+@region = Region.find_by(name: "Oceania")
+[
+  "Australia",
+  "New Zealand",
+  "Papua New Guinea",
+  "French Polynesia",
+  "New Caledonia",
+  "Solomon Islands",
+  "Fiji",
+  "Vanuatu",
+  "Samoa",
+  "Marshall Islands",
+  "Kiribati",
+  "Tonga",
+  "American Samoa",
+  "Micronesia, Federated States Of",
+  "Tuvalu",
+  "Cook Islands",
+  "Northern Mariana Islands",
+  "Niue",
+  "Guam",
+  "Wallis And Futuna",
+  "Norfolk Island",
+  "Palau",
+  "Pitcairn Islands",
+  "Christmas Island",
+].each do |country_name|
+  Country.find_by(name: country_name).update!(region: @region)
+end
+
+@region = Region.find_by(name: "Middle East")
+[
+  "Kuwait",
+  "Iran",
+  "Sudan",
+  "Saudi Arabia",
+  "Iraq",
+  "Jordan",
+  "Afghanistan",
+  "Yemen",
+  "United Arab Emirates",
+  "Uzbekistan",
+  "Syria",
+  "Kazakhstan",
+  "Oman",
+  "Qatar",
+  "Kyrgyzstan",
+  "Turkmenistan",
+  "Israel",
+  "Tajikistan",
+  "Lebanon",
+  "Cyprus",
+  "Bahrain",
+  "Gaza Strip",
+  "West Bank",
+].each do |country_name|
+  Country.find_by(name: country_name).update!(region: @region)
+end
+
+@region = Region.find_by(name: "Caribbean")
+[
+  "Dominican Republic",
+  "Cuba",
+  "Haiti",
+  "Jamaica",
+  "Bahamas, The",
+  "Barbados",
+  "Saint Lucia",
+  "Trinidad And Tobago",
+  "Cayman Islands",
+  "Saint Vincent And The Grenadines",
+  "Antigua And Barbuda",
+  "Dominica",
+  "Saint Kitts And Nevis",
+  "Turks And Caicos Islands",
+  "Grenada",
+  "Guadeloupe",
+  "Virgin Islands, British",
+  "Saint Barthelemy",
+  "Anguilla",
+  "Puerto Rico",
+].each do |country_name|
+  Country.find_by(name: country_name).update!(region: @region)
+end
+
+# There are 1800+ locations under "United Kingdom".
+# Won't manually sort them all, but will try to get
+# the big ones + famous ones
+@region = Region.find_by(name: "United Kingdom")
+
+@country = Country.create!(name: "England", region: @region)
+[
+  "London",
+  "Birmingham",
+  "Manchester",
+  "Leeds",
+  "Newcastle",
+  "Birstall",
+  "Liverpool",
+  "Nottingham",
+  "Bristol",
+  "Sheffield",
+  "Kingston upon Hull",
+  "Leicester",
+  "Portsmouth",
+  "Southampton",
+  "Stoke-on-Trent",
+  "Coventry",
+  "Reading",
+  "Derby",
+  "Plymouth",
+  "Wolverhampton",
+  "Milton Keynes",
+  "Norwich",
+  "Luton",
+  "Islington",
+  "Swindon",
+  "Croydon",
+  "Basildon",
+  "Bournemouth",
+  "Worthing",
+  "Ipswich",
+  "Middlesbrough",
+  "Sunderland",
+  "Ilford",
+  "Warrington",
+  "Slough",
+  "Huddersfield",
+  "Oxford",
+  "York",
+  "Poole",
+  "Harrow",
+  "Saint Albans",
+  "Telford",
+  "Blackpool",
+  "Brighton",
+  "Sale",
+  "Enfield",
+  "Tottenham",
+  "Bolton",
+  "High Wycombe",
+  "Exeter",
+  "Solihull",
+  "Romford",
+  "Preston",
+  "Gateshead",
+  "Blackburn",
+  "Cheltenham",
+  "Basingstoke",
+  "Maidstone",
+  "Colchester",
+  "Chelmsford",
+  "Wythenshawe",
+  "Doncaster",
+  "Rotherham",
+  "Walthamstow",
+  "Rochdale",
+  "Bedford",
+  "Crawley",
+  "Mansfield",
+  "Dagenham",
+  "Stockport",
+  "Darlington",
+  "Fyfield",
+  "Gillingham",
+  "Salford",
+  "Eastbourne",
+  "Wigan",
+  "Hounslow",
+  "Wembley",
+  "Saint Helens",
+  "Worcester",
+  "Wakefield",
+  "Lincoln",
+  "Hemel Hempstead",
+  "Newport",
+  "Watford",
+  "Oldham",
+  "Sutton Coldfield",
+  "Kettering",
+  "Hastings",
+  "Hartlepool",
+  "Hove",
+  "Barnsley",
+  "Southport",
+  "Aberdeen",
+].each do |location_name|
+  Location.find_by(name: location_name).update!(country: @country)
+end
+
+@country = Country.create!(name: "Northern Ireland", region: @region)
+[
+  "Belfast",
+  "Derry",
+  "Lisburn",
+  "Omagh",
+].each do |location_name|
+  Location.find_by(name: location_name).update!(country: @country)
+end
+
+@country = Country.create!(name: "Scotland", region: @region)
+[
+  "Glasgow",
+  "Edinburgh",
+  "Dundee",
+  "Inverness",
+].each do |location_name|
+  Location.find_by(name: location_name).update!(country: @country)
+end
+
+@country = Country.create!(name: "Wales", region: @region)
+Location.find_by(name: "Caerdydd").update!(name: "Cardiff", country: @country)
+Location.find_by(name: "Swansea").update!(country: @country)
+Location.find_by(name: "Wrecsam").update!(name: "Wrexham", country: @country)
+Location.find_by(name: "Newport").update!(country: @country)
