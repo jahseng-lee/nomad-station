@@ -4,5 +4,8 @@
 
 import { application } from "./application"
 
+import NavbarController from "./navbar_controller"
+application.register("navbar", NavbarController)
+
 import SearchLocationsController from "./search_locations_controller"
 application.register("search-locations", SearchLocationsController)
