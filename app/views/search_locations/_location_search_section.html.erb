@@ -22,7 +22,8 @@
               label: "Region select",
             },
             data: {
-              action: "search-locations#submitSearch",
+              "search-locations-target": "regionSelect",
+              action: "search-locations#regionSelect",
             }
           }
         ) %>
@@ -30,7 +31,11 @@
 
       <div class="col">
         <% if region.nil? %>
-          <select class="form-select" aria-label="Country select" disabled>
+          <select
+              class="form-select"
+              aria-label="Country select"
+              data-search-locations-target="countrySelect"
+              disabled>
             <option value="" disabled selected hidden>Select country...</option>
           </select>
         <% else %>
@@ -48,6 +53,7 @@
                 label: "Country select",
               },
               data: {
+                "search-locations-target": "countrySelect",
                 action: "search-locations#submitSearch",
               }
             }
