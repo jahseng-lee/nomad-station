@@ -16,12 +16,12 @@ RSpec.describe LocationsHelper, type: :helper do
         location.update!(description: test_desc)
       end
 
-      it "returns the location description" do
+      it "returns the location description formatted" do
         desc = helper.helper_location_description(
           location: location
         )
 
-        expect(desc).to eq test_desc
+        expect(desc).to eq simple_format(test_desc)
       end
     end
 

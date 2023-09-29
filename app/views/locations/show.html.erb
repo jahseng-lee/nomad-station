@@ -23,11 +23,58 @@
   <hr class="d-lg-none my-4">
 
   <div class="col-12 col-lg-3">
-    <div class="card">
+    <div class="card mb-3">
       <div class="card-body">
-        TODO additional information here like review summary, weather, links to add a review, etc.
+        <% if @location.reviews.any? %>
+          <% # TODO make this fetch from the backend %>
+          <div class="review-summary-row">
+            <div>Overall:</div>
+            <div class="rating">
+              4.9
+              <i class="bi bi-star-fill" aria-hidden="true"></i>
+              <i class="bi bi-star-fill" aria-hidden="true"></i>
+              <i class="bi bi-star-fill" aria-hidden="true"></i>
+              <i class="bi bi-star-fill" aria-hidden="true"></i>
+              <i class="bi bi-star-fill" aria-hidden="true"></i>
+            </div>
+          </div>
+
+          <div class="review-summary-row">
+            <div>Fun:</div>
+            <div class="rating">
+              4.5
+              <i class="bi bi-star-fill" aria-hidden="true"></i>
+              <i class="bi bi-star-fill" aria-hidden="true"></i>
+              <i class="bi bi-star-fill" aria-hidden="true"></i>
+              <i class="bi bi-star-fill" aria-hidden="true"></i>
+              <i class="bi bi-star-half" aria-hidden="true"></i>
+            </div>
+          </div>
+
+          <div class="review-summary-row">
+            <div>Cost:</div>
+            <div class="rating">
+              3.5
+              <i class="bi bi-star-fill" aria-hidden="true"></i>
+              <i class="bi bi-star-fill" aria-hidden="true"></i>
+              <i class="bi bi-star-fill" aria-hidden="true"></i>
+              <i class="bi bi-star-half" aria-hidden="true"></i>
+              <i class="bi bi-star" aria-hidden="true"></i>
+            </div>
+          </div>
+        <% else %>
+          No reviews for <%= @location.name_utf8 %> yet
+        <% end %>
       </div>
     </div>
+
+    <%= link_to(
+      new_location_review_path(location_id: @location.id),
+      class: "btn btn-primary"
+    ) do %>
+      <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
+      Add review
+    <% end %>
   </div>
 </div>
 

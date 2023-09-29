@@ -1,0 +1,24 @@
+<div class="mb-3">
+  <%= link_to location_path(@location) do %>
+    <i class="bi bi-arrow-left" aria-hidden="true"></i>
+    Back to location
+  <% end %>
+</div>
+
+<div class="ms-3">
+  <p class="h3">
+    Overall: <%= helper_star_rating(rating: @review.overall) %>
+  </p>
+  <p>Fun: <%= helper_star_rating(rating: @review.fun) %></p>
+  <p>Cost: <%= helper_star_rating(rating: @review.cost) %></p>
+  <p>Internet: <%= helper_star_rating(rating: @review.internet) %></p>
+  <p>Safety: <%= helper_star_rating(rating: @review.safety) %></p>
+
+  <% if @review.body.present? %>
+    <p>
+      <strong>Summary</strong>
+      <br />
+      <%= simple_format(@review.body) %>
+    </p>
+  <% end %>
+</div>

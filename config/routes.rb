@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     member do
       patch :generate_description
     end
+
+    resources :reviews, only: [:show, :new, :create, :edit, :update]
   end
   resources :search_locations, only: [:index]
 
