@@ -41,5 +41,62 @@ RSpec.describe LocationsHelper, type: :helper do
       end
     end
   end
+
+  describe ".helper_review_summary_star_rating" do
+    context "given a location with a review_summary" do
+      before do
+        allow(location).to receive(:review_summary).and_return({
+          overall: 4.8, # should appear as 5 full stars
+          fun: 4.7, # should appear as 4.5 full stars
+          cost: 4.4, # should appear as 4.5 full stars
+          internet: 4.2, # should appear as 4 full stars
+          safety: 0.2, # should appear as 0 full stars
+        })
+      end
+
+      it "returns the average score and stars for all the review fields" do
+        expect(
+          helper.helper_review_summary_star_rating(
+            location: location,
+            review_field: :overall
+          )
+        ).to eq(
+          "4.8 " + (ReviewHelper::STAR_FILLED * 5)
+        )
+        expect(
+          helper.helper_review_summary_star_rating(
+            location: location,
+            review_field: :fun
+          )
+        ).to eq(
+          "4.7 " + (ReviewHelper::STAR_FILLED * 4) + (ReviewHelper::STAR_HALF_FILLED * 1)
+        )
+        expect(
+          helper.helper_review_summary_star_rating(
+            location: location,
+            review_field: :cost
+          )
+        ).to eq(
+          "4.4 "+ (ReviewHelper::STAR_FILLED * 4) + (ReviewHelper::STAR_HALF_FILLED * 1)
+        )
+        expect(
+          helper.helper_review_summary_star_rating(
+            location: location,
+            review_field: :internet
+          )
+        ).to eq(
+          "4.2 " + (ReviewHelper::STAR_FILLED * 4) + (ReviewHelper::STAR_EMPTY * 1)
+        )
+        expect(
+          helper.helper_review_summary_star_rating(
+            location: location,
+            review_field: :safety
+          )
+        ).to eq(
+          "0.2 " + (ReviewHelper::STAR_EMPTY * 5)
+        )
+      end
+    end
+  end
 end
 
