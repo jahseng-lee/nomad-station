@@ -15,8 +15,11 @@ class Location < ApplicationRecord
   }
 
   scope :ordered_for_search_results, -> {
-    # TODO change this to be smarter
-    order(population: :desc)
+    left_outer_joins(:reviews)
+      .group("locations.id")
+      .order(
+        "avg(reviews.overall) desc NULLS LAST, population desc"
+      )
   }
 
   def review_summary
