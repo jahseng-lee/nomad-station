@@ -21,21 +21,21 @@ RSpec.describe "Reviews", type: :request do
       country: Country.create!(name: "New Zealand"),
     )
   end
+  let(:params) do
+    {
+      review: {
+        overall: overall,
+        fun: fun,
+        cost: cost,
+        internet: internet,
+        safety: safety,
+        body: review_body
+      }
+    }
+  end
 
   describe "#create" do
     let(:review_body) { nil }
-    let(:params) do
-      {
-        review: {
-          overall: overall,
-          fun: fun,
-          cost: cost,
-          internet: internet,
-          safety: safety,
-          body: review_body
-        }
-      }
-    end
 
     context "with valid params" do
       let(:overall) { 5 }
@@ -74,6 +74,75 @@ RSpec.describe "Reviews", type: :request do
         expect{
           post location_reviews_path(location), params: params
         }.not_to change{ Review.count }
+      end
+    end
+  end
+
+  describe "#update" do
+    let(:old_overall) { 5 }
+    let(:old_fun) { 5 }
+    let(:old_cost) { 5 }
+    let(:old_internet) { 5 }
+    let(:old_safety) { 5 }
+    let(:old_review_body) { "Wellington was okay!" }
+    let(:review) do
+      Review.create!(
+        user: user,
+        location: location,
+        overall: old_overall,
+        fun: old_fun,
+        cost: old_cost,
+        internet: old_internet,
+        safety: old_safety,
+        body: old_review_body,
+      )
+    end
+
+    context "with valid params" do
+      let(:overall) { 4 }
+      let(:fun) { 4 }
+      let(:cost) { 4 }
+      let(:internet) { 4 }
+      let(:safety) { 4 }
+      let(:review_body) { "Wellington was great!" }
+
+      it "updates the review and redirects to it" do
+        put location_review_path(
+          review, location_id: location
+        ), params: params
+
+        review = Review.last
+
+        expect(review.overall).to eq overall
+        expect(review.fun).to eq fun
+        expect(review.cost).to eq cost
+        expect(review.internet).to eq internet
+        expect(review.safety).to eq safety
+        expect(review.body).to eq review_body
+
+        expect(response.status).to eq 302
+      end
+    end
+
+    context "with invalid params" do
+      let(:overall) { 4 }
+      let(:fun) { 4 }
+      let(:cost) { 4 }
+      let(:internet) { 4 }
+      let(:safety) { nil }
+      let(:review_body) { "Wellington was awful!" }
+
+      it "does not update the review" do
+        put location_review_path(
+          review, location_id: location
+        ), params: params
+
+        expect(review.overall).to eq old_overall
+        expect(review.fun).to eq old_fun
+        expect(review.cost).to eq old_cost
+        expect(review.internet).to eq old_internet
+        expect(review.safety).to eq old_safety
+        expect(review.body).to eq old_review_body
       end
     end
   end

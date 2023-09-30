@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Adding a location review", type: :feature, js: true do
+RSpec.describe "Editing a location review", type: :feature, js: true do
   let(:location) do
     Location.create!(
       name: "Wellington",
@@ -10,7 +10,7 @@ RSpec.describe "Adding a location review", type: :feature, js: true do
   end
 
 
-  describe "logged in as a user " do
+  describe "a user who has created a review" do
     let(:user) do
       u = User.create!(
         email: "jahseng@nomadstation.com",
@@ -22,6 +22,17 @@ RSpec.describe "Adding a location review", type: :feature, js: true do
     end
     before do
       sign_in user
+
+      Review.create!(
+        user: user,
+        location: location,
+        overall: 5,
+        fun: 5,
+        cost: 5,
+        internet: 5,
+        safety: 5,
+        body: "Old review body"
+      )
     end
 
     context "on a location page" do
@@ -29,19 +40,16 @@ RSpec.describe "Adding a location review", type: :feature, js: true do
         visit location_path(location)
       end
 
-      it "shows a 'Add review' link" do
-        expect(page).to have_content(
-          "No reviews for #{location.name_utf8} yet"
-        )
-        expect(page).to have_link("Add review")
+      it "shows a 'Edit review' link" do
+        expect(page).to have_link("Edit review")
       end
 
-      context "clicking 'Add review'" do
+      context "clicking 'Edit review'" do
         before do
-          click_link "Add review"
+          click_link "Edit review"
         end
 
-        it "shows the 'Add review' form" do
+        it "shows the 'Edit review' form" do
           expect(page).to have_content(
             "Review for #{location.name_utf8}, #{location.country.name}"
           )
@@ -51,13 +59,13 @@ RSpec.describe "Adding a location review", type: :feature, js: true do
         end
 
         context "filling out the form and clicking 'Finish'" do
-          let(:review_body) { "Wellington rocks!" }
+          let(:review_body) { "New review body" }
           before do
-            select "5", from: "Overall"
+            select "4", from: "Overall"
             select "4", from: "Fun"
-            select "3", from: "Cost"
-            select "2", from: "Internet"
-            select "1", from: "Safety"
+            select "4", from: "Cost"
+            select "4", from: "Internet"
+            select "4", from: "Safety"
 
             fill_in "Summary", with: review_body
 

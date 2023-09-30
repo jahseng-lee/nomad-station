@@ -37,12 +37,32 @@ class ReviewsController < ApplicationController
   end
 
   def edit
+    @location = Location.find(params[:location_id])
     @review = Review.find(params[:id])
+
     authorize(@review)
   end
 
   def update
-    raise NotImplementedError, "TODO"
+    @location = Location.find(params[:location_id])
+    @review = Review.find(params[:id])
+
+    authorize(@review)
+
+    @review.assign_attributes(review_params)
+
+    if @review.save
+      flash[:success_save_review] = "Saved review"
+
+      redirect_to location_review_path(
+        @review,
+        location_id: @location.id
+      )
+    else
+      flash[:error_save_review] = "Couldn't save your review"
+
+      render :new
+    end
   end
 
   private

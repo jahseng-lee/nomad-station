@@ -5,6 +5,13 @@
   <% end %>
 </div>
 
+<% if flash[:success_save_review].present? %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= flash[:success_save_review] %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
 <div class="ms-3">
   <p class="h3">
     Overall: <%= helper_star_rating(rating: @review.overall) %>
