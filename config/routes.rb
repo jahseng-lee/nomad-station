@@ -6,7 +6,11 @@ Rails.application.routes.draw do
       patch :generate_description
     end
 
-    resources :reviews, only: [:show, :new, :create, :edit, :update]
+    resources :reviews, only: [:show, :new, :create, :edit, :update] do
+      collection do
+        post :generate_review
+      end
+    end
   end
   resources :search_locations, only: [:index]
 

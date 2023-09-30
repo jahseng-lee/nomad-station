@@ -65,6 +65,33 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def generate_review
+    @location = Location.find(params[:location_id])
+    @review = GenerateLocationReview.call(location: @location)
+
+    authorize(@review)
+
+    if @review.save
+      flash[:success_generate_review] = "Review auto-generated successfully"
+
+      redirect_to location_review_path(
+        @review,
+        location_id: @location.id
+      )
+    else
+      flash[:error_generate_review] = "Couldn't auto-generate review; please try again"
+
+      render :new
+    end
+  rescue GenerateLocationReview::NoCotentRobotAccountError => e
+    flash[:error_generate_review] = e.message
+
+    # Ensure an empty review for the Review form
+    @review = Review.new
+
+    render :new
+  end
+
   private
 
   def review_params

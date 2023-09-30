@@ -34,7 +34,7 @@ RSpec.describe "Reviews", type: :request do
     }
   end
 
-  describe "#create" do
+  describe "POST #create" do
     let(:review_body) { nil }
 
     context "with valid params" do
@@ -78,7 +78,7 @@ RSpec.describe "Reviews", type: :request do
     end
   end
 
-  describe "#update" do
+  describe "PUT #update" do
     let(:old_overall) { 5 }
     let(:old_fun) { 5 }
     let(:old_cost) { 5 }
@@ -143,6 +143,94 @@ RSpec.describe "Reviews", type: :request do
         expect(review.internet).to eq old_internet
         expect(review.safety).to eq old_safety
         expect(review.body).to eq old_review_body
+      end
+    end
+  end
+
+  describe "POST #generate_review" do
+    context "logged in as an admin" do
+      let(:admin) do
+        u = User.create!(
+          email: "admin@nomadstation.com",
+          password: "Pa55w0rd",
+          admin: true,
+        )
+
+        u.confirm
+        u
+      end
+      before do
+        sign_in admin
+      end
+
+      context "with special 'auto-generated content' user set up" do
+        before do
+          u = User.create!(
+            email: "content-robot@nomadstation.io",
+            password: "Pa55w0rd",
+          )
+
+          u.confirm
+        end
+
+        it "creates an auto-generated review for the location" do
+          expect{
+            post generate_review_location_reviews_path(
+              location_id: location.id
+            )
+          }.to change{ Review.count }.by 1
+
+          expect(flash[:success_generate_review]).to eq(
+            "Review auto-generated successfully"
+          )
+        end
+      end
+
+      context "without the special 'auto-generated content' user set up" do
+        before do
+          User
+            .where.not(
+              id: admin.id
+            )
+            .delete_all
+        end
+
+        it "does not create a record and sets an error" do
+          expect{
+            post generate_review_location_reviews_path(
+              location_id: location.id
+            )
+          }.not_to change{ Review.count }
+
+          expect(flash[:error_generate_review]).to eq(
+            "Please create 'content-robot@nomadstation.io' account by running `rails db:seed`"
+          )
+        end
+      end
+    end
+
+    context "logged in as a regular user" do
+      before do
+        sign_in user
+      end
+
+      context "with special 'auto-generated content' user set up" do
+        before do
+          u = User.create!(
+            email: "content-robot@nomadstation.io",
+            password: "Pa55w0rd",
+          )
+
+          u.confirm
+        end
+
+        it "raises a Pundit::NotAuthorizedError" do
+          expect{
+            post generate_review_location_reviews_path(
+              location_id: location.id
+            )
+          }.to raise_error(Pundit::NotAuthorizedError)
+        end
       end
     end
   end
