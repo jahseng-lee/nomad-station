@@ -1,10 +1,12 @@
-<h2>
-  Review for <%= @location.name_utf8 %>, <%= @location.country.name %>
-</h2>
+<div class="container mt-5">
+  <h2>
+    Review for <%= @location.name_utf8 %>, <%= @location.country.name %>
+  </h2>
 
-<%= render partial: "reviews/shared/form",
-  locals: {
-    location: @location,
-    review: @review
-  }
-%>
+  <%= render partial: "reviews/shared/form",
+    locals: {
+      location: @location,
+      review: @review
+    }
+  %>
+</div>

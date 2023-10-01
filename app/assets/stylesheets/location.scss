@@ -1,0 +1,24 @@
+.background-image-hero {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  a, h1, h4, span {
+    color: $white;
+  }
+
+  .hero-content {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+}
+
+.hero {
+  text-align: center;
+
+  .title-section {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+  }
+}

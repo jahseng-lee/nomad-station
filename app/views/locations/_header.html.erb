@@ -1,0 +1,33 @@
+<% if location.banner_image.present? %>
+  <div
+      class="hero background-image-hero"
+      style="background-image: url('<%= @location.banner_image.image_url %>');"
+      >
+    <div class="hero-content mask p-5">
+      <div class="title-section">
+        <div>
+          <h1 class="title"><%= @location.name_utf8 %></h1>
+          <h4 class="subtitle"><%= @location.country.name %></h4>
+        </div>
+      </div>
+
+      <div>
+        <span>
+          <%= @location.banner_image.image_credit.html_safe %>
+        </span>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="hero">
+    <div class="hero-content mask p-5">
+      <div class="title-section">
+        <div>
+          <h1 class="title"><%= @location.name_utf8 %></h1>
+          <h4 class="subtitle"><%= @location.country.name %></h4>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+

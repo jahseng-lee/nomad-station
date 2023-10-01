@@ -45,6 +45,35 @@ class LocationsController < ApplicationController
     end
   end
 
+  def upload_banner_image_modal
+    @location = Location.find(params[:id])
+    authorize(@location, :edit?)
+
+    if @location.banner_image.present?
+      @banner_image = @location.banner_image
+    else
+      @banner_image = BannerImage.new
+    end
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.append(
+          "site-modals",
+          partial: "locations/upload_banner_image_modal",
+          locals: {
+            location: @location,
+            banner_image: @banner_image
+          }
+        )
+      end
+    end
+  end
+
+  def upload_banner_image
+    # TODO move to BannerImageController?
+    raise NotImplementedError, "TODO"
+  end
+
   private
 
   def location_params

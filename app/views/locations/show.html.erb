@@ -1,108 +1,119 @@
-<% if flash[:success_update_location].present? %>
-  <div class="alert alert-success alert-dismissible fade show" role="alert">
-    <%= flash[:success_update_location] %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-<% end %>
+<%= render partial: "locations/header",
+  locals: {
+    location: @location,
+  }
+%>
 
-<h1><%= @location.name_utf8 %></h1>
-<h3><%= @location.country.name %></h3>
+<div class="container mt-5">
+  <%= render partial: "locations/show_location_alerts" %>
 
-<% if current_user&.admin? %>
-  <%= link_to edit_location_path(@location) do %>
-    <i class="bi bi-pencil-fill" aria-hidden="true"></i>
-    Update location
-  <% end %>
-<% end %>
-
-<div class="row row-cols-1 row-cols-lg-2">
-  <div class="col-12 col-lg-9">
-    <%= helper_location_description(location: @location) %>
-  </div>
-
-  <hr class="d-lg-none my-4">
-
-  <div class="col-12 col-lg-3">
-    <div class="card mb-3">
-      <div class="card-body">
-        <% if @location.reviews.any? %>
-          <div class="review-summary-row">
-            <div>Overall:</div>
-
-            <div class="rating">
-              <%= helper_review_summary_star_rating(
-                location: @location,
-                review_field: :overall
-              ) %>
-            </div>
-          </div>
-          <div class="review-summary-row">
-            <div>Fun:</div>
-
-            <div class="rating">
-              <%= helper_review_summary_star_rating(
-                location: @location,
-                review_field: :fun
-              ) %>
-            </div>
-          </div>
-          <div class="review-summary-row">
-            <div>Cost:</div>
-
-            <div class="rating">
-              <%= helper_review_summary_star_rating(
-                location: @location,
-                review_field: :cost
-              ) %>
-            </div>
-          </div>
-          <div class="review-summary-row">
-            <div>Internet:</div>
-
-            <div class="rating">
-              <%= helper_review_summary_star_rating(
-                location: @location,
-                review_field: :internet
-              ) %>
-            </div>
-          </div>
-          <div class="review-summary-row">
-            <div>Safety:</div>
-
-            <div class="rating">
-              <%= helper_review_summary_star_rating(
-                location: @location,
-                review_field: :safety
-              ) %>
-            </div>
-          </div>
-
-        <% else %>
-          No reviews for <%= @location.name_utf8 %> yet
-        <% end %>
-      </div>
-    </div>
-
-    <% if @existing_review = Review.find_by(
-      user: current_user,
-      location: @location
-    ) %>
+  <% if current_user&.admin? %>
+    <div class="mb-3">
       <%= link_to(
-        edit_location_review_path(@existing_review, location_id: @location.id),
-        class: "btn btn-primary"
-      ) do %>
-        <i class="bi bi-pencil-square" aria-hidden="true"></i>
-        Edit review
-      <% end %>
-    <% else %>
-      <%= link_to(
-        new_location_review_path(location_id: @location.id),
-        class: "btn btn-primary"
+        upload_banner_image_modal_location_path(@location),
+        "data-turbo-stream": "",
       ) do %>
         <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
-        Add review
+        Add banner image
       <% end %>
-    <% end %>
+
+      <%= link_to edit_location_path(@location), class: "ms-3" do %>
+        <i class="bi bi-pencil-fill" aria-hidden="true"></i>
+        Update location
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="row row-cols-1 row-cols-lg-2">
+    <div class="col-12 col-lg-9">
+      <%= helper_location_description(location: @location) %>
+    </div>
+
+    <hr class="d-lg-none my-4">
+
+    <div class="col-12 col-lg-3">
+      <div class="card mb-3">
+        <div class="card-body">
+          <% if @location.reviews.any? %>
+            <div class="review-summary-row">
+              <div>Overall:</div>
+
+              <div class="rating">
+                <%= helper_review_summary_star_rating(
+                  location: @location,
+                  review_field: :overall
+                ) %>
+              </div>
+            </div>
+            <div class="review-summary-row">
+              <div>Fun:</div>
+
+              <div class="rating">
+                <%= helper_review_summary_star_rating(
+                  location: @location,
+                  review_field: :fun
+                ) %>
+              </div>
+            </div>
+            <div class="review-summary-row">
+              <div>Cost:</div>
+
+              <div class="rating">
+                <%= helper_review_summary_star_rating(
+                  location: @location,
+                  review_field: :cost
+                ) %>
+              </div>
+            </div>
+            <div class="review-summary-row">
+              <div>Internet:</div>
+
+              <div class="rating">
+                <%= helper_review_summary_star_rating(
+                  location: @location,
+                  review_field: :internet
+                ) %>
+              </div>
+            </div>
+            <div class="review-summary-row">
+              <div>Safety:</div>
+
+              <div class="rating">
+                <%= helper_review_summary_star_rating(
+                  location: @location,
+                  review_field: :safety
+                ) %>
+              </div>
+            </div>
+
+          <% else %>
+            No reviews for <%= @location.name_utf8 %> yet
+          <% end %>
+        </div>
+      </div>
+
+      <% if current_user.present? %>
+        <% if @existing_review = Review.find_by(
+          user: current_user,
+          location: @location
+        ) %>
+          <%= link_to(
+            edit_location_review_path(@existing_review, location_id: @location.id),
+            class: "btn btn-primary"
+          ) do %>
+            <i class="bi bi-pencil-square" aria-hidden="true"></i>
+            Edit review
+          <% end %>
+        <% else %>
+          <%= link_to(
+            new_location_review_path(location_id: @location.id),
+            class: "btn btn-primary"
+          ) do %>
+            <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
+            Add review
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 </div>
-

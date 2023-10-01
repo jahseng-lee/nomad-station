@@ -3,6 +3,8 @@ class Location < ApplicationRecord
 
   has_many :reviews
 
+  has_one :banner_image
+
   validates :name, :name_utf8, presence: true
 
   scope :by_region, -> (region_id) {

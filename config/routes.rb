@@ -3,8 +3,13 @@ Rails.application.routes.draw do
 
   resources :locations, only: [:show, :edit, :update] do
     member do
+      get :upload_banner_image_modal
+
       patch :generate_description
+      patch :upload_banner_image
     end
+
+    resource :banner_images, only: [:create, :update]
 
     resources :reviews, only: [:show, :new, :create, :edit, :update] do
       collection do

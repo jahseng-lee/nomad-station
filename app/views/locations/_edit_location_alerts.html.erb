@@ -1,0 +1,18 @@
+<% if flash[:success_generate_description].present? %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= flash[:success_generate_description] %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% elsif flash[:error_generate_description].present? %>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <%= flash[:error_generate_description] %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
+<% if flash[:error_update_location].present? %>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <%= flash[:error_update_location] %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>

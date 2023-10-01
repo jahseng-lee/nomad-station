@@ -1,52 +1,36 @@
-<% if flash[:success_generate_description].present? %>
-  <div class="alert alert-success alert-dismissible fade show" role="alert">
-    <%= flash[:success_generate_description] %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-<% elsif flash[:error_generate_description].present? %>
-  <div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <%= flash[:error_generate_description] %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-<% end %>
+<div class="container mt-5">
+  <%= render partial: "locations/edit_location_alerts" %>
 
-<% if flash[:error_update_location].present? %>
-  <div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <%= flash[:error_update_location] %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-<% end %>
+  <h1>Editing <%= @location.name_utf8 %>, <%= @location.country.name %></h1>
 
-<h1>Editing <%= @location.name_utf8 %>, <%= @location.country.name %></h1>
-
-<%= form_for @location do |f| %>
-  <div class="mb-3">
-    <%= f.label :description, class: "form-label"%>
-    <%= f.text_area :description,
-      class: "form-control",
-      rows: 8
-    %>
-  </div>
-  <%= f.button "Save",
-    type: :submit,
-    class: "btn btn-primary"
-  %>
-
-  <% if @location.description.present? %>
-    <%= f.button "Auto-generate",
+  <%= form_for @location do |f| %>
+    <div class="mb-3">
+      <%= f.label :description, class: "form-label"%>
+      <%= f.text_area :description,
+        class: "form-control",
+        rows: 8
+      %>
+    </div>
+    <%= f.button "Save",
       type: :submit,
-      data: {
-        turbo_confirm: "Are you sure? This location already has a description, this action will overwrite the existing data permanently"
-      },
-      class: "btn btn-danger",
-      formaction: generate_description_location_path(@location)
+      class: "btn btn-primary"
     %>
-  <% else %>
-    <%= f.button "Auto-generate",
-      type: :submit,
-      class: "btn btn-secondary",
-      formaction: generate_description_location_path(@location)
-    %>
+
+    <% if @location.description.present? %>
+      <%= f.button "Auto-generate",
+        type: :submit,
+        data: {
+          turbo_confirm: "Are you sure? This location already has a description, this action will overwrite the existing data permanently"
+        },
+        class: "btn btn-danger",
+        formaction: generate_description_location_path(@location)
+      %>
+    <% else %>
+      <%= f.button "Auto-generate",
+        type: :submit,
+        class: "btn btn-secondary",
+        formaction: generate_description_location_path(@location)
+      %>
+    <% end %>
   <% end %>
-<% end %>
-
+</div>
