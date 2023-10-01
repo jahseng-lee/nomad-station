@@ -83,7 +83,8 @@ class ReviewsController < ApplicationController
 
       render :new
     end
-  rescue GenerateLocationReview::NoCotentRobotAccountError => e
+  rescue GenerateLocationReview::NoCotentRobotAccountError,
+    GenerateLocationReview::AlreadyGeneratedError => e
     flash[:error_generate_review] = e.message
 
     # Ensure an empty review for the Review form

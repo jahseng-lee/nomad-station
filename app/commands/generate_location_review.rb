@@ -1,5 +1,6 @@
 class GenerateLocationReview
   class NoCotentRobotAccountError < StandardError; end
+  class AlreadyGeneratedError < StandardError; end
 
   def self.call(location:)
     @content_account = User.find_by(
@@ -9,6 +10,11 @@ class GenerateLocationReview
     if @content_account.nil?
       raise NoCotentRobotAccountError,
         "Please create 'content-robot@nomadstation.io' account by running `rails db:seed`"
+    end
+
+    if Review.find_by(location: location, user: @content_account).present?
+      raise AlreadyGeneratedError,
+        "Auto-generated review already exists for this location"
     end
 
     if Rails.env.production?
