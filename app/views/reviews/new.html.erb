@@ -1,4 +1,10 @@
 <div class="container mt-5">
+  <%= render partial: "locations/shared/back_link",
+    locals: {
+      location: @location,
+    }
+  %>
+
   <h2>
     Review for <%= @location.name_utf8 %>, <%= @location.country.name %>
   </h2>

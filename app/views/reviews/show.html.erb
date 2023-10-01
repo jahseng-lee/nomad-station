@@ -1,10 +1,9 @@
 <div class="container mt-5">
-  <div class="mb-3">
-    <%= link_to location_path(@location) do %>
-      <i class="bi bi-arrow-left" aria-hidden="true"></i>
-      Back to location
-    <% end %>
-  </div>
+  <%= render partial: "locations/shared/back_link",
+    locals: {
+      location: @location,
+    }
+  %>
 
   <% if flash[:success_save_review].present? %>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
