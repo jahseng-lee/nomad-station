@@ -196,7 +196,7 @@ GEM
     orm_adapter (0.5.0)
     os (1.1.4)
     pagy (6.0.4)
-    pg (1.2.3)
+    pg (1.5.4)
     psych (5.1.0)
       stringio
     public_suffix (5.0.3)
@@ -355,7 +355,7 @@ DEPENDENCIES
   web-console
 
 RUBY VERSION
-   ruby 2.7.2p137
+   ruby 3.2.2p53
 
 BUNDLED WITH
    2.1.4
