@@ -17,8 +17,7 @@ module LocationsHelper
     if location.banner_image.present?
       location.banner_image.image_url(:thumbnail)
     else
-      ""
-      # TODO placeholder image
+      asset_url("placeholder-location-thumbnail.jpg")
     end
   end
 
