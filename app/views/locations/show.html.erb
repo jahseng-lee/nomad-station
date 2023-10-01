@@ -13,8 +13,13 @@
         upload_banner_image_modal_location_path(@location),
         "data-turbo-stream": "",
       ) do %>
-        <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
-        Add banner image
+        <% if @location.banner_image.present? %>
+          <i class="bi bi-pencil-fill" aria-hidden="true"></i>
+          Update banner image
+        <% else %>
+          <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
+          Add banner image
+        <% end %>
       <% end %>
 
       <%= link_to edit_location_path(@location), class: "ms-3" do %>

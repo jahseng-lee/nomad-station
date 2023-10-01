@@ -13,6 +13,15 @@ module LocationsHelper
     end
   end
 
+  def helper_location_thumbnail(location:)
+    if location.banner_image.present?
+      location.banner_image.image_url(:thumbnail)
+    else
+      ""
+      # TODO placeholder image
+    end
+  end
+
   def helper_review_summary_star_rating(location:, review_field:)
     rating = location.review_summary[review_field]
 

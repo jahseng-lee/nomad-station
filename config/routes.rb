@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       patch :upload_banner_image
     end
 
-    resource :banner_images, only: [:create, :update]
+    resources :banner_images, only: [:create, :update]
 
     resources :reviews, only: [:show, :new, :create, :edit, :update] do
       collection do

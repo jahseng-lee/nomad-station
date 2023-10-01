@@ -22,7 +22,8 @@ class BannerImagesController < ApplicationController
     @location = Location.find(params[:location_id])
     authorize(@location, :edit?)
 
-    @banner_image = @location.banner_image.assign_attributes(
+    @banner_image = @location.banner_image
+    @banner_image.assign_attributes(
       location: @location,
       image: banner_image_params[:image],
       image_credit: banner_image_params[:image_credit]
