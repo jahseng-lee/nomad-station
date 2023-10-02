@@ -21,7 +21,7 @@ class GenerateLocationReview
       Review.new(
         ChatGpt.generate_location_review(location: location).merge(
           {
-            user: user,
+            user: @content_account,
             location: location,
           }
         )
