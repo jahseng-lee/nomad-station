@@ -20,7 +20,7 @@ class Location < ApplicationRecord
     left_outer_joins(:reviews)
       .group("locations.id")
       .order(
-        "avg(reviews.overall) desc NULLS LAST, population desc"
+        "avg(reviews.overall) DESC NULLS LAST, count(reviews) DESC NULLS LAST, population desc"
       )
   }
 
