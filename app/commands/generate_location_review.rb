@@ -18,7 +18,14 @@ class GenerateLocationReview
     end
 
     if Rails.env.production?
-      # TODO implemented ChatGPT generation of a review
+      Review.new(
+        ChatGpt.generate_location_review(location: location).merge(
+          {
+            user: user,
+            location: location,
+          }
+        )
+      )
     else
       # For local and test, just create a dummy review
       Review.new(
