@@ -1,7 +1,7 @@
 class ChatGpt
   def self.generate_location_description(location:)
     client = OpenAI::Client.new
-    client.chat(
+    response = client.chat(
       parameters: {
         model: "gpt-3.5-turbo",
         messages: [
@@ -16,6 +16,7 @@ class ChatGpt
         temperature: 0.7,
       }
     )
+    response.dig("choices")[0].dig("message", "content")
   end
 
   def self.generate_location_review(location:)
