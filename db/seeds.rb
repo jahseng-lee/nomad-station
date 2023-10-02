@@ -8,8 +8,8 @@ def seed_database
   setup_locations_and_countries
   associate_countries_and_regions
   denomarlize_united_kingdom
-  setup_content_account
   update_bali
+  setup_content_account
 end
 
 def setup_regions
@@ -513,6 +513,11 @@ def denomarlize_united_kingdom
   puts "Finished denormalizing the United Kingdom 'country'"
 end
 
+def update_bali
+  # ...I don't know why Bali is part of India in the db
+  Location.find_by(name: "Bali").update!(country: Country.find_by(name: "Indonesia"))
+end
+
 def setup_content_account
   if User.find_by(email: "content-robot@nomadstation.io").present?
     puts "Already setup 'content-robot@nomadstation.io'"
@@ -527,11 +532,6 @@ def setup_content_account
     password: SecureRandom.hex(20)
   )
   puts "Finished creating content-robot account"
-end
-
-def update_bali
-  # ...I don't know why Bali is part of India in the db
-  Location.find_by(name: "Bali").update!(country: Country.find_by(name: "Indonesia"))
 end
 
 seed_database
