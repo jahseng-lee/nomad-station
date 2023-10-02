@@ -525,12 +525,14 @@ def setup_content_account
   end
 
   puts "Creating content-robot account"
-  User.create!(
+  user = User.new(
     email: "content-robot@nomadstation.io",
     # This account should never be logged into
     # so generate a random password
     password: SecureRandom.hex(20)
   )
+  user.skip_confirmation!
+  user.save
   puts "Finished creating content-robot account"
 end
 
