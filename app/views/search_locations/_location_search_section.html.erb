@@ -86,15 +86,16 @@
                     location: location
                   ) %>
                 </p>
-                <% if location.reviews.any? %>
-                  <p class="card-text">
-                    <%= helper_review_summary_star_rating(
-                      location: location,
-                      review_field: :overall
-                    ) %>
-                  </p>
-                <% end %>
               </div>
+
+              <% if location.reviews.any? %>
+                <div class="card-footer">
+                  <%= helper_review_summary_star_rating(
+                    location: location,
+                    review_field: :overall
+                  ) %>
+                </div>
+              <% end %>
             </div>
           </div>
         </div>
