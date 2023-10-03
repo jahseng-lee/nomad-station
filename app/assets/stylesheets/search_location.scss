@@ -12,6 +12,13 @@ a.location-search-result-link {
   }
 }
 
+.location-card {
+  .card-body {
+    max-height: 200px;
+    overflow: hidden;
+  }
+}
+
 .review-summary-row {
   display: flex;
   color: $primary;
