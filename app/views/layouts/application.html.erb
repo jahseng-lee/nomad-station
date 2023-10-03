@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>NomadStation</title>
+    <% if content_for? :page_title %>
+      <title><%= yield :page_title %> | NomadStation</title>
+    <% else %>
+      <title>NomadStation</title>
+    <% end %>
+
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>

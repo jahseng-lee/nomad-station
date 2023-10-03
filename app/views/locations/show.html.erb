@@ -1,3 +1,7 @@
+<% content_for :page_title do %>
+  <%= @location.name %>, <%= @location.country.name %>
+<% end %>
+
 <%= render partial: "locations/header",
   locals: {
     location: @location,
