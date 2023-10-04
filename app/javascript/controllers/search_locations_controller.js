@@ -1,3 +1,4 @@
+const debounce = require("lodash/debounce");
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
@@ -9,12 +10,8 @@ export default class extends Controller {
   ];
 
   connect() {
-    this._initializeDebounceSearch();
+    this.debouncedSearch = debounce(this.submitSearch, 500).bind(this);
     this._autoFocusInput();
-  }
-
-  debouncedSearch() {
-    this.debounceSearch();
   }
 
   regionSelect() {
@@ -27,18 +24,6 @@ export default class extends Controller {
     this.queryInputTarget.readOnly = true;
 
     this.searchFormTarget.submit();
-  }
-
-  _initializeDebounceSearch() {
-    this.debounceSearch = () => {
-      let timer;
-
-      clearTimeout(timer);
-
-      timer = setTimeout(() => {
-        this.submitSearch();
-      }, 700);
-    };
   }
 
   _autoFocusInput() {
