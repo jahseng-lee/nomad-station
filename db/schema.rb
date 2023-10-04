@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_01_073206) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_04_084615) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -38,6 +38,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_01_073206) do
     t.datetime "updated_at", null: false
     t.text "description"
     t.index ["country_id"], name: "index_locations_on_country_id"
+    t.index ["name"], name: "index_locations_on_name"
   end
 
   create_table "regions", force: :cascade do |t|
