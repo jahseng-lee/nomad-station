@@ -4,16 +4,47 @@ export default class extends Controller {
   static targets = [
     "countrySelect",
     "regionSelect",
+    "queryInput",
     "searchForm",
   ];
 
+  connect() {
+    this._initializeDebounceSearch();
+    this._autoFocusInput();
+  }
+
+  debouncedSearch() {
+    this.debounceSearch();
+  }
+
   regionSelect() {
-    console.log(this.countrySelectTarget);
     this.countrySelectTarget.value = "";
     this.submitSearch();
   }
 
   submitSearch() {
+    this.countrySelectTarget.readOnly = true;
+    this.queryInputTarget.readOnly = true;
+
     this.searchFormTarget.submit();
+  }
+
+  _initializeDebounceSearch() {
+    this.debounceSearch = () => {
+      let timer;
+
+      clearTimeout(timer);
+
+      timer = setTimeout(() => {
+        this.submitSearch();
+      }, 700);
+    };
+  }
+
+  _autoFocusInput() {
+    const end = this.queryInputTarget.value.length;
+
+    this.queryInputTarget.setSelectionRange(end, end);
+    this.queryInputTarget.focus();
   }
 }

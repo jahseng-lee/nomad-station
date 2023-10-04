@@ -1,4 +1,15 @@
 class Location < ApplicationRecord
+  include PgSearch::Model
+
+  pg_search_scope :search_by_name,
+    against: :name,
+    using: {
+      tsearch: { prefix: true }
+    },
+    # TODO this is pretty shit, but can't figure out
+    #      how to order better
+    order_within_rank: "updated_at DESC"
+
   belongs_to :country
 
   has_many :reviews

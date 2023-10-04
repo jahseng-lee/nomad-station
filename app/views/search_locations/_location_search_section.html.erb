@@ -6,7 +6,7 @@
       "search-locations-target": "searchForm",
     }
   ) do %>
-    <div class="row">
+    <div class="row mb-3">
       <div class="col">
         <%= select(
           "search",
@@ -60,6 +60,22 @@
           ) %>
         <% end %>
       </div>
+    </div>
+
+    <div class="input-group">
+      <%= text_field(
+        "search",
+        :query,
+        value: @query,
+        class: "form-control",
+        data: {
+          "search-locations-target": "queryInput",
+          action: "search-locations#debouncedSearch"
+        }
+      ) %>
+      <span class="input-group-text">
+        <i class="bi bi-search" aria-hidden="true"></i>
+      </span>
     </div>
   <% end %>
 </div>

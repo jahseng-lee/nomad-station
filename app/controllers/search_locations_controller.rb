@@ -6,6 +6,7 @@ class SearchLocationsController < ApplicationController
   def index
     @region = Region.find_by(id: search_params[:region_id])
     @country = Country.find_by(id: search_params[:country_id])
+    @query = search_params[:query]
 
     @locations = Location.all
 
@@ -16,10 +17,17 @@ class SearchLocationsController < ApplicationController
       @locations = @locations.by_country(search_params[:country_id])
     end
 
-    @pagy, @locations = pagy(
-      @locations.ordered_for_search_results,
-      items: 18
-    )
+    if @query.present?
+      @pagy, @locations = pagy(
+        @locations.search_by_name(@query),
+        items: 18
+      )
+    else
+      @pagy, @locations = pagy(
+        @locations.ordered_for_search_results,
+        items: 18
+      )
+    end
 
     respond_to do |format|
       format.html do
@@ -33,7 +41,8 @@ class SearchLocationsController < ApplicationController
   def search_params
     params.require(:search).permit(
       :region_id,
-      :country_id
+      :country_id,
+      :query,
     )
   end
 end
