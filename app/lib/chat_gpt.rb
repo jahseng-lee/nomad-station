@@ -13,7 +13,7 @@ class ChatGpt
               " 500-700 characters long and aimed at Digital Nomads."\
           }
         ],
-        temperature: 0.7,
+        temperature: 1.0,
       }
     )
     response.dig("choices")[0].dig("message", "content")
@@ -36,7 +36,7 @@ class ChatGpt
             " integer."
           }
         ],
-        temperature: 1,
+        temperature: 0.7,
       }
     )
    JSON.parse(response.dig("choices")[0].dig("message", "content"))
