@@ -347,7 +347,6 @@ __metadata:
     bootstrap: ^5.3.2
     bootstrap-icons: ^1.11.1
     esbuild: ^0.19.3
-    lodash: ^4.17.21
     nodemon: ^3.0.1
     postcss: ^8.4.30
     postcss-cli: ^10.1.0
@@ -1162,13 +1161,6 @@ __metadata:
   version: 2.1.0
   resolution: "lilconfig@npm:2.1.0"
   checksum: 8549bb352b8192375fed4a74694cd61ad293904eee33f9d4866c2192865c44c4eb35d10782966242634e0cbc1e91fe62b1247f148dc5514918e3a966da7ea117
-  languageName: node
-  linkType: hard
-
-"lodash@npm:^4.17.21":
-  version: 4.17.21
-  resolution: "lodash@npm:4.17.21"
-  checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
   languageName: node
   linkType: hard
 

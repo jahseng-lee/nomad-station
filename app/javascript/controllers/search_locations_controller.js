@@ -1,4 +1,3 @@
-const debounce = require("lodash/debounce");
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
@@ -10,7 +9,6 @@ export default class extends Controller {
   ];
 
   connect() {
-    this.debouncedSearch = debounce(this.submitSearch, 500).bind(this);
     this._autoFocusInput();
   }
 
