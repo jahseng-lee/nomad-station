@@ -81,42 +81,47 @@
 
 <hr />
 
-<div id="search-results" class="row row-cols-xl-3 row-cols-md-2 row-cols-1 ">
-  <% @locations.each do |location| %>
-    <div class="col">
-      <%= link_to location, class: "location-search-result-link" do %>
-        <div class="location-card card overflow-hidden mb-3">
-          <div class="row g-0">
-            <div class="col-md-4">
-              <img
-                  src="<%= helper_location_thumbnail(location: location) %>"
-                  class="search-result-img img-fluid rounded-start"
-                  alt="Photo of <%= location.name_utf8 %>">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title"><%= location.name_utf8 %></h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary"><%= location.country.name %></h6>
-                <p class="card-text">
-                  <%= helper_location_short_description(
-                    location: location
-                  ) %>
-                </p>
+<div id="search-results">
+  <div class="row row-cols-xl-3 row-cols-md-2 row-cols-1 ">
+    <% @locations.each do |location| %>
+      <div class="col">
+        <%= link_to location, class: "location-search-result-link" do %>
+          <div class="location-card card overflow-hidden mb-3">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img
+                    src="<%= helper_location_thumbnail(location: location) %>"
+                    class="search-result-img img-fluid rounded-start"
+                    alt="Photo of <%= location.name_utf8 %>">
               </div>
-
-              <% if location.reviews.any? %>
-                <div class="card-footer">
-                  <%= helper_review_summary_star_rating(
-                    location: location,
-                    review_field: :overall
-                  ) %>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title"><%= location.name_utf8 %></h5>
+                  <h6 class="card-subtitle mb-2 text-body-secondary"><%= location.country.name %></h6>
+                  <p class="card-text">
+                    <%= helper_location_short_description(
+                      location: location
+                    ) %>
+                  </p>
                 </div>
-              <% end %>
+
+                <% if location.reviews.any? %>
+                  <div class="card-footer">
+                    <%= helper_review_summary_star_rating(
+                      location: location,
+                      review_field: :overall
+                    ) %>
+                  </div>
+                <% end %>
+              </div>
             </div>
           </div>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
-</div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 
+  <div class="pagination-nav-container">
+    <%== pagy_bootstrap_nav(@pagy) %>
+  </div>
+</div>
