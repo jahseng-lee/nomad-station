@@ -3,10 +3,12 @@
     data-bs-theme="dark"
     data-controller="navbar"
     >
+
   <div class="container-fluid">
     <%= link_to root_path, class: "navbar-brand" do %>
-      <i class="bi bi-luggage-fill" aria-hidden="true"></i>
-      NomadStation
+      <div class="m-1 mb-2">
+        <img src="<%= asset_url("nomadstation-high-resolution-logo-white-on-transparent-background.png") %>" alt="Nomadstation brand" width="200">
+      </div>
     <% end %>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
