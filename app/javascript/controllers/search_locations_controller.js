@@ -21,6 +21,10 @@ export default class extends Controller {
     this.countrySelectTarget.readOnly = true;
     this.queryInputTarget.readOnly = true;
 
+    // TODO should probably make this a target but
+    //      it currently sits outside the controller
+    document.getElementById("search-results").innerHTML = this._loadingSpinner();
+
     this.searchFormTarget.submit();
   }
 
@@ -29,5 +33,9 @@ export default class extends Controller {
 
     this.queryInputTarget.setSelectionRange(end, end);
     this.queryInputTarget.focus();
+  }
+
+  _loadingSpinner() {
+    return '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>'
   }
 }
