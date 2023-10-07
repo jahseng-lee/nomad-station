@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :trackable and :omniauthable
   devise :confirmable,
     :database_authenticatable,
-    # :registerable, # NOTE: disable signup for now
+    :registerable,
     :recoverable,
     :rememberable,
     :trackable,
