@@ -10,4 +10,7 @@ class User < ApplicationRecord
     :validatable
 
   has_many :reviews
+
+  validates :display_name,
+    length: { minimum: 5, maximum: 50 }
 end
