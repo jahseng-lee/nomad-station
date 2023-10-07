@@ -1,0 +1,79 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <h2>Sign up</h2>
+
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <% if resource.errors.any? %>
+          <div class="alert alert-danger" role="alert">
+            Oops, that wasn't quite right. Please check below and try again.
+          </div>
+        <% end %>
+
+        <div class="mb-3">
+          <%= f.label :display_name %><br />
+          <%= f.text_field(
+            :display_name,
+            autofocus: true,
+            class: "form-control#{ resource.errors[:display_name].any? ? ' is-invalid' : nil}"
+          ) %>
+
+          <% if resource.errors[:display_name].present? %>
+            <div class="invalid-feedback">
+              Display name <%= resource.errors[:display_name].first %>
+            </div>
+          <% else %>
+            <div class="form-text">
+              This is what others will see you as, i.e. 'cool-nomad-guy', 'John Smith', etc.
+            </div>
+          <% end %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :email %><br />
+          <%= f.email_field(
+            :email,
+            autocomplete: "email",
+            class: "form-control#{ resource.errors[:email].any? ? ' is-invalid' : nil}"
+          ) %>
+
+          <% if resource.errors[:email].present? %>
+            <div class="invalid-feedback">
+              Email <%= resource.errors[:email].first %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :password %>
+          <%= f.password_field(
+            :password,
+            autocomplete: "new-password",
+            class: "form-control#{ resource.errors[:password].any? ? ' is-invalid' : nil}"
+          ) %>
+
+          <% if resource.errors[:password].present? %>
+            <div class="invalid-feedback">
+              Password <%= resource.errors[:password].first %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.submit(
+            "Sign up",
+            class: "btn btn-success",
+          ) %>
+        </div>
+      <% end %>
+
+      <%= render "devise/shared/links" %>
+    </div>
+
+    <div class="col">
+      TODO add why people should sign up
+      <br />
+      TODO hide this if mobile size
+    </div>
+  </div>
+</div>

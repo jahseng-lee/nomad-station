@@ -30,6 +30,23 @@
           <% end %>
         </li>
       </ul>
+
+      <div>
+        <% if current_user&.present? %>
+          <%= button_to(
+            "Sign out",
+            destroy_user_session_path,
+            method: :delete,
+            class: "btn btn-outline-light"
+          ) %>
+        <% else %>
+          <%= link_to(
+            "Sign up",
+            new_user_registration_path,
+            class: "btn btn-success"
+          ) %>
+        <% end %>
+      </div>
     </div>
   </div>
 </nav>

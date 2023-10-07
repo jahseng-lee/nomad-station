@@ -12,5 +12,6 @@ class User < ApplicationRecord
   has_many :reviews
 
   validates :display_name,
-    length: { minimum: 5, maximum: 50 }
+    length: { minimum: 5, maximum: 50 },
+    uniqueness: true
 end
