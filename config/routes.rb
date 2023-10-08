@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: "registrations",
+    sessions: "sessions",
+  }
 
+  resource :choose_plan, only: [:show]
   resources :locations, only: [:show, :edit, :update] do
     member do
       get :upload_banner_image_modal

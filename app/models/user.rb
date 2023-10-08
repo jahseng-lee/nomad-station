@@ -14,4 +14,9 @@ class User < ApplicationRecord
   validates :display_name,
     length: { minimum: 5, maximum: 50 },
     uniqueness: true
+
+  def active_subscription?
+    # TODO how do I implement this? How do I keep this in sync?
+    false
+  end
 end

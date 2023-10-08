@@ -27,7 +27,9 @@ Devise.setup do |config|
   config.mailer_sender = 'jahseng.lee@nomad-station.io'
 
   # Configure the class responsible to send e-mails.
-  # config.mailer = 'Devise::Mailer'
+  # NOTE: this isn't the default mailer for Devise but a custom one.
+  #       see: app/mailers/devise_mailer.rb
+  config.mailer = 'DeviseMailer'
 
   # Configure the parent class responsible to send e-mails.
   # config.parent_mailer = 'ActionMailer::Base'
