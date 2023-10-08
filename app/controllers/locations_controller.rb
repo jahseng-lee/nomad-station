@@ -69,11 +69,6 @@ class LocationsController < ApplicationController
     end
   end
 
-  def upload_banner_image
-    # TODO move to BannerImageController?
-    raise NotImplementedError, "TODO"
-  end
-
   private
 
   def location_params

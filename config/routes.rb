@@ -6,7 +6,6 @@ Rails.application.routes.draw do
       get :upload_banner_image_modal
 
       patch :generate_description
-      patch :upload_banner_image
     end
 
     resources :banner_images, only: [:create, :update]
