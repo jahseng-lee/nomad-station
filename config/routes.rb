@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       end
     end
   end
+  resource :profile, only: [:show]
   resources :search_locations, only: [:index]
 
   root to: 'home#index'

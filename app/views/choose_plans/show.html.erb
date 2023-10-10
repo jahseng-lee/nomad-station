@@ -1,6 +1,9 @@
 <div class="container mt-5">
   <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
-  <stripe-pricing-table pricing-table-id="prctbl_1NysD7GN44eilIAFszfL5D4k"
-  publishable-key="pk_test_51NyrxrGN44eilIAFUJJPy9WHeSuqp5OUxIOUAVOHVDJqhiDI5tj55gH3iGxtsFuVJV72Bmwkij0QkcpZtREcfusM00XcjavWbM">
+  <stripe-pricing-table
+      pricing-table-id="prctbl_1NysD7GN44eilIAFszfL5D4k"
+      publishable-key="pk_test_51NyrxrGN44eilIAFUJJPy9WHeSuqp5OUxIOUAVOHVDJqhiDI5tj55gH3iGxtsFuVJV72Bmwkij0QkcpZtREcfusM00XcjavWbM"
+      client-reference-id="<%= @checkout_client_reference_id %>"
+      >
   </stripe-pricing-table>
 </div>
