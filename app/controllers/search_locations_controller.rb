@@ -6,7 +6,7 @@ class SearchLocationsController < ApplicationController
   def index
     @region = Region.find_by(id: search_params[:region_id])
     @country = Country.find_by(id: search_params[:country_id])
-    @query = I18n.transliterate(search_params[:query])
+    @query = search_params[:query]
 
     @locations = Location.all
 
@@ -19,7 +19,7 @@ class SearchLocationsController < ApplicationController
 
     if @query.present?
       @pagy, @locations = pagy(
-        @locations.search_by_name(@query),
+        @locations.search_by_name(I18n.transliterate(@query)),
         items: 18
       )
     else
