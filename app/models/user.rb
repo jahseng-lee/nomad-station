@@ -18,7 +18,7 @@ class User < ApplicationRecord
   def subscription_status
     if self[:subscription_status].present?
       self[:subscription_status].capitalize
-    elsif user.stripe_customer_id.nil?
+    elsif self.stripe_customer_id.nil?
       "None"
     end
   end
