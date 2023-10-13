@@ -70,10 +70,15 @@
       <%= render "devise/shared/links" %>
     </div>
 
-    <div class="col">
-      TODO add why people should sign up
-      <br />
-      TODO hide this if mobile size
+    <div class="col d-none d-md-block">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Your digital nomad community</h5>
+          <p class="card-text">
+            <%= render partial: "shared/joining_reasons" %>
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
