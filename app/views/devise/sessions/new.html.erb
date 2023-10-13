@@ -59,8 +59,32 @@
       <%= render "devise/shared/links" %>
     </div>
 
-    <div class="col">
-      TODO add a "Don't have an account? Here's why you should sign up" section
+    <div class="col d-none d-md-block">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Haven't got an account?</h5>
+          <p class="card-text">
+            That's okay! It takes a few quick minutes to sign up and join Nomadstation.
+            <br />
+            <br />
+            For just $8 a month, you'll get access to:
+            <ul>
+              <li>A fully moderated user chat</li>
+              <li>Visa information, travel information and more for the best nomad locations</li>
+              <li>Guides, articles and blogs aimed at both seasoned and aspiring Digital Nomads</li>
+              <li>... and more!</li>
+            </ul>
+            <br />
+            We're a small but growing community.
+            Our aim is to build the <strong>Digital Nomad community in the world!</strong>
+          </p>
+          <%= link_to(
+            "Join now!",
+            new_user_registration_path,
+            class: "btn btn-success btn-lg"
+          ) %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
