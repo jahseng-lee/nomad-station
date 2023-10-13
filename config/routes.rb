@@ -22,6 +22,12 @@ Rails.application.routes.draw do
   end
   resource :profile, only: [:show]
   resources :search_locations, only: [:index]
+  resources :subscriptions, only: [] do
+    collection do
+      post :manage
+    end
+  end
+  resources :users, only: [:update]
   resources :webhooks, only: [:create]
 
   root to: 'home#index'

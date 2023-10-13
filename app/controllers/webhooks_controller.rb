@@ -41,6 +41,9 @@ class WebhooksController < ApplicationController
       user.update!(
         subscription_status: subscription["status"]
       )
+      # TODO double check that the status appears as active.
+      #      This hook is async, so may need to do some turbo magic
+      #      to update the element on the screen
     when ""
       # TODO deal with other subscription events
     else

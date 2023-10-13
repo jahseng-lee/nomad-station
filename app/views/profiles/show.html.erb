@@ -1,0 +1,83 @@
+<div class="container mt-5">
+  <h1>Profile</h1>
+
+  <div class="row">
+    <div class="col">
+      <%= form_for @user do |f| %>
+        <%= f.label :display_name %>
+        <div class="row">
+          <div class="col">
+            <div class="mb-3">
+              <%= f.text_field(
+                :display_name,
+                class: "form-control#{ @user.errors[:display_name].any? ? ' is-invalid' : nil}"
+              ) %>
+
+              <% if @user.errors[:display_name].present? %>
+                <div class="invalid-feedback">
+                  Display name <%= @user.errors[:display_name].first %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="col">
+            <%= f.submit(
+              "Update",
+              class: "btn btn-primary"
+            ) %>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :email %>
+          <%= f.text_field(
+            :email,
+            class: "form-control-plaintext",
+            disabled: true
+          ) %>
+        </div>
+      <% end %>
+
+      <div>
+        <%= link_to(
+          "Update password",
+          # TODO this path just redirects to home.
+          #      how to actually do edit password?
+          edit_user_password_path("user"),
+          class: "btn btn-secondary"
+        ) %>
+
+        <%
+          # TODO add link to update email (reconfirm? explore)
+        %>
+      </div>
+
+    </div>
+
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          Subscription
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            Status:
+            <strong><%= current_user.subscription_status %></strong>
+          </p>
+          <%= button_to "Manage subscription",
+            manage_subscriptions_path,
+            method: :post,
+            class: "btn btn-secondary"
+          %>
+        </div>
+      </div>
+
+      <%
+        # TODO add link to:
+        #   * subscription management using stripe_customer_id, if present
+        #   * choose plan page if no customer_id
+      %>
+    </div>
+  </div>
+</div>

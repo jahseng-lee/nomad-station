@@ -2,7 +2,8 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = [
-    "exploreLink"
+    "exploreLink",
+    "profileLink"
   ];
 
   connect() {
@@ -10,6 +11,8 @@ export default class extends Controller {
 
     if (pathname === "/" || pathname === "/search_locations") {
       this.exploreLinkTarget.classList.add("active");
+    } else if (pathname === "/profile") {
+      this.profileLinkTarget.classList.add("active");
     }
   }
 }

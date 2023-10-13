@@ -29,6 +29,19 @@
             Explore
           <% end %>
         </li>
+
+        <li class="nav-item">
+          <%= link_to(
+            profile_path,
+            class: "nav-link",
+            data: {
+              "navbar-target": "profileLink",
+            }
+          ) do %>
+            <i class="bi bi-person-fill" aria-hidden="true"></i>
+            Profile
+          <% end %>
+        </li>
       </ul>
 
       <div>

@@ -15,8 +15,15 @@ class User < ApplicationRecord
     length: { minimum: 5, maximum: 50 },
     uniqueness: true
 
+  def subscription_status
+    if self[:subscription_status].present?
+      self[:subscription_status].capitalize
+    elsif user.stripe_customer_id.nil?
+      "None"
+    end
+  end
+
   def active_subscription?
-    # TODO how do I implement this? How do I keep this in sync?
-    false
+    subscription_status == "active"
   end
 end
