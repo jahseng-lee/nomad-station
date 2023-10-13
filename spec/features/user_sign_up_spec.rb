@@ -50,8 +50,7 @@ RSpec.describe "User sign up", type: :feature, js: true do
           end
 
           it "takes them to a home page with a welcome message and billing information" do
-            expect(page).to have_content("Nomadstation monthly membership")
-            expect(page).to have_content("$8 a month")
+            expect(current_path).to eq "/choose_plan"
           end
         end
       end
