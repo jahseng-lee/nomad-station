@@ -44,7 +44,7 @@
         </li>
       </ul>
 
-      <div>
+      <div class="navbar-actions">
         <% if current_user&.present? %>
           <%= button_to(
             "Sign out",
@@ -53,6 +53,13 @@
             class: "btn btn-outline-light"
           ) %>
         <% else %>
+          <%= link_to(
+            "Sign in",
+            new_user_session_path,
+            method: :delete,
+            class: "btn btn-outline-light me-2"
+          ) %>
+
           <%= link_to(
             "Sign up",
             new_user_registration_path,

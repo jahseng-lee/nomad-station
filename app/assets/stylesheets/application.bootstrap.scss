@@ -8,3 +8,6 @@ $primary: #262626;
 @import 'location';
 @import 'search_location';
 
+.navbar-actions {
+  display: flex;
+}

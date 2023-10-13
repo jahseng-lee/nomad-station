@@ -6,7 +6,6 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_in_path_for(user)
-    # TODO implement User#active_subscription?
     if user.admin? || user.active_subscription?
       redirect_to root_path
     else
