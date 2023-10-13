@@ -14,15 +14,7 @@ RSpec.describe Review, type: :model do
       safety: safety,
     )
   end
-  let(:user) do
-    u = User.create!(
-      email: "jahseng@nomadstation.com",
-      password: "Pa55w0rd"
-    )
-
-    u.confirm
-    u
-  end
+  let(:user) { create(:user) }
   let(:location) do
     Location.create!(
       name: "Wellington",

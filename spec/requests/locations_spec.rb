@@ -1,16 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Locations", type: :request do
-  let(:admin) do
-    u = User.create!(
-      email: "jahseng@nomadstation.com",
-      password: "Pa55w0rd",
-      admin: true,
-    )
-
-    u.confirm
-    u
-  end
+  let(:admin) { create(:user, admin: true) }
   let(:location) do
     Location.create!(
       name: "Wellington",

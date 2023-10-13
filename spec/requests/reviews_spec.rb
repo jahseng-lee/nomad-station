@@ -1,15 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Reviews", type: :request do
-  let(:user) do
-    u = User.create!(
-      email: "jahseng@nomadstation.com",
-      password: "Pa55w0rd",
-    )
-
-    u.confirm
-    u
-  end
+  let(:user) { create(:user) }
   before do
     sign_in user
   end
@@ -149,28 +141,18 @@ RSpec.describe "Reviews", type: :request do
 
   describe "POST #generate_review" do
     context "logged in as an admin" do
-      let(:admin) do
-        u = User.create!(
-          email: "admin@nomadstation.com",
-          password: "Pa55w0rd",
-          admin: true,
-        )
-
-        u.confirm
-        u
-      end
+      let(:admin) { create(:user, admin: true) }
       before do
         sign_in admin
       end
 
       context "with special 'auto-generated content' user set up" do
         before do
-          u = User.create!(
+          create(
+            :user,
             email: "content-robot@nomadstation.io",
             password: "Pa55w0rd",
           )
-
-          u.confirm
         end
 
         it "creates an auto-generated review for the location" do
@@ -216,12 +198,11 @@ RSpec.describe "Reviews", type: :request do
 
       context "with special 'auto-generated content' user set up" do
         before do
-          u = User.create!(
+          create(
+            :user,
             email: "content-robot@nomadstation.io",
             password: "Pa55w0rd",
           )
-
-          u.confirm
         end
 
         it "raises a Pundit::NotAuthorizedError" do

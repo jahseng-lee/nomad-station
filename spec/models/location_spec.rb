@@ -8,15 +8,7 @@ RSpec.describe Location, type: :model do
       country: Country.create!(name: "New Zealand"),
     )
   end
-  let(:user) do
-    u = User.create!(
-      email: "jahseng@nomadstation.com",
-      password: "Pa55w0rd"
-    )
-
-    u.confirm
-    u
-  end
+  let(:user) { create(:user) }
 
   describe "#review_summary" do
     context "at least 2 related reviews" do

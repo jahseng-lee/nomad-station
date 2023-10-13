@@ -12,14 +12,7 @@ RSpec.describe "Editing a location", type: :feature, js: true do
 
     context "logged in as an admin" do
       let(:admin) do
-        u = User.create!(
-          email: "jahseng@nomadstation.com",
-          password: "Pa55w0rd",
-          admin: true,
-        )
-
-        u.confirm
-        u
+        create(:user, admin: true)
       end
       before do
         sign_in admin

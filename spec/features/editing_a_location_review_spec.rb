@@ -11,15 +11,7 @@ RSpec.describe "Editing a location review", type: :feature, js: true do
 
 
   describe "a user who has created a review" do
-    let(:user) do
-      u = User.create!(
-        email: "jahseng@nomadstation.com",
-        password: "Pa55w0rd"
-      )
-
-      u.confirm
-      u
-    end
+    let(:user) { create(:user) }
     before do
       sign_in user
 

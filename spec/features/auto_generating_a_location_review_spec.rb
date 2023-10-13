@@ -10,25 +10,16 @@ RSpec.describe "Auto-generating a location review", type: :feature, js: true do
   end
 
   before do
-    u = User.create!(
+    create(
+      :user,
       email: "content-robot@nomadstation.io",
       password: "Pa55w0rd",
     )
-
-    u.confirm
-    u
   end
 
   describe "logged in as an admin " do
     let(:user) do
-      u = User.create!(
-        email: "jahseng@nomadstation.com",
-        password: "Pa55w0rd",
-        admin: true,
-      )
-
-      u.confirm
-      u
+      create(:user, admin: true)
     end
     before do
       sign_in user
