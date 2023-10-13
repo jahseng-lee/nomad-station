@@ -1,4 +1,11 @@
 <div class="container mt-5">
+  <% if flash[:notice].present? %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <%= flash[:notice] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
+
   <% if flash[:updated_user_success].present? %>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
       <%= flash[:updated_user_success] %>
@@ -49,15 +56,9 @@
       <div>
         <%= link_to(
           "Update password",
-          # TODO this path just redirects to home.
-          #      how to actually do edit password?
-          edit_user_password_path("user"),
+          edit_user_registration_path,
           class: "btn btn-secondary"
         ) %>
-
-        <%
-          # TODO add link to update email (reconfirm? explore)
-        %>
       </div>
 
     </div>
