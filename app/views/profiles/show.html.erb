@@ -1,9 +1,16 @@
 <div class="container mt-5">
+  <% if flash[:updated_user_success].present? %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <%= flash[:updated_user_success] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
+
   <h1>Profile</h1>
 
   <div class="row">
     <div class="col">
-      <%= form_for @user do |f| %>
+      <%= form_for @user, data: { turbo: false } do |f| %>
         <%= f.label :display_name %>
         <div class="row">
           <div class="col">
@@ -13,7 +20,7 @@
                 class: "form-control#{ @user.errors[:display_name].any? ? ' is-invalid' : nil}"
               ) %>
 
-              <% if @user.errors[:display_name].present? %>
+              <% if @user.errors[:display_name].any? %>
                 <div class="invalid-feedback">
                   Display name <%= @user.errors[:display_name].first %>
                 </div>
@@ -65,19 +72,21 @@
             Status:
             <strong><%= current_user.subscription_status %></strong>
           </p>
-          <%= button_to "Manage subscription",
-            manage_subscriptions_path,
-            method: :post,
-            class: "btn btn-secondary"
-          %>
+
+          <% if current_user.cancelled_subscription? %>
+            <%= link_to "Re-subscribe",
+              choose_plan_path,
+              class: "btn btn-success"
+            %>
+          <% else %>
+            <%= button_to "Manage subscription",
+              manage_subscriptions_path,
+              method: :post,
+              class: "btn btn-secondary"
+            %>
+          <% end %>
         </div>
       </div>
-
-      <%
-        # TODO add link to:
-        #   * subscription management using stripe_customer_id, if present
-        #   * choose plan page if no customer_id
-      %>
     </div>
   </div>
 </div>

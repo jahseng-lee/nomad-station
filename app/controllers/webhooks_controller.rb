@@ -1,5 +1,5 @@
 class WebhooksController < ApplicationController
-  class CheckoutUserNotFound < StandardError; end
+  class StripeCustomerNotFound < StandardError; end
 
   skip_before_action :verify_authenticity_token
   skip_before_action :authenticate_user!
@@ -26,17 +26,18 @@ class WebhooksController < ApplicationController
     # Handle the event
     case event.type
     when "checkout.session.completed"
-      user = User.find_by(last_checkout_reference: event.data["object"]["client_reference_id"])
+      data = event.data["object"]
+      user = User.find_by(last_checkout_reference: data["client_reference_id"])
       if user.nil?
-        raise CheckoutUserNotFound, "Couldn't find a User with last_checkout_reference: #{event.data["object"]["client_reference_id"]}. Stripe customer id: #{event.data["object"]["customer"]}"
+        raise StripeCustomerNotFound, "Couldn't find a User with last_checkout_reference: #{data["client_reference_id"]}. Stripe customer id: #{data["customer"]}, event.type: 'checkout.session.completed'"
       end
 
       user.update!(
-        stripe_customer_id: event.data["object"]["customer"]
+        stripe_customer_id: data["customer"]
       )
 
       subscription = Stripe::Subscription.retrieve(
-        event.data["object"]["subscription"]
+        data["subscription"]
       )
       user.update!(
         subscription_status: subscription["status"]
@@ -44,8 +45,38 @@ class WebhooksController < ApplicationController
       # TODO double check that the status appears as active.
       #      This hook is async, so may need to do some turbo magic
       #      to update the element on the screen
-    when ""
-      # TODO deal with other subscription events
+    when "customer.subscription.deleted", "customer.subscription.paused", "customer.subscription.resumed"
+      # In these cases, just updated the subscription with the correct status
+      data = event.data["object"]
+
+      user = User.find_by(stripe_customer_id: data["customer"])
+      if user.nil?
+        raise StripeCustomerNotFound, "Couldn't find a User with stripe_customer_id: #{data['customer']}. event.type: #{event.type}"
+      end
+
+      user.update!(subscription_status: data["status"])
+    when "customer.subscription.updated"
+      data = event.data["object"]
+
+      user = User.find_by(stripe_customer_id: data["customer"])
+      if user.nil?
+        raise StripeCustomerNotFound, "Couldn't find a User with stripe_customer_id: #{data['customer']}. event.type: #{event.type}"
+      end
+
+      # Always update the status just in case
+      user.update!(subscription_status: data["status"])
+
+      if data["cancel_at_period_end"] == true
+        # TODO this is called when a subscription is canceled.
+        #      the subsciption remains active til the end of
+        #      the billing period.
+        #
+        #      Ideally we listen to this and check if
+        #      `cancel_at_period_end == true`, then save this
+        #      via. a flag to the user. Then we can show a
+        #      warning banner to the user that there subscription
+        #      will end soon
+      end
     else
       puts "Unhandled event type: #{event.type}"
     end
