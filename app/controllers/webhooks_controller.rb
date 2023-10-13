@@ -42,9 +42,6 @@ class WebhooksController < ApplicationController
       user.update!(
         subscription_status: subscription["status"]
       )
-      # TODO double check that the status appears as active.
-      #      This hook is async, so may need to do some turbo magic
-      #      to update the element on the screen
     when "customer.subscription.deleted", "customer.subscription.paused", "customer.subscription.resumed"
       # In these cases, just updated the subscription with the correct status
       data = event.data["object"]
