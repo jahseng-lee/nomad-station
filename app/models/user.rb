@@ -28,10 +28,10 @@ class User < ApplicationRecord
   end
 
   def cancelled_subscription?
-    # NOTE this is not the same as 'None' as user previously has a
-    #      subscription
-    #      this is also not the same as !active_subscription as
-    #      'paused' can be a valid status
     self[:subscription_status] == "canceled"
+  end
+
+  def no_subscription?
+    self[:subscription_status].nil?
   end
 end

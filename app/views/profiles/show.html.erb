@@ -78,6 +78,11 @@
               choose_plan_path,
               class: "btn btn-success"
             %>
+          <% elsif current_user.no_subscription? %>
+            <%= link_to "Add subscription",
+              choose_plan_path,
+              class: "btn btn-success"
+            %>
           <% else %>
             <%= button_to "Manage subscription",
               manage_subscriptions_path,
