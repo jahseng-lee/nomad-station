@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     confirmations: "confirmations"
   }
 
+  resource :chat, only: [:show]
   resource :choose_plan, only: [:show]
   resources :locations, only: [:show, :edit, :update] do
     member do

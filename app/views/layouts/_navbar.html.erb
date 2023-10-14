@@ -32,6 +32,19 @@
 
         <li class="nav-item">
           <%= link_to(
+            chat_path,
+            class: "nav-link",
+            data: {
+              "navbar-target": "chatLink",
+            }
+          ) do %>
+            <i class="bi bi-chat-fill" aria-hidden="true"></i>
+            Chat
+          <% end %>
+        </li>
+
+        <li class="nav-item">
+          <%= link_to(
             profile_path,
             class: "nav-link",
             data: {

@@ -2,17 +2,24 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = [
+    "chatLink",
     "exploreLink",
-    "profileLink"
+    "profileLink",
   ];
 
   connect() {
     const pathname = window.location.pathname;
 
-    if (pathname === "/" || pathname === "/search_locations") {
-      this.exploreLinkTarget.classList.add("active");
-    } else if (pathname === "/profile") {
-      this.profileLinkTarget.classList.add("active");
+    switch(pathname) {
+      case "/profile":
+        this.profileLinkTarget.classList.add("active");
+        break;
+      case "/chat":
+        this.chatLinkTarget.classList.add("active");
+        break;
+      default:
+        // "/" or "/search_locations"
+        this.exploreLinkTarget.classList.add("active");
     }
   }
 }
