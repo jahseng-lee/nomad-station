@@ -41,3 +41,4 @@
 .byebug_history
 
 public/
+.yarn/cache
