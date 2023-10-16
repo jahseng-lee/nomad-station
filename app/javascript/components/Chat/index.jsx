@@ -52,7 +52,12 @@ const Chat = () => {
 
   return (
     <StreamChatComponent client={client}>
-      <ChannelList filters={filters} sort={sort} options={options} />
+      <ChannelList
+        showChannelSearch
+        additionalChannelSearchProps={{ searchForChannels: true }}
+        filters={filters}
+        sort={sort}
+        options={options} />
       <Channel>
         <Window>
           <ChannelHeader />
