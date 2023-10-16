@@ -51,7 +51,12 @@ const Chat = () => {
   if (!client) return null;
 
   return (
-    <StreamChatComponent client={client}>
+    <StreamChatComponent
+      client={client}
+      customClasses={{
+        channelList: 'col-3 pe-0',
+        channel: 'col-9 ps-0',
+      }}>
       <ChannelList filters={filters} sort={sort} options={options} />
       <Channel>
         <Window>

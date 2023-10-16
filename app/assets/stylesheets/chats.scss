@@ -1,0 +1,23 @@
+@import 'stream-chat-react/dist/scss/v2/index.scss';
+
+body {
+  height: 100vh;
+}
+
+.str-chat {
+  --str-chat__primary-color: #262626;
+  --str-chat__own-message-bubble-background-color: #262626;
+  --str-chat__own-message-bubble-color: white;
+}
+
+.str-chat__message-input {
+  position: abolute;
+  bottom: 0.5rem;
+}
+
+.str-chat__list {
+  min-height: 75vh;
+  max-height: 75vh;
+  overflow: scroll;
+}
+
