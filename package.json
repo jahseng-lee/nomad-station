@@ -13,7 +13,9 @@
     "postcss-cli": "^10.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sass": "^1.68.0"
+    "sass": "^1.68.0",
+    "stream-chat": "^8.12.4",
+    "stream-chat-react": "^10.14.0"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=/assets --loader:.js=jsx",

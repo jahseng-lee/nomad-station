@@ -1,17 +1,69 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
+import { StreamChat } from 'stream-chat';
+import {
+  Chat as StreamChatComponent,
+  Channel,
+  ChannelHeader,
+  ChannelList,
+  MessageList,
+  MessageInput,
+  Thread,
+  Window,
+} from 'stream-chat-react';
+
+const rootElement = document.getElementById("chat-root");
+const userId = rootElement.dataset.streamUserId;
+const displayName = rootElement.dataset.displayName;
+const userToken = rootElement.dataset.streamUserToken;
+
+const filters = { type: 'messaging' };
+const options = { state: true, presence: true };
+const sort = { last_message_at: -1 };
 
 const Chat = () => {
+  const [client, setClient] = useState(null);
+
+  useEffect(() => {
+    const newClient = new StreamChat('s3u4gjg6hnj2');
+
+    const handleConnectionChange = ({ online = false }) => {
+      if (!online) return console.log('connection lost');
+      setClient(newClient);
+    };
+
+    newClient.on('connection.changed', handleConnectionChange);
+
+    newClient.connectUser(
+      {
+        id: userId,
+        name: displayName,
+      },
+      userToken,
+    );
+
+    return () => {
+      newClient.off('connection.changed', handleConnectionChange);
+      newClient.disconnectUser().then(() => console.log('connection closed'));
+    };
+  }, []);
+
+  if (!client) return null;
+
   return (
-    <div>
-      <h1>TODO</h1>
-      <ul>
-        <li>intergrate stream.io into the website</li>
-        <li>use client library to implement a React component</li>
-      </ul>
-    </div>
+    <StreamChatComponent client={client}>
+      <ChannelList filters={filters} sort={sort} options={options} />
+      <Channel>
+        <Window>
+          <ChannelHeader />
+          <MessageList />
+          <MessageInput />
+        </Window>
+        <Thread />
+      </Channel>
+    </StreamChatComponent>
   );
 }
 
-const root = createRoot(document.getElementById("chat-root"));
+const root = createRoot(rootElement);
 root.render(<Chat />);
