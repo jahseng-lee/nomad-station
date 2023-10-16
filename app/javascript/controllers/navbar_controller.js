@@ -17,9 +17,12 @@ export default class extends Controller {
       case "/chat":
         this.chatLinkTarget.classList.add("active");
         break;
-      default:
-        // "/" or "/search_locations"
+      case "/search_locations":
         this.exploreLinkTarget.classList.add("active");
+        break;
+      case "/":
+        this.exploreLinkTarget.classList.add("active");
+        break;
     }
   }
 }
