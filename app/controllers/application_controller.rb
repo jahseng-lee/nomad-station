@@ -14,4 +14,10 @@ class ApplicationController < ActionController::Base
       ]
     )
   end
+
+  def authenticate_subscription!
+    unless current_user.active_subscription?
+      redirect_to choose_plan_path
+    end
+  end
 end

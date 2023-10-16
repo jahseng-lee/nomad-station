@@ -3,6 +3,8 @@ require "securerandom"
 class ChatsController < ApplicationController
   layout false, only: [:show]
 
+  before_action :authenticate_subscription!
+
   def show
     if current_user.stream_user_id.nil?
       @stream_user_id = SecureRandom.hex(16)
