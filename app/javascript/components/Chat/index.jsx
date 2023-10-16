@@ -62,7 +62,7 @@ const Chat = () => {
         <Window>
           <ChannelHeader />
           <MessageList />
-          <MessageInput />
+          <MessageInput focus />
         </Window>
         <Thread />
       </Channel>
