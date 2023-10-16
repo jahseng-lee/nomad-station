@@ -4,6 +4,18 @@ body {
   height: 100vh;
 }
 
+.chat-root {
+  display: flex;
+
+  .str-chat__channel {
+    flex: 1;
+  }
+
+  .str-chat-channel-list {
+    width: 20vw;
+  }
+}
+
 .str-chat {
   --str-chat__primary-color: #262626;
   --str-chat__own-message-bubble-background-color: #262626;
