@@ -17,7 +17,7 @@ const userId = rootElement.dataset.streamUserId;
 const displayName = rootElement.dataset.displayName;
 const userToken = rootElement.dataset.streamUserToken;
 
-const filters = { type: 'messaging' };
+const filters = { type: 'messaging', members: { $in: [userId]} };
 const options = { state: true, presence: true };
 const sort = { last_message_at: -1 };
 
