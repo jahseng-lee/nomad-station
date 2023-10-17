@@ -31,6 +31,7 @@ class ChatsController < ApplicationController
     [
       { type: "messaging", id: "general" },
       { type: "messaging", id: "feedback-and-requests" },
+      { type: "messaging", id: "bugs" },
     ].each do |channel|
       channel = StreamChatClient.get_channel(
         type: channel[:type],
