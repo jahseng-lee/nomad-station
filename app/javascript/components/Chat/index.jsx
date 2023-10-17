@@ -61,7 +61,9 @@ const Chat = () => {
       <Channel>
         <Window>
           <ChannelHeader />
-          <MessageList />
+          <MessageList
+            messageActions={['edit', 'delete', 'flag', 'mute', 'react', 'reply']}
+            />
           <MessageInput focus />
         </Window>
         <Thread />
