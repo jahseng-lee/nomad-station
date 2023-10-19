@@ -24,14 +24,17 @@ class User < ApplicationRecord
   end
 
   def active_subscription?
-    self[:subscription_status] == "active"
+    self.admin? ||
+      self[:subscription_status] == "active"
   end
 
   def cancelled_subscription?
-    self[:subscription_status] == "canceled"
+    !self.admin? &&
+      self[:subscription_status] == "canceled"
   end
 
   def no_subscription?
-    self[:subscription_status].nil?
+    !self.admin? &&
+      self[:subscription_status].nil?
   end
 end
