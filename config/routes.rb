@@ -21,6 +21,8 @@ Rails.application.routes.draw do
         post :generate_review
       end
     end
+
+    resource :visa_information, only: [:show], controller: "visa_information"
   end
   resource :profile, only: [:show]
   resources :search_locations, only: [:index]

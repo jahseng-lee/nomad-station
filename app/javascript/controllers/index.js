@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import LocationTabsController from "./location_tabs_controller"
+application.register("location-tabs", LocationTabsController)
+
 import ModalController from "./modal_controller"
 application.register("modal", ModalController)
 
