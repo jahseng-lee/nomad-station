@@ -13,9 +13,9 @@ import {
 } from 'stream-chat-react';
 
 const rootElement = document.getElementById("chat-root");
-const userId = rootElement.dataset.streamUserId;
-const displayName = rootElement.dataset.displayName;
-const userToken = rootElement.dataset.streamUserToken;
+const userId = rootElement?.dataset.streamUserId;
+const displayName = rootElement?.dataset.displayName;
+const userToken = rootElement?.dataset.streamUserToken;
 
 const filters = { type: 'messaging', members: { $in: [userId]} };
 const options = { state: true, presence: true };
@@ -72,5 +72,7 @@ const Chat = () => {
   );
 }
 
-const root = createRoot(rootElement);
-root.render(<Chat />);
+if (rootElement) {
+  const root = createRoot(rootElement);
+  root.render(<Chat />);
+}
