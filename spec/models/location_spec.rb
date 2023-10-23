@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Location, type: :model do
   subject do
-    Location.create!(
+    Location.new(
       name: "Wellington",
       name_utf8: "Wellington",
-      country: Country.create!(name: "New Zealand"),
+      country: create(:country, name: "New Zealand")
     )
   end
   let(:user) { create(:user) }
@@ -13,6 +13,8 @@ RSpec.describe Location, type: :model do
   describe "#review_summary" do
     context "at least 2 related reviews" do
       before do
+        subject.save!
+
         Review.create!(
           location: subject,
           user: user,

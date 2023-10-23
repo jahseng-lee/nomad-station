@@ -1,14 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Editing a location review", type: :feature, js: true do
-  let(:location) do
-    Location.create!(
-      name: "Wellington",
-      name_utf8: "Wellington",
-      country: Country.create!(name: "New Zealand"),
-    )
-  end
-
+  let(:location) { create(:location) }
 
   describe "a user who has created a review" do
     let(:user) { create(:user) }

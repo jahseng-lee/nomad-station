@@ -1,13 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Auto-generating a location review", type: :feature, js: true do
-  let(:location) do
-    Location.create!(
-      name: "Wellington",
-      name_utf8: "Wellington",
-      country: Country.create!(name: "New Zealand"),
-    )
-  end
+  let(:location) { create(:location) }
 
   before do
     create(

@@ -1,13 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe LocationsHelper, type: :helper do
-  let(:location) do
-    Location.create!(
-      name: "Wellington",
-      name_utf8: "Wellington",
-      country: Country.create!(name: "New Zealand"),
-    )
-  end
+  let(:location) { create(:location) }
 
   describe ".helper_location_description" do
     context "if location has a description" do

@@ -2,13 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Editing a location", type: :feature, js: true do
   describe "with a location in the database" do
-    let(:location) do
-      Location.create!(
-        name: "Wellington",
-        name_utf8: "Wellington",
-        country: Country.create!(name: "New Zealand"),
-      )
-    end
+    let(:location) { create(:location) }
 
     context "logged in as an admin" do
       let(:admin) do

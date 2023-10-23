@@ -2,13 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Locations", type: :request do
   let(:admin) { create(:user, admin: true) }
-  let(:location) do
-    Location.create!(
-      name: "Wellington",
-      name_utf8: "Wellington",
-      country: Country.create!(name: "New Zealand"),
-    )
-  end
+  let(:location) { create(:location) }
 
   describe "GET #show" do
     it "returns http success" do
@@ -47,7 +41,7 @@ RSpec.describe "Locations", type: :request do
   describe "POST #update" do
     context "with valid params" do
       let(:new_descsription) do
-        "I think Wellington is very cool"
+        "I think #{location.name} is very cool"
       end
       let(:params) do
         {

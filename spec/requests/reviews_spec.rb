@@ -6,13 +6,7 @@ RSpec.describe "Reviews", type: :request do
     sign_in user
   end
 
-  let(:location) do
-    Location.create!(
-      name: "Wellington",
-      name_utf8: "Wellington",
-      country: Country.create!(name: "New Zealand"),
-    )
-  end
+  let(:location) { create(:location) }
   let(:params) do
     {
       review: {
@@ -35,7 +29,7 @@ RSpec.describe "Reviews", type: :request do
       let(:cost) { 3 }
       let(:internet) { 2 }
       let(:safety) { 1 }
-      let(:review_body) { "Wellington was great!" }
+      let(:review_body) { "#{location.name} was great!" }
 
       it "creates a review and redirects to it" do
         expect{
@@ -76,7 +70,7 @@ RSpec.describe "Reviews", type: :request do
     let(:old_cost) { 5 }
     let(:old_internet) { 5 }
     let(:old_safety) { 5 }
-    let(:old_review_body) { "Wellington was okay!" }
+    let(:old_review_body) { "#{location.name} was okay!" }
     let(:review) do
       Review.create!(
         user: user,
@@ -96,7 +90,7 @@ RSpec.describe "Reviews", type: :request do
       let(:cost) { 4 }
       let(:internet) { 4 }
       let(:safety) { 4 }
-      let(:review_body) { "Wellington was great!" }
+      let(:review_body) { "#{location.name} was great!" }
 
       it "updates the review and redirects to it" do
         put location_review_path(
@@ -122,7 +116,7 @@ RSpec.describe "Reviews", type: :request do
       let(:cost) { 4 }
       let(:internet) { 4 }
       let(:safety) { nil }
-      let(:review_body) { "Wellington was awful!" }
+      let(:review_body) { "#{location.name} was awful!" }
 
       it "does not update the review" do
         put location_review_path(

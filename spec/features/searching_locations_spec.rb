@@ -5,22 +5,25 @@ RSpec.describe "Navbar", type: :feature, js: true do
     let(:oceania) { Region.create!(name: "Oceania") }
     let(:se_asia) { Region.create!(name: "South-east asia") }
 
-    let(:nz) { Country.create!(name: "New Zealand", region: oceania) }
-    let(:thailand) { Country.create!(name: "Thailand", region: se_asia) }
-    let(:aus) { Country.create!(name: "Australia", region: oceania) }
+    let(:nz) { create(:country, name: "New Zealand", region: oceania) }
+    let(:thailand) { create(:country, name: "Thailand", region: se_asia) }
+    let(:aus) { create(:country, name: "Australia", region: oceania) }
 
     before do
-      Location.create!(
+      create(
+        :location,
         name: "Wellington",
         name_utf8: "Wellington",
         country: nz
       )
-      Location.create!(
+      create(
+        :location,
         name: "Melbourne",
         name_utf8: "Melbourne",
         country: aus
       )
-      Location.create!(
+      create(
+        :location,
         name: "Bangkok",
         name_utf8: "Bangkok",
         country: thailand

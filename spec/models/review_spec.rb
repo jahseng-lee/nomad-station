@@ -15,13 +15,7 @@ RSpec.describe Review, type: :model do
     )
   end
   let(:user) { create(:user) }
-  let(:location) do
-    Location.create!(
-      name: "Wellington",
-      name_utf8: "Wellington",
-      country: Country.create!(name: "New Zealand"),
-    )
-  end
+  let(:location) { create(:location) }
   let(:overall) { 5 }
   let(:fun) { 4 }
   let(:cost) { 3 }
