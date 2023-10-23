@@ -521,7 +521,7 @@ __metadata:
     react-dom: ^18.2.0
     sass: ^1.68.0
     stream-chat: ^8.12.4
-    stream-chat-react: ^10.14.0
+    stream-chat-react: 10.14.1
   languageName: unknown
   linkType: soft
 
@@ -3492,9 +3492,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stream-chat-react@npm:^10.14.0":
-  version: 10.14.0
-  resolution: "stream-chat-react@npm:10.14.0"
+"stream-chat-react@npm:10.14.1":
+  version: 10.14.1
+  resolution: "stream-chat-react@npm:10.14.1"
   dependencies:
     "@braintree/sanitize-url": ^6.0.4
     "@popperjs/core": ^2.11.5
@@ -3538,7 +3538,7 @@ __metadata:
       optional: true
     mml-react:
       optional: true
-  checksum: 028f879cec3c98c535e6f8a4507f3cbc98511bb5862e53f9c6033281c96b0a108458382422be55610a5749f369fea83e90e2de7cb999e481542cfd548f6422dd
+  checksum: ee3d708ed43aa5cf029eba59ce8ab2ea5a8ded48be70d873e7d2e5dae9f011ebf48413eead0701b2b5df6032d6d394fd0c4fdd9d8e0697512d62bdf65eb66b00
   languageName: node
   linkType: hard
 

@@ -15,7 +15,7 @@
     "react-dom": "^18.2.0",
     "sass": "^1.68.0",
     "stream-chat": "^8.12.4",
-    "stream-chat-react": "^10.14.0"
+    "stream-chat-react": "10.14.1"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=/assets --loader:.js=jsx",
