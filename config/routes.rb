@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resource :chat, only: [:show]
   resource :choose_plan, only: [:show]
+  resources :countries, only: [:update]
   resources :locations, only: [:show, :edit, :update] do
     member do
       get :upload_banner_image_modal
@@ -22,7 +23,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resource :visa_information, only: [:show], controller: "visa_information"
+    resource :visa_information,
+      only: [:show, :edit],
+      controller: "visa_information"
   end
   resource :profile, only: [:show]
   resources :search_locations, only: [:index]

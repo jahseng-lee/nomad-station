@@ -8,13 +8,13 @@
   }
 %>
 
-<%= render partial: "locations/tabs",
-  locals: {
-    location: @location,
-  }
-%>
+<div class="container mt-3">
+  <%= render partial: "locations/tabs",
+    locals: {
+      location: @location,
+    }
+  %>
 
-<div class="container mt-5">
   <%= render partial: "locations/show_location_alerts" %>
 
   <% if current_user&.admin? %>
