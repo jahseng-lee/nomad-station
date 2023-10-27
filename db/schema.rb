@@ -26,8 +26,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_23_085457) do
   create_table "countries", force: :cascade do |t|
     t.text "name", null: false
     t.integer "region_id"
-    t.text "visa_information"
+    t.text "visa_summary_information"
     t.index ["region_id"], name: "index_countries_on_region_id"
+  end
+
+  create_table "eligible_countries_for_visas", force: :cascade do |t|
+    t.bigint "country_id", null: false
+    t.bigint "visa_id", null: false
+    t.index ["country_id"], name: "index_eligible_countries_for_visas_on_country_id"
+    t.index ["visa_id"], name: "index_eligible_countries_for_visas_on_visa_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -90,6 +97,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_23_085457) do
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "visas", force: :cascade do |t|
+    t.bigint "country_id", null: false
+    t.text "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_visas_on_country_id"
   end
 
   add_foreign_key "banner_images", "locations"

@@ -5,7 +5,7 @@ class CountriesController < ApplicationController
     authorize(@country)
 
     @country.assign_attributes(
-      visa_information: country_params[:visa_information]
+      visa_summary_information: country_params[:visa_summary_information]
     )
 
     if @country.save
@@ -17,7 +17,7 @@ class CountriesController < ApplicationController
     else
       flash[:error_update_visa_information] = "Couldn't update visa information. Please try again"
 
-      render "visa_information/edit"
+      render "visas/edit"
     end
   end
 
@@ -25,7 +25,7 @@ class CountriesController < ApplicationController
 
   def country_params
     params.require(:country).permit(
-      :visa_information,
+      :visa_summary_information,
       :location_id # for redirect
     )
   end

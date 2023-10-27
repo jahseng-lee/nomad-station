@@ -1,0 +1,29 @@
+<%= turbo_frame_tag(
+  "search-results",
+  data: {
+    "search-eligible-countries-target": "searchResults",
+  }
+) do %>
+  <% if flash[:error_create_eligible_country].present? %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%= flash[:error_create_eligible_country] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
+
+  <% countries.each do |country| %>
+    <%= form_for([
+      Country.find(country_id),
+      Location.find(location_id),
+      visa,
+      EligibleCountriesForVisa.new
+    ]) do |f| %>
+      <%= f.hidden_field :eligible_country_id, value: country.id %>
+
+      <%= f.button :submit, class: 'btn btn-primary mb-1' do %>
+        <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
+        <%= country.name %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

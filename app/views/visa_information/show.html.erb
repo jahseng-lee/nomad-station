@@ -19,20 +19,31 @@
     <div class="mb-3">
       <%= link_to(
         edit_location_visa_information_path(location_id: @location.id),
+        class: "me-2"
       ) do %>
-        <% if @country.visa_information.present? %>
+        <% if @country.visa_summary_information.present? %>
           <i class="bi bi-pencil-fill" aria-hidden="true"></i>
-          Edit visa information
+          Edit visas summary
         <% else %>
           <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
-          Add visa information
+          Add visas summary
         <% end %>
+      <% end %>
+
+      <%= link_to new_country_location_visa_path(
+        country_id: @country.id,
+        location_id: @location.id,
+      ) do %>
+        <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
+        Add a visa
       <% end %>
     </div>
   <% end %>
 
-  <% if @country.visa_information.present? %>
-    <%= @markdown.render(@country.visa_information).html_safe %>
+  <% # TODO show visa table %>
+  <% # TODO don't show "No visa..." message if summary_information OR visas are present %>
+  <% if @country.visa_summary_information.present? %>
+    <%= @markdown.render(@country.visa_summary_information).html_safe %>
   <% else %>
     <p>
       No visa information for <%= @country.name %> yet

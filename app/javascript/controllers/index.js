@@ -13,5 +13,8 @@ application.register("modal", ModalController)
 import NavbarController from "./navbar_controller"
 application.register("navbar", NavbarController)
 
+import SearchEligibleCountriesController from "./search_eligible_countries_controller"
+application.register("search-eligible-countries", SearchEligibleCountriesController)
+
 import SearchLocationsController from "./search_locations_controller"
 application.register("search-locations", SearchLocationsController)

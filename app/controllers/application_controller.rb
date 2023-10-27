@@ -20,4 +20,11 @@ class ApplicationController < ActionController::Base
       redirect_to choose_plan_path
     end
   end
+
+  def initialize_markdown_renderer
+    renderer = Redcarpet::Render::HTML.new(render_options = {
+      hard_wrap: true
+    })
+    @markdown = Redcarpet::Markdown.new(renderer, extensions = {})
+  end
 end

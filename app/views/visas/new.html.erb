@@ -1,0 +1,30 @@
+<div class="container mt-5">
+  <%= render partial: "visas/shared/back_link_to_location_visa",
+    locals: {
+      location: @location
+    }
+  %>
+
+  <h3>
+    Adding a visa for <%= @country.name %>
+  </h3>
+
+  <% if flash[:error_save_visa].present? %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%= flash[:error_save_visa] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
+
+  <%= form_for(
+    [@country, @location, @visa],
+    data: { turbo: false }
+  ) do |f| %>
+    <div class="mb-3">
+      <%= f.label :name, "Visa name" %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+
+    <%= f.submit "Add visa", class: "btn btn-success" %>
+  <% end %>
+</div>

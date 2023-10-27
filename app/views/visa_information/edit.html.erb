@@ -6,15 +6,15 @@
   %>
 
   <h3>
-    <%= @country.visa_information.present? ? "Editing" : "Adding" %>
-    visa information for <%= @country.name %>
+    <%= @country.visa_summary_information.present? ? "Editing" : "Adding" %>
+    visa summary for <%= @country.name %>
   </h3>
 
   <%= form_for @country do |f| %>
     <%= f.hidden_field :location_id, value: @location.id %>
     <div class="mb-3">
       <%= f.text_area(
-        :visa_information,
+        :visa_summary_information,
         class: "form-control",
         rows: 8,
         placeholder: "Supports markdown!"
