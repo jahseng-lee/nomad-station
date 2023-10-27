@@ -40,10 +40,64 @@
     </div>
   <% end %>
 
-  <% # TODO show visa table %>
-  <% # TODO don't show "No visa..." message if summary_information OR visas are present %>
-  <% if @country.visa_summary_information.present? %>
-    <%= @markdown.render(@country.visa_summary_information).html_safe %>
+  <% if @country.visa_summary_information.present? || @country.visas.any? %>
+    <% if @country.visa_summary_information.present? %>
+      <%= @markdown.render(@country.visa_summary_information).html_safe %>
+    <% end %>
+
+    <% if @country.visas.any? %>
+      <div class="card">
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Visa</th>
+                <th>Eligible countries</th>
+                <% if current_user.admin? %>
+                  <% # Empty for controls %>
+                  <th></th>
+                <% end %>
+              </tr>
+            </thead>
+            <tbody>
+              <% @country.visas.each do |visa| %>
+                <tr>
+                  <td>
+                    <%= visa.name %>
+                  </td>
+                  <td>
+                    <ul>
+                      <% visa.eligible_countries.each do |eligible_country| %>
+                        <li>
+                          <%= eligible_country.name %>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </td>
+
+                  <% if current_user.admin? %>
+                    <td>
+                      <%= link_to(
+                        edit_country_location_visa_path(
+                          visa,
+                          location_id: @location.id,
+                          country_id: @country.id
+                        ),
+                        aria: {
+                          label: "Edit visa"
+                        }
+                      ) do %>
+                        <i class="bi bi-pencil-fill" aria-hidden="true"></i>
+                      <% end %>
+                    </td>
+                  <% end %>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% end %>
   <% else %>
     <p>
       No visa information for <%= @country.name %> yet

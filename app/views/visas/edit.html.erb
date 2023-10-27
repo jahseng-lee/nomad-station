@@ -27,8 +27,26 @@
       <%= f.text_field :name, class: "form-control" %>
     </div>
 
-    <%= f.submit "Update", class: "btn btn-success mb-3" %>
+    <%= f.submit "Update", class: "btn btn-success mb-1" %>
   <% end %>
+
+  <%= button_to(
+    "Delete",
+    country_location_visa_path(
+      @visa,
+      location_id: @location.id,
+      country_id: @country.id
+    ),
+    method: :delete,
+    class: "btn btn-danger",
+    form: {
+      data: {
+        turbo_confirm: "Are you sure you want to delete this visa? All information including eligible countries will be deleted"
+      }
+    }
+  ) %>
+
+  <hr />
 
   <%= render partial: "visas/eligible_countries",
     locals: {

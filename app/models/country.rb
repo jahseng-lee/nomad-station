@@ -10,8 +10,7 @@ class Country < ApplicationRecord
   belongs_to :region, optional: true
 
   has_many :eligible_countries_for_visas
-  has_many :visas,
-    through: :eligible_countries_for_visas
+  has_many :visas
   has_many :locations
 
   validates :name, presence: true

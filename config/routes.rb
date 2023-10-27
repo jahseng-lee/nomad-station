@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resource :choose_plan, only: [:show]
   resources :countries, only: [:update] do
     resources :locations, only: [] do
-      resources :visas, only: [:new, :create, :edit, :update] do
+      resources :visas, only: [:new, :create, :edit, :update, :destroy] do
         resources :eligible_countries_for_visas,
           only: [:create, :destroy],
           controller: "visas/eligible_countries_for_visas"

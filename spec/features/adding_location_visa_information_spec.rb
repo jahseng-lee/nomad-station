@@ -133,8 +133,9 @@ RSpec.describe "Adding location visa information", type: :feature, js: true do
 
           context "clicking on the 'Remove visa' button" do
             before do
+              find('a[aria-label="Edit visa"]').click
               accept_confirm do
-                find('button[aria-label="Remove visa"]').click
+                click_button "Delete"
               end
             end
 
@@ -147,12 +148,12 @@ RSpec.describe "Adding location visa information", type: :feature, js: true do
 
           context "clicking on the 'Edit visa' link" do
             before do
-              click_link "Edit visa"
+              find('a[aria-label="Edit visa"]').click
             end
 
             it "takes you to the 'Edit visa' page" do
               expect(page).to have_content(
-                "Editing #{visa_name} for #{country.name}"
+                "#{visa_name} for #{country.name}"
               )
             end
           end

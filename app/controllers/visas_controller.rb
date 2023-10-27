@@ -68,6 +68,18 @@ class VisasController < ApplicationController
     end
   end
 
+  def destroy
+    @country = Country.find(params[:country_id])
+    @location = Location.find(params[:location_id])
+    @visa = Visa.find(params[:id])
+
+    authorize(@country, :edit?)
+
+    @visa.destroy!
+
+    redirect_to location_visa_information_path(@location)
+  end
+
   private
 
   def visa_params
