@@ -6,6 +6,7 @@ class ApplicationMailer < ActionMailer::Base
     # In heroku, Rails.env.production? is true in
     # staging and production, so custom set an ENV var
     if ENV["HEROKU_ENV"] == "staging"
+      # TODO this doesn't work...
       { host: "https://staging.nomadstation.io" }
     else
       # Use default
