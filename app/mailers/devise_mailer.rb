@@ -3,6 +3,7 @@ class DeviseMailer < Devise::Mailer
   include Devise::Controllers::UrlHelpers
 
   default "Message-ID" => lambda {"<#{SecureRandom.uuid}@nomadr.io>"}
+  default from: "jahseng.lee@nomadstation.io"
 
   def reset_password_instructions(record, token, opts = {})
     raise NotImplementedError, "TODO"
