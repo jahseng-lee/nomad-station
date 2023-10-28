@@ -5,7 +5,7 @@ class ApplicationMailer < ActionMailer::Base
   def default_url_options
     # In heroku, Rails.env.production? is true in
     # staging and production, so custom set an ENV var
-    if ENV["RAILS_ENV"] == "staging"
+    if ENV["HEROKU_ENV"] == "staging"
       { host: "https://staging.nomadstation.io" }
     else
       # Use default
