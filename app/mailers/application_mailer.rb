@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "jahseng.lee@nomadstation.io"
   layout "mailer"
 
   def default_url_options
