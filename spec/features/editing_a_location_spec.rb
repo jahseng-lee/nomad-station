@@ -17,13 +17,13 @@ RSpec.describe "Editing a location", type: :feature, js: true do
           visit location_path(location)
         end
 
-        it "shows an 'Update location' link" do
-          expect(page).to have_link("Update location")
+        it "shows an 'Update location description' link" do
+          expect(page).to have_link("Update location description")
         end
 
-        context "clicking the 'Update location' link" do
+        context "clicking the 'Update location description' link" do
           before do
-            click_link 'Update location'
+            click_link "Update location description"
           end
 
           it "takes you to the edit location' page" do
@@ -82,8 +82,8 @@ RSpec.describe "Editing a location", type: :feature, js: true do
           visit location_path(location)
         end
 
-        it "does not show the 'Update location' link" do
-          expect(page).not_to have_link("Update location")
+        it "does not show the 'Update location description' link" do
+          expect(page).not_to have_link("Update location description")
         end
       end
     end

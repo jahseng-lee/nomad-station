@@ -34,14 +34,16 @@
 
       <%= link_to edit_location_path(@location), class: "ms-3" do %>
         <i class="bi bi-pencil-fill" aria-hidden="true"></i>
-        Update location
+        Update location description
       <% end %>
     </div>
   <% end %>
 
   <div class="row row-cols-1 row-cols-lg-2">
     <div class="col-12 col-lg-9">
-      <%= helper_location_description(location: @location) %>
+      <%= @markdown.render(
+        helper_location_description(location: @location)
+      ).html_safe %>
     </div>
 
     <hr class="d-lg-none my-4">

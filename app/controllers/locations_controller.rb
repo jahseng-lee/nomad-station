@@ -1,5 +1,6 @@
 class LocationsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show]
+  before_action :initialize_markdown_renderer, only: [:show]
 
   def show
     @location = Location.find(params[:id])
