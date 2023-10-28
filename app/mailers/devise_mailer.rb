@@ -10,7 +10,7 @@ class DeviseMailer < Devise::Mailer
 
   def confirmation_instructions(record, token, opts = {})
     self.template_model = {
-      product_url: "https://nomadstation.io",
+      product_url: "https://www.nomadstation.io",
       product_name: "Nomadstation",
       display_name: record.display_name,
       action_url: confirmation_url(record, confirmation_token: token),
