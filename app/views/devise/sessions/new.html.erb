@@ -38,7 +38,7 @@
           <%= f.label :password %>
           <%= f.password_field(
             :password,
-            autocomplete: "new-password",
+            autocomplete: "password",
             class: "form-control#{ resource.errors[:password].any? ? ' is-invalid' : nil}"
           ) %>
 
