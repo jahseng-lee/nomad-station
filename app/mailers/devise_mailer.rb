@@ -5,18 +5,11 @@ class DeviseMailer < Devise::Mailer
   default "Message-ID" => lambda {"<#{SecureRandom.uuid}@nomadr.io>"}
   default from: "jahseng.lee@nomadstation.io"
 
-  def reset_password_instructions(record, token, opts = {})
-    raise NotImplementedError, "TODO"
-  end
-
   def confirmation_instructions(record, token, opts = {})
-    self.template_model = {
-      product_url: "https://www.nomadstation.io",
-      product_name: "Nomadstation",
+    self.template_model = ApplicationMailer::DEFAULT_ARGS.merge({
       display_name: record.display_name,
       action_url: confirmation_url(record, confirmation_token: token),
-      support_email: "jahseng.lee@nomadstation.io",
-    }
+    })
 
     mail(
       to: record.email,
@@ -26,7 +19,17 @@ class DeviseMailer < Devise::Mailer
     )
   end
 
-  def password_change(record, opts = {})
-    raise NotImplementedError, "TODO"
+  def reset_password_instructions(record, token, opts = {})
+    self.template_model = ApplicationMailer::DEFAULT_ARGS.merge({
+      action_url: edit_password_url(record, reset_password_token: token),
+      display_name: record.display_name,
+    })
+
+    mail(
+      to: record.email,
+      postmark_template_alias: "reset-password-instructions",
+      track_opens: "true",
+      message_stream: "outbound"
+    )
   end
 end
