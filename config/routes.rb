@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   }
 
   resource :chat, only: [:show]
+  resources :channels, only: [:new, :create]
   resource :choose_plan, only: [:show]
   resources :countries, only: [:update] do
     resources :locations, only: [] do

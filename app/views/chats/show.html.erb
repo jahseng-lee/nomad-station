@@ -18,6 +18,25 @@
   <body>
     <%= render partial: "layouts/navbar" %>
 
-    <h1>TODO</h1>
+    <div class="row">
+      <div class="col">
+        <div class="d-grid">
+          <% if current_user.admin? %>
+            <%= link_to(
+              new_channel_path,
+              class: "btn btn-primary m-2"
+            ) do %>
+              <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
+              Add channel
+            <% end %>
+          <% end %>
+          <p>TODO list of channels</p>
+        </div>
+      </div>
+
+      <div class="col-9">
+        <p>TODO message section</p>
+      </div>
+    </div>
   </body>
 </html>
