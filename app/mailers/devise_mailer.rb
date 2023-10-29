@@ -34,10 +34,9 @@ class DeviseMailer < Devise::Mailer
   end
 
   def confirmation_instructions(record, token, opts = {})
-    raise NotImplementedError, "TODO"
     self.template_model = ApplicationMailer::DEFAULT_ARGS.merge({
       action_url: confirmation_url(record, confirmation_token: token),
-      display_name: record.first_name,
+      display_name: record.display_name,
     })
 
     mail(
