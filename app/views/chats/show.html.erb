@@ -18,24 +18,6 @@
   <body>
     <%= render partial: "layouts/navbar" %>
 
-    <% if @stream_env_vars_missing %>
-      <div class="container mt-5">
-        <p>
-          <strong>
-            ENV["STREAM_API_KEY"] and/or ENV["STREAM_API_SECRET"] not set.
-          </strong>
-          <br />
-          Please check your environment configuration and try again.
-        </p>
-      </div>
-    <% else %>
-      <div
-          id="chat-root"
-          class="chat-root mt-1"
-          data-stream-user-id="<%= @stream_user_id %>"
-          data-stream-user-token="<%= @stream_user_token %>"
-          data-display-name="<%= current_user.display_name %>"
-           ></div>
-    <% end %>
+    <h1>TODO</h1>
   </body>
 </html>
