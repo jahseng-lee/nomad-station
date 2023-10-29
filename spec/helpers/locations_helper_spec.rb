@@ -5,7 +5,7 @@ RSpec.describe LocationsHelper, type: :helper do
 
   describe ".helper_location_description" do
     context "if location has a description" do
-      let(:test_desc) { "Test description" }
+      let(:test_desc) { "**Test description**" }
       before do
         location.update!(description: test_desc)
       end
@@ -15,7 +15,7 @@ RSpec.describe LocationsHelper, type: :helper do
           location: location
         )
 
-        expect(desc).to eq simple_format(test_desc)
+        expect(desc).to eq test_desc
       end
     end
 
