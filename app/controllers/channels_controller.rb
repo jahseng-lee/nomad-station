@@ -4,10 +4,9 @@ class ChannelsController < ApplicationController
   def show
     @channel = Channel.find(params[:id])
 
-    # TODO channel member stuff
-    ## authorize(@channel)
+    authorize(@channel)
 
-    @channels = Channel.all
+    @channels = current_user.chat_channels
 
     render "chats/show"
   end
