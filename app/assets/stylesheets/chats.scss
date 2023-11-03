@@ -4,4 +4,34 @@ body {
 
   display: flex;
   flex-direction: column;
+
+  .navbar {
+    flex: 0;
+  }
+
+  .chat-screen-container {
+    flex: 1;
+  }
+
+  .channel-link {
+    border-bottom: 1px solid $primary;
+    text-decoration: none;
+
+    &:hover {
+      background-color: lighten($primary, 70%);
+    }
+  }
+
+  .chat-message-section {
+    display: flex;
+    flex-direction: column;
+
+    border-left: 1px solid $primary;
+
+    &.no-chat {
+      justify-content: center;
+      align-items: center;
+    }
+  }
 }
+

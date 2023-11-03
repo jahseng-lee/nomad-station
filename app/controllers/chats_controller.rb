@@ -5,5 +5,7 @@ class ChatsController < ApplicationController
 
   before_action :authenticate_subscription!
 
-  def show; end
+  def show
+    @channels = Channel.all
+  end
 end

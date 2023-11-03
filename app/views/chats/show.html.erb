@@ -18,8 +18,8 @@
   <body>
     <%= render partial: "layouts/navbar" %>
 
-    <div class="row">
-      <div class="col">
+    <div class="chat-screen-container row">
+      <div class="col pe-0">
         <div class="d-grid">
           <% if current_user.admin? %>
             <%= link_to(
@@ -30,13 +30,36 @@
               Add channel
             <% end %>
           <% end %>
-          <p>TODO list of channels</p>
+
+          <% @channels.each do |channel| %>
+            <%= link_to(
+              channel_path(channel),
+              class: "channel-link"
+            ) do %>
+              <div class="m-3">
+                <p class="h4"><%= channel.name %></p>
+                <p class="fst-italic">
+                  Placeholder 'last message sent'
+                </p>
+              </div>
+            <% end %>
+          <% end %>
         </div>
       </div>
 
-      <div class="col-9">
-        <p>TODO message section</p>
-      </div>
+      <% if @channel.present? %>
+        <div class="chat-message-section ps-0 col-9">
+          <%= render partial: "channels/chat_message_section",
+            locals: { channel: @channel }
+          %>
+        </div>
+      <% else %>
+        <div class="chat-message-section ps-0 no-chat col-9">
+          <p class="h2">
+            Click on one of channels on the left to start chatting
+          </p>
+        </div>
+      <% end %>
     </div>
   </body>
 </html>

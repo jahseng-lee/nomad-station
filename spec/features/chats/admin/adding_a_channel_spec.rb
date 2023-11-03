@@ -31,7 +31,7 @@ RSpec.describe "Adding a chat channel", type: :feature, js: true do
         context "filling out the form and clicking 'Add channel'" do
           let(:new_channel_name) { "New channel" }
           before do
-            # TODO fill in new channel name
+            fill_in "Channel name", with: new_channel_name
             click_button "Add channel"
           end
 
