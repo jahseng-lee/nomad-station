@@ -9,4 +9,19 @@
 
 .channel-message-form-section {
   flex: 0;
+  border-top: 1px solid $primary;
+
+  .channel-message-form {
+    display: flex;
+    flex-direction: row;
+
+    .channel-message-textarea {
+      flex: 1;
+    }
+
+    .channel-message-button-container {
+      min-width: 6rem;
+      flex: 0;
+    }
+  }
 }

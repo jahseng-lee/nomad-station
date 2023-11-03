@@ -22,6 +22,33 @@ RSpec.describe "Sending a message", type: :feature, js: true do
         expect(page).to have_link("Feedback and requests")
         expect(page).to have_link("Bugs")
       end
+
+      context "clicking on the 'General' chat" do
+        before do
+          click_link "General"
+        end
+
+        it "shows the channel" do
+          within ".channel-header" do
+            expect(page).to have_content("General")
+          end
+        end
+
+        context "filling out the message form and clicking 'Send'" do
+          let(:new_message) { "My first message!" }
+
+          before do
+            fill_in "Type message...", with: new_message
+            click_button "Send"
+          end
+
+          it "send the message to the chat" do
+            within ".chat-message-section" do
+              expect(page).to have_content(new_message)
+            end
+          end
+        end
+      end
     end
   end
 end

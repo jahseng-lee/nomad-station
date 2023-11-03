@@ -6,6 +6,29 @@
   TODO the messages section
 </div>
 
-<div class="channel-message-form-section">
-  TODO the chat form section
+<div class="channel-message-form-section p-3">
+  <%= form_for [channel, ChannelMessage.new] do |f| %>
+    <div class="channel-message-form">
+      <div class="channel-message-textarea">
+        <%= f.text_area(
+          :body,
+          class: "form-control",
+          rows: 1,
+          placeholder: "Type message...",
+          autofocus: true
+        ) %>
+      </div>
+
+      <div class="channel-message-button-container">
+        <%= f.button(
+          "Send",
+          type: :submit,
+          class: "btn btn-success ms-2"
+        ) do %>
+          <i class="bi bi-send"></i>
+          Send
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </div>
