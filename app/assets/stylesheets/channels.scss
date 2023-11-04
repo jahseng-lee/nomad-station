@@ -1,27 +1,54 @@
-.channel-header {
-  flex: 0;
-  border-bottom: 1px solid $primary;
-}
-
-.channel-message-section {
+.chat-channel-section {
   flex: 1;
-}
 
-.channel-message-form-section {
-  flex: 0;
-  border-top: 1px solid $primary;
+  display: flex;
+  flex-direction: column;
 
-  .channel-message-form {
+  .channel-header {
+    flex: 0;
+    border-bottom: 1px solid $primary;
+  }
+
+  .channel-message-section {
+    flex: 1;
+
     display: flex;
-    flex-direction: row;
+    flex-direction: column-reverse;
 
-    .channel-message-textarea {
-      flex: 1;
+    .chat-message {
+      p {
+        margin: 0.25rem; // reset margin
+        padding: 0.5rem 0.75rem;
+        border-radius: 1.5rem;
+
+        color: $white;
+        background-color: $primary;
+      }
+
+      // TODO message pill
+      &.chat-message-current-user {
+        display: flex;
+        flex-direction: row-reverse;
+      }
     }
+  }
 
-    .channel-message-button-container {
-      min-width: 6rem;
-      flex: 0;
+  .channel-message-form-section {
+    flex: 0;
+    border-top: 1px solid $primary;
+
+    .channel-message-form {
+      display: flex;
+      flex-direction: row;
+
+      .channel-message-textarea {
+        flex: 1;
+      }
+
+      .channel-message-button-container {
+        min-width: 6rem;
+        flex: 0;
+      }
     }
   }
 }

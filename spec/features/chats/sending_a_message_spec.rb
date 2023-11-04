@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe "Sending a message", type: :feature, js: true do
   describe "logged in as regular user with default channels set up" do
     before do
+      # TODO should probably refactor this into a helper method
       create(:channel, name: "General")
       create(:channel, name: "Feedback and requests")
       create(:channel, name: "Bugs")

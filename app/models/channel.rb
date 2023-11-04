@@ -8,4 +8,5 @@ class Channel < ApplicationRecord
   validates :name, presence: true
 
   has_many :channel_members
+  has_many :messages, class_name: "ChannelMessage"
 end

@@ -3,4 +3,6 @@ class ChannelMessage < ApplicationRecord
   belongs_to :sender,
     foreign_key: :user_id,
     class_name: "User"
+
+  validates :body, presence: true
 end

@@ -1,34 +1,48 @@
-<div class="channel-header p-3">
-  <h3><%= channel.name %></h3>
-</div>
+<%= turbo_frame_tag "chat-channel", class: "chat-channel-section" do %>
+  <div class="channel-header p-3">
+    <h3><%= channel.name %></h3>
+  </div>
 
-<div class="channel-message-section">
-  TODO the messages section
-</div>
-
-<div class="channel-message-form-section p-3">
-  <%= form_for [channel, ChannelMessage.new] do |f| %>
-    <div class="channel-message-form">
-      <div class="channel-message-textarea">
-        <%= f.text_area(
-          :body,
-          class: "form-control",
-          rows: 1,
-          placeholder: "Type message...",
-          autofocus: true
-        ) %>
+  <div class="channel-message-section">
+    <% # TODO should probably limit the number of messages %>
+    <% # TODO pagination on scroll %>
+    <% channel.messages.order(created_at: :desc).each do |message| %>
+      <div class="chat-message<%= message.sender == current_user ? ' chat-message-current-user' : nil %>">
+        <p><%= message.body %></p>
       </div>
+    <% end %>
+  </div>
 
-      <div class="channel-message-button-container">
-        <%= f.button(
-          "Send",
-          type: :submit,
-          class: "btn btn-success ms-2"
-        ) do %>
-          <i class="bi bi-send"></i>
-          Send
-        <% end %>
+  <div class="channel-message-form-section p-3">
+    <%= form_for [channel, message] do |f| %>
+      <div class="channel-message-form">
+        <div class="channel-message-textarea">
+          <%= f.text_area(
+            :body,
+            class: "form-control#{ message.errors[:body].any? ? ' is-invalid' : nil }",
+            rows: 1,
+            placeholder: "Type message...",
+            autofocus: true
+          ) %>
+
+          <% if message.errors[:body].present? %>
+            <div class="invalid-feedback">
+              Message body <%= message.errors[:body].first %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="channel-message-button-container">
+          <%= f.button(
+            "Send",
+            type: :submit,
+            class: "btn btn-success ms-2"
+          ) do %>
+            <i class="bi bi-send"></i>
+            Send
+          <% end %>
+        </div>
       </div>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
+<% end %>

@@ -7,6 +7,7 @@ class ChannelsController < ApplicationController
     authorize(@channel)
 
     @channels = current_user.chat_channels
+    @message = ChannelMessage.new
 
     render "chats/show"
   end
@@ -23,6 +24,12 @@ class ChannelsController < ApplicationController
     authorize(@channel)
 
     if @channel.save
+      # Add the admin who created the channel to it
+      ChannelMember.create!(
+        user: current_user,
+        chat_channel: @channel
+      )
+
       redirect_to chat_path
     else
       flash[:error_create_channel] = "Couldn't create channel right now. Please try again"
