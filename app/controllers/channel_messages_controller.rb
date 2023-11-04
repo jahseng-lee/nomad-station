@@ -24,7 +24,7 @@ class ChannelMessagesController < ApplicationController
         render turbo_stream: turbo_stream.replace(
           "chat-channel",
           partial: "channels/chat_message_section",
-          locals: { channel: @channel, message: @message }
+          locals: { channel: @channel, message: ChannelMessage.new }
         )
       end
     end
