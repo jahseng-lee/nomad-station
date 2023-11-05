@@ -19,6 +19,22 @@
     white-space: pre-line;
 
     .chat-message {
+      .message-actions-container {
+        display: none;
+        flex-direction: row;
+        align-items: center;
+
+        a {
+          display: flex;
+        }
+      }
+
+      &:hover {
+        .message-actions-container {
+          display: flex;
+        }
+      }
+
       p {
         margin: 0.25rem; // reset margin
         padding: 0.5rem 0.75rem;
