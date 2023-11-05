@@ -17,7 +17,7 @@
 
   <div class="row">
     <div class="col">
-      <%= form_for @user, data: { turbo: false } do |f| %>
+      <%= form_for @user, data: { turbo_frame: "_top" } do |f| %>
         <%= f.label :display_name %>
         <div class="row">
           <div class="col">

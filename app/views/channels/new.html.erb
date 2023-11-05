@@ -8,7 +8,7 @@
     </div>
   <% end %>
 
-  <%= form_for @channel, data: { turbo: false } do |f| %>
+  <%= form_for @channel, data: { turbo_frame: "_top" } do |f| %>
     <div class="mb-3">
       <%= f.label :name, "Channel name" %>
       <%= f.text_field :name,
