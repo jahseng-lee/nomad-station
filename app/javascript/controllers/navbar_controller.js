@@ -8,19 +8,16 @@ export default class extends Controller {
   ];
 
   connect() {
-    const pathname = window.location.pathname;
+    const firstPath = window.location.pathname.split("/")[1];
 
-    switch(pathname) {
-      case "/profile":
+    switch(firstPath) {
+      case "profile":
         this.profileLinkTarget.classList.add("active");
         break;
-      case "/chat":
+      case "chat": case "channels":
         this.chatLinkTarget.classList.add("active");
         break;
-      case "/search_locations":
-        this.exploreLinkTarget.classList.add("active");
-        break;
-      case "/":
+      case "search_locations": case "locations": case "":
         this.exploreLinkTarget.classList.add("active");
         break;
     }
