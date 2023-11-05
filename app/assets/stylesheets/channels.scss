@@ -6,7 +6,15 @@
 
   .channel-header {
     flex: 0;
+
+    display: flex;
+    flex-direction: row;
+
     border-bottom: 1px solid $primary;
+
+    .leave-channel-button {
+      color: $danger;
+    }
   }
 
   .channel-message-section {

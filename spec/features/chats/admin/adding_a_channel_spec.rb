@@ -2,9 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Adding a chat channel", type: :feature, js: true do
   before do
-    create(:channel, name: "General")
-    create(:channel, name: "Feedback and requests")
-    create(:channel, name: "Bugs")
+    ChatsFeatureHelper.setup_default_channels
 
     visit root_path
   end

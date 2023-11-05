@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Sending a message", type: :feature, js: true do
+RSpec.describe "Leaving a channel", type: :feature, js: true do
   describe "logged in as regular user with default channels set up" do
     before do
       ChatsFeatureHelper.setup_default_channels
@@ -32,31 +32,18 @@ RSpec.describe "Sending a message", type: :feature, js: true do
           end
         end
 
-        context "filling out the message form and clicking 'Send'" do
-          let(:new_message) { "My first message!" }
-
+        context "clicking on the 'Leave channel' button" do
           before do
-            fill_in "Type message...", with: new_message
-            click_button "Send"
-          end
+            find('button[aria-label="Channel settings"]').click
 
-          it "send the message to the chat" do
-            within ".chat-message-section" do
-              expect(page).to have_content(new_message)
+            accept_confirm do
+              click_button "Leave channel"
             end
           end
 
-          context "clicking the delete message button" do
-            before do
-              find(".chat-message-current-user").hover
-              accept_confirm do
-                find('button[aria-label="Delete message"]').click
-              end
-            end
-
-            it "shows a 'Deleted message' message" do
-              expect(page).to have_content "Deleted message"
-            end
+          it "removes the user from the channel" do
+            expect(page).not_to have_content("General")
+            expect(page).not_to have_link("General")
           end
         end
       end

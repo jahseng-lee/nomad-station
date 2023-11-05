@@ -7,6 +7,38 @@
 ) do %>
   <div class="channel-header p-3">
     <h3><%= channel.name %></h3>
+
+    <div class="dropdown ms-2">
+      <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Channel settings">
+        <i class="bi bi-gear-fill"></i>
+      </button>
+
+      <ul class="dropdown-menu">
+        <li>
+          <%= button_to(
+            channel_member_path(ChannelMember.find_by!(
+              user: current_user,
+              chat_channel: channel
+            )),
+            method: :delete,
+            class: "leave-channel-button dropdown-item",
+            data: {
+              turbo_frame: "_top"
+            },
+            form: {
+              data: {
+                turbo_confirm: "Are you sure you want to leave this channel?"
+              }
+            }
+          ) do %>
+            <strong>
+              Leave channel
+              <i class="bi bi-box-arrow-right"></i>
+            </strong>
+          <% end %>
+        </li>
+      </ul>
+    </div>
   </div>
 
   <div class="channel-message-section">
