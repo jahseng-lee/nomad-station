@@ -30,8 +30,29 @@ class ChannelMessagesController < ApplicationController
     end
   end
 
-  def update
-    raise NotImplementedError, "TODO"
+  def destroy
+    @channel = Channel.find(params[:channel_id])
+    @message = @channel.messages.find_by!(
+      id: params[:id],
+      sender: current_user
+    )
+
+    authorize(@message)
+
+    @message.update!(deleted: true)
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(
+          "chat-message-#{@message.id}",
+          partial: "channels/chat_message",
+          locals: {
+            message: @message,
+            channel: @channel
+          }
+        )
+      end
+    end
   end
 
   private

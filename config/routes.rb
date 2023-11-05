@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resource :chat, only: [:show]
   resources :channels, only: [:show, :new, :create] do
-    resources :channel_messages, only: [:create, :update]
+    resources :channel_messages, only: [:create, :destroy]
   end
   resource :choose_plan, only: [:show]
   resources :countries, only: [:update] do

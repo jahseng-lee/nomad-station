@@ -5,4 +5,8 @@ class ChannelMessage < ApplicationRecord
     class_name: "User"
 
   validates :body, presence: true
+
+  def body
+    deleted? ? "Deleted message" : self[:body]
+  end
 end

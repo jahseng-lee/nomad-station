@@ -48,6 +48,19 @@ RSpec.describe "Sending a message", type: :feature, js: true do
               expect(page).to have_content(new_message)
             end
           end
+
+          context "clicking the delete message button" do
+            before do
+              find(".chat-message-current-user").hover
+              accept_confirm do
+                find('button[aria-label="Delete message"]').click
+              end
+            end
+
+            it "shows a 'Deleted message' message" do
+              expect(page).to have_content "Deleted message"
+            end
+          end
         end
       end
     end

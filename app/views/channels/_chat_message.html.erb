@@ -1,0 +1,29 @@
+<%= turbo_frame_tag "chat-message-#{message.id}" do %>
+  <% if message.sender == current_user %>
+    <div class="chat-message chat-message-current-user">
+      <p><%= message.body %></p>
+      <div class="message-actions-container">
+        <%= button_to(
+          channel_channel_message_path(
+            message,
+            channel_id: channel.id
+          ),
+          method: :delete,
+          class: "delete-button",
+          aria: { label: "Delete message" },
+          form: {
+            data: {
+              turbo_confirm: "Are you sure you want to delete this message? This action can't be undone."
+            }
+          }
+        ) do %>
+          <i class="bi bi-x-circle-fill"></i>
+        <% end %>
+      </div>
+    </div>
+  <% else %>
+    <div class="chat-message">
+      <p><%= message.body %></p>
+    </div>
+  <% end %>
+<% end %>

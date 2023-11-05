@@ -4,26 +4,10 @@
   </div>
 
   <div class="channel-message-section">
-    <% # TODO should probably limit the number of messages %>
-    <% # TODO pagination on scroll %>
     <% channel.messages.order(created_at: :desc).each do |message| %>
-      <% if message.sender == current_user %>
-        <div class="chat-message chat-message-current-user">
-          <p><%= message.body %></p>
-          <div class="message-actions-container">
-            <%= link_to(
-              "https://http.cat/404",
-              aria: { label: "Message actions" }
-            ) do %>
-              <i class="bi bi-three-dots"></i>
-            <% end %>
-          </div>
-        </div>
-      <% else %>
-        <div class="chat-message">
-          <p><%= message.body %></p>
-        </div>
-      <% end %>
+      <%= render partial: "channels/chat_message",
+        locals: { message: message, channel: channel }
+      %>
     <% end %>
   </div>
 
