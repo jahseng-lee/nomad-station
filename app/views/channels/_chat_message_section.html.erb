@@ -16,13 +16,17 @@
   <div class="channel-message-form-section p-3">
     <%= form_for [channel, message] do |f| %>
       <div class="channel-message-form">
-        <div class="channel-message-textarea">
+        <div class="channel-message-textarea" data-controller="chat-textarea">
           <%= f.text_area(
             :body,
             class: "form-control#{ message.errors[:body].any? ? ' is-invalid' : nil }",
             rows: 1,
             placeholder: "Type message...",
-            autofocus: true
+            autofocus: true,
+            data: {
+              "chat-textarea-target": "textarea",
+              action: "chat-textarea#resizeTextarea"
+            }
           ) %>
 
           <% if message.errors[:body].present? %>

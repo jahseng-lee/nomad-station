@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import ChatTextareaController from "./chat_textarea_controller"
+application.register("chat-textarea", ChatTextareaController)
+
 import LocationTabsController from "./location_tabs_controller"
 application.register("location-tabs", LocationTabsController)
 
