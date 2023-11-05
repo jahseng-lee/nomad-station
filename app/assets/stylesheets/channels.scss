@@ -16,6 +16,8 @@
     display: flex;
     flex-direction: column-reverse;
 
+    white-space: pre-line;
+
     .chat-message {
       p {
         margin: 0.25rem; // reset margin
