@@ -1,7 +1,6 @@
 <%= turbo_frame_tag "chat-message-#{message.id}" do %>
   <% if message.sender == current_user %>
     <div class="chat-message chat-message-current-user">
-
       <p
         <%= message.deleted? ? " class='fst-italic'".html_safe : nil %>>
         <% if message.reply_to.present? %>

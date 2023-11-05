@@ -44,7 +44,13 @@ export default class extends Controller {
       message.scrollIntoView();
       this._flashMessage(message);
     } else {
-      // TODO display warning
+      const errorMessage = document.getElementById("error-scroll-to-reply");
+      errorMessage.style.display = "block";
+
+      // NOTE: could probably animate fade...
+      setTimeout(() => {
+        errorMessage.style.display = "none";
+      }, 3000);
     }
   }
 
@@ -53,7 +59,8 @@ export default class extends Controller {
     // this is the same as lighten($primary, 70%)
     message.style.backgroundColor = "#d9d9d9";
 
-    // Then flick a couple of times
+    // Then switch to original again
+    // NOTE: could probably animate...
     setTimeout(() => {
       message.style.backgroundColor = "";
     }, 3000);
