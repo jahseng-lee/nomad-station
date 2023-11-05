@@ -10,7 +10,8 @@
   }
 
   .channel-message-section {
-    flex: 1;
+    flex: 1 0 0;
+    overflow: scroll;
 
     display: flex;
     flex-direction: column-reverse;
