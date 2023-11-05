@@ -5,7 +5,8 @@ class ChannelMessage < ApplicationRecord
     class_name: "User"
   belongs_to :reply_to,
     foreign_key: :reply_to_id,
-    class_name: "ChannelMessage"
+    class_name: "ChannelMessage",
+    optional: true
 
   validates :body, presence: true
 
