@@ -1,4 +1,10 @@
-<%= turbo_frame_tag "chat-channel", class: "chat-channel-section" do %>
+<%= turbo_frame_tag(
+  "chat-channel",
+  class: "chat-channel-section",
+  data: {
+    controller: "chat-channel"
+  }
+) do %>
   <div class="channel-header p-3">
     <h3><%= channel.name %></h3>
   </div>
@@ -12,7 +18,30 @@
   </div>
 
   <div class="channel-message-form-section p-3">
+    <div id="reply-to-section" class="reply-to-section">
+      <p>
+        <strong>Replying to
+          <span data-chat-channel-target="replyDisplayName"></span>
+        </strong>
+        <br />
+        <span data-chat-channel-target="replyMessageBody"></span>
+      </p>
+      <%= link_to(
+        "javascript:void(0)",
+        data: { action: "chat-channel#clearReplyTo" }
+      ) do %>
+        <i class="bi bi-x-circle-fill"></i>
+      <% end %>
+    </div>
     <%= form_for [channel, message] do |f| %>
+      <%= f.hidden_field(
+        :reply_to_id,
+        value: nil,
+        data: {
+          "chat-channel-target": "hiddenReplyToField"
+        }
+      ) %>
+
       <div class="channel-message-form">
         <div class="channel-message-textarea" data-controller="chat-textarea">
           <%= f.text_area(

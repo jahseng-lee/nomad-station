@@ -1,9 +1,26 @@
 <%= turbo_frame_tag "chat-message-#{message.id}" do %>
   <% if message.sender == current_user %>
     <div class="chat-message chat-message-current-user">
-      <p<%= message.deleted? ? " class='fst-italic'".html_safe : nil %>><%=
-        message.body
-      %></p>
+
+      <p
+        <%= message.deleted? ? " class='fst-italic'".html_safe : nil %>>
+        <% if message.reply_to.present? %>
+          <%= link_to(
+            "javascript:void(0);",
+            data: {
+              action: "chat-channel#jumpToReply",
+              "reply-to-id": message.reply_to.id
+            }
+          ) do %>
+            <span class="replying-to">
+              <i class="bi bi-reply-fill"></i>
+              Replying to <%= message.reply_to.sender.display_name %>
+            </span>
+          <% end %>
+          <br />
+        <% end %>
+        <span class="message-body"><%= message.body %></span>
+      </p>
       <div class="message-actions-container">
         <%= button_to(
           channel_channel_message_path(
@@ -11,7 +28,7 @@
             channel_id: channel.id
           ),
           method: :delete,
-          class: "delete-button",
+          class: "delete-button me-2",
           aria: { label: "Delete message" },
           form: {
             data: {
@@ -21,6 +38,10 @@
         ) do %>
           <i class="bi bi-x-circle-fill"></i>
         <% end %>
+
+        <%= render partial: "channels/shared/reply_to_link",
+          locals: { message: message }
+        %>
       </div>
     </div>
   <% else %>
@@ -28,6 +49,10 @@
       <p<%= message.deleted? ? " class='fst-italic'".html_safe : nil %>><%=
         message.body
       %></p>
+
+      <%= render partial: "channels/shared/reply_to_link",
+        locals: { message: message }
+      %>
     </div>
   <% end %>
 <% end %>

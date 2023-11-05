@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import ChatChannelController from "./chat_channel_controller"
+application.register("chat-channel", ChatChannelController)
+
 import ChatTextareaController from "./chat_textarea_controller"
 application.register("chat-textarea", ChatTextareaController)
 

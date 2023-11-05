@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_05_090649) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_05_100134) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -39,7 +39,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_05_090649) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "deleted", default: false
+    t.bigint "reply_to_id"
     t.index ["channel_id"], name: "index_channel_messages_on_channel_id"
+    t.index ["reply_to_id"], name: "index_channel_messages_on_reply_to_id"
     t.index ["user_id"], name: "index_channel_messages_on_user_id"
   end
 
@@ -134,4 +136,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_05_090649) do
   end
 
   add_foreign_key "banner_images", "locations"
+  add_foreign_key "channel_messages", "channel_messages", column: "reply_to_id"
 end

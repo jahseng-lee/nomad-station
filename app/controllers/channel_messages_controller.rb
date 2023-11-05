@@ -3,6 +3,7 @@ class ChannelMessagesController < ApplicationController
     @channel = Channel.find(params[:channel_id])
     @message = ChannelMessage.new(
       body: channel_message_params[:body],
+      reply_to_id: channel_message_params[:reply_to_id],
       sender: current_user,
       channel: @channel
     )
@@ -59,6 +60,9 @@ class ChannelMessagesController < ApplicationController
   private
 
   def channel_message_params
-    params.require(:channel_message).permit(:body)
+    params.require(:channel_message).permit(
+      :body,
+      :reply_to_id
+    )
   end
 end

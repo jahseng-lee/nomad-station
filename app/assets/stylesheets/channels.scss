@@ -17,14 +17,12 @@
     flex-direction: column-reverse;
 
     .chat-message {
-      white-space: pre-line;
-
       .message-actions-container {
         display: none;
         flex-direction: row;
         align-items: center;
 
-        button {
+        a, button {
           display: flex;
         }
 
@@ -52,6 +50,15 @@
         display: flex;
         flex-direction: row-reverse;
       }
+
+      .message-body {
+        white-space: pre-line;
+      }
+
+      .replying-to {
+        color: $white;
+        font-size: 0.75rem;
+      }
     }
   }
 
@@ -70,6 +77,15 @@
       .channel-message-button-container {
         min-width: 6rem;
         flex: 0;
+      }
+    }
+
+    .reply-to-section {
+      display: none;
+      flex-direction: row;
+
+      p {
+        flex: 1;
       }
     }
   }
