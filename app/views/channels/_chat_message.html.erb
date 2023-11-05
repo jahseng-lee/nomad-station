@@ -1,7 +1,9 @@
 <%= turbo_frame_tag "chat-message-#{message.id}" do %>
   <% if message.sender == current_user %>
     <div class="chat-message chat-message-current-user">
-      <p><%= message.body %></p>
+      <p<%= message.deleted? ? " class='fst-italic'".html_safe : nil %>><%=
+        message.body
+      %></p>
       <div class="message-actions-container">
         <%= button_to(
           channel_channel_message_path(
@@ -23,7 +25,9 @@
     </div>
   <% else %>
     <div class="chat-message">
-      <p><%= message.body %></p>
+      <p<%= message.deleted? ? " class='fst-italic'".html_safe : nil %>><%=
+        message.body
+      %></p>
     </div>
   <% end %>
 <% end %>
