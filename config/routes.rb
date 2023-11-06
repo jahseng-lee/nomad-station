@@ -7,9 +7,13 @@ Rails.application.routes.draw do
 
   resource :chat, only: [:show]
   resources :channels, only: [:show, :new, :create] do
+    collection do
+      get :joinable
+    end
+
     resources :channel_messages, only: [:create, :destroy]
   end
-  resources :channel_members, only: [:destroy]
+  resources :channel_members, only: [:create, :destroy]
   resource :choose_plan, only: [:show]
   resources :countries, only: [:update] do
     resources :locations, only: [] do

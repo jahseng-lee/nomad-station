@@ -101,5 +101,12 @@
       display: none;
       color: $danger;
     }
+
+    .join-channel-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
   }
 }

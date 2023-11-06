@@ -38,6 +38,31 @@ class ChannelsController < ApplicationController
     end
   end
 
+  def joinable
+    # TODO the query below isn't working - so write a less
+    # efficient query for now
+    #@channels = Channel
+    #  .left_joins(:channel_members)
+    #  .where.not(channel_members: { user_id: current_user.id })
+    current_user_channels = Channel
+      .joins(:channel_members)
+      .where("channel_members.user_id = ?", current_user.id)
+      .pluck(:id)
+
+    @channels = Channel
+      .where(id: Channel.pluck(:id) - current_user_channels)
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(
+          "channel-list",
+          partial: "chats/joinable_channel_list",
+          locals: { channels: @channels }
+        )
+      end
+    end
+  end
+
   private
 
   def channel_params

@@ -1,0 +1,18 @@
+<div class="channel-links-container">
+  <% channels.each do |channel| %>
+    <%= link_to(
+      channel_path(channel),
+      class: "channel-link",
+      data: {
+        turbo_frame: "_top"
+      }
+    ) do %>
+      <div class="m-3">
+        <p class="h4"><%= channel.name %></p>
+        <p class="fst-italic">
+          Placeholder 'last message sent'
+        </p>
+      </div>
+    <% end %>
+  <% end %>
+</div>

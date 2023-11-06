@@ -19,33 +19,9 @@
     <%= render partial: "layouts/navbar" %>
 
     <div class="chat-screen-container row">
-      <div class="col pe-0">
-        <div class="d-grid">
-          <% if current_user.admin? %>
-            <%= link_to(
-              new_channel_path,
-              class: "btn btn-primary m-2"
-            ) do %>
-              <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
-              Add channel
-            <% end %>
-          <% end %>
-
-          <% @channels.each do |channel| %>
-            <%= link_to(
-              channel_path(channel),
-              class: "channel-link"
-            ) do %>
-              <div class="m-3">
-                <p class="h4"><%= channel.name %></p>
-                <p class="fst-italic">
-                  Placeholder 'last message sent'
-                </p>
-              </div>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
+      <%= render partial: "chats/current_user_channel_list",
+        locals: { channels: @channels }
+      %>
 
       <% if @channel.present? %>
         <div class="chat-message-section col-9 ps-0">

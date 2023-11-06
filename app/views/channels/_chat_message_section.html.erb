@@ -5,40 +5,48 @@
     controller: "chat-channel"
   }
 ) do %>
+  <% @is_member = channel
+    .channel_members
+    .where(user_id: current_user.id)
+    .present?
+  %>
+
   <div class="channel-header p-3">
     <h3><%= channel.name %></h3>
 
-    <div class="dropdown ms-2">
-      <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Channel settings">
-        <i class="bi bi-gear-fill"></i>
-      </button>
+    <% if @is_member %>
+      <div class="dropdown ms-2">
+        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Channel settings">
+          <i class="bi bi-gear-fill"></i>
+        </button>
 
-      <ul class="dropdown-menu">
-        <li>
-          <%= button_to(
-            channel_member_path(ChannelMember.find_by!(
-              user: current_user,
-              chat_channel: channel
-            )),
-            method: :delete,
-            class: "leave-channel-button dropdown-item",
-            data: {
-              turbo_frame: "_top"
-            },
-            form: {
+        <ul class="dropdown-menu">
+          <li>
+            <%= button_to(
+              channel_member_path(ChannelMember.find_by!(
+                user: current_user,
+                chat_channel: channel
+              )),
+              method: :delete,
+              class: "leave-channel-button dropdown-item",
               data: {
-                turbo_confirm: "Are you sure you want to leave this channel?"
+                turbo_frame: "_top"
+              },
+              form: {
+                data: {
+                  turbo_confirm: "Are you sure you want to leave this channel?"
+                }
               }
-            }
-          ) do %>
-            <strong>
-              Leave channel
-              <i class="bi bi-box-arrow-right"></i>
-            </strong>
-          <% end %>
-        </li>
-      </ul>
-    </div>
+            ) do %>
+              <strong>
+                Leave channel
+                <i class="bi bi-box-arrow-right"></i>
+              </strong>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    <% end %>
   </div>
 
   <div class="channel-message-section">
@@ -54,61 +62,86 @@
       <strong>Couldn't scroll to message - it may be offscreen</strong>
     </p>
 
-    <div id="reply-to-section" class="reply-to-section">
-      <p>
-        <strong>Replying to
-          <span data-chat-channel-target="replyDisplayName"></span>
-        </strong>
-        <br />
-        <span data-chat-channel-target="replyMessageBody"></span>
-      </p>
-      <%= link_to(
-        "javascript:void(0)",
-        data: { action: "chat-channel#clearReplyTo" }
-      ) do %>
-        <i class="bi bi-x-circle-fill"></i>
+    <% if @is_member %>
+      <div id="reply-to-section" class="reply-to-section">
+        <p>
+          <strong>Replying to
+            <span data-chat-channel-target="replyDisplayName"></span>
+          </strong>
+          <br />
+          <span data-chat-channel-target="replyMessageBody"></span>
+        </p>
+        <%= link_to(
+          "javascript:void(0)",
+          data: { action: "chat-channel#clearReplyTo" }
+        ) do %>
+          <i class="bi bi-x-circle-fill"></i>
+        <% end %>
+      </div>
+      <%= form_for [channel, message] do |f| %>
+        <%= f.hidden_field(
+          :reply_to_id,
+          value: nil,
+          data: {
+            "chat-channel-target": "hiddenReplyToField"
+          }
+        ) %>
+
+        <div class="channel-message-form">
+          <div class="channel-message-textarea" data-controller="chat-textarea">
+            <%= f.text_area(
+              :body,
+              class: "form-control#{ message.errors[:body].any? ? ' is-invalid' : nil }",
+              rows: 1,
+              placeholder: "Type message...",
+              autofocus: true,
+              data: {
+                "chat-textarea-target": "textarea",
+                action: "chat-textarea#resizeTextarea"
+              }
+            ) %>
+
+            <% if message.errors[:body].present? %>
+              <div class="invalid-feedback">
+                Message body <%= message.errors[:body].first %>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="channel-message-button-container">
+            <%= f.button(
+              "Send",
+              type: :submit,
+              class: "btn btn-success ms-2"
+            ) do %>
+              <i class="bi bi-send"></i>
+              Send
+            <% end %>
+          </div>
+        </div>
       <% end %>
-    </div>
-    <%= form_for [channel, message] do |f| %>
-      <%= f.hidden_field(
-        :reply_to_id,
-        value: nil,
-        data: {
-          "chat-channel-target": "hiddenReplyToField"
-        }
-      ) %>
+    <% else %>
+      <div class="join-channel-section">
+        <% if flash[:error_join_channel] %>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%= flash[:error_join_channel] %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% end %>
 
-      <div class="channel-message-form">
-        <div class="channel-message-textarea" data-controller="chat-textarea">
-          <%= f.text_area(
-            :body,
-            class: "form-control#{ message.errors[:body].any? ? ' is-invalid' : nil }",
-            rows: 1,
-            placeholder: "Type message...",
-            autofocus: true,
-            data: {
-              "chat-textarea-target": "textarea",
-              action: "chat-textarea#resizeTextarea"
-            }
-          ) %>
+        <%= form_for(
+          ChannelMember.new,
+          data: {
+            turbo_frame: "_top"
+          }
+        ) do |f| %>
+          <%= f.hidden_field :channel_id, value: channel.id %>
+          <%= f.hidden_field :user_id, value: current_user.id %>
 
-          <% if message.errors[:body].present? %>
-            <div class="invalid-feedback">
-              Message body <%= message.errors[:body].first %>
-            </div>
-          <% end %>
-        </div>
-
-        <div class="channel-message-button-container">
-          <%= f.button(
-            "Send",
-            type: :submit,
-            class: "btn btn-success ms-2"
-          ) do %>
-            <i class="bi bi-send"></i>
-            Send
-          <% end %>
-        </div>
+          <%= f.submit "Join channel",
+            class: "btn btn-success btn-lg"
+          %>
+        <% end %>
       </div>
     <% end %>
   </div>

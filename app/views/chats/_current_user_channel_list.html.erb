@@ -1,0 +1,33 @@
+<%= turbo_frame_tag "channel-list", class: "channel-list-container col pe-0" do %>
+  <div class="channel-list">
+    <%= render partial: "chats/shared/channel_list",
+      locals: { channels: @channels }
+    %>
+
+    <div class="channel-list-actions">
+      <%= link_to(
+        joinable_channels_path,
+        class: "btn btn-primary m-2",
+        data: {
+          turbo_stream: true
+        }
+      ) do %>
+        <i class="bi bi-search" aria-hidden="true"></i>
+        Join channel
+      <% end %>
+
+      <% if current_user.admin? %>
+        <%= link_to(
+          new_channel_path,
+          class: "btn btn-primary mx-2 mb-2",
+          data: {
+            turbo_frame: "_top"
+          }
+        ) do %>
+          <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
+          Add channel
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

@@ -1,7 +1,6 @@
 class ChannelPolicy < ApplicationPolicy
   def show?
-    user.admin? ||
-      record.channel_members.find_by(user_id: user.id).present?
+    user.admin? || user.active_subscription?
   end
 
   def new?

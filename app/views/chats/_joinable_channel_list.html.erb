@@ -1,0 +1,39 @@
+<%= turbo_frame_tag "joinable-channel-list", class: "channel-list-container col pe-0"  do %>
+  <div class="m-2">
+    <div class="input-group">
+      <%= text_field(
+        "",
+        :filter,
+        class: "form-control",
+        placeholder: "Search channels..."
+      ) %>
+      <span class="input-group-text">
+        <i class="bi bi-search" aria-hidden="true"></i>
+      </span>
+    </div>
+  </div>
+
+  <div class="channel-list">
+    <% if channels.any? %>
+      <%= render partial: "chats/shared/channel_list",
+        locals: { channels: channels }
+      %>
+    <% else %>
+      <p class="h5 m-3">
+        Looks like you've joined all available channels.
+      </p>
+    <% end %>
+  </div>
+
+  <div class="channel-list-actions">
+    TODO
+    <ul>
+      <li>
+        show a back link to regular channel list
+      </li>
+      <li>
+        implement a basic functional filter
+      </li>
+    </ul>
+  </div>
+<% end %>
