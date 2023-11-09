@@ -1,11 +1,21 @@
-<%= turbo_frame_tag "joinable-channel-list", class: "channel-list-container col pe-0"  do %>
+<%= turbo_frame_tag(
+  "joinable-channel-list",
+  class: "channel-list-container col pe-0",
+  data: {
+    controller: "joinable-channel-list"
+  }
+) do %>
   <div class="m-2">
     <div class="input-group">
       <%= text_field(
         "",
         :filter,
         class: "form-control",
-        placeholder: "Search channels..."
+        placeholder: "Search channels...",
+        data: {
+          "joinable-channel-list-target": "filterQuery",
+          action: "joinable-channel-list#filter",
+        }
       ) %>
       <span class="input-group-text">
         <i class="bi bi-search" aria-hidden="true"></i>
@@ -30,9 +40,6 @@
     <ul>
       <li>
         show a back link to regular channel list
-      </li>
-      <li>
-        implement a basic functional filter
       </li>
     </ul>
   </div>

@@ -4,7 +4,9 @@
       channel_path(channel),
       class: "channel-link",
       data: {
-        turbo_frame: "_top"
+        turbo_frame: "_top",
+        "channel-link": true,
+        "channel-name": channel.name
       }
     ) do %>
       <div class="m-3">
