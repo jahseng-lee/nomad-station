@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :channels, only: [:show, :new, :create] do
     collection do
       get :joinable
+      get :current_user_list
     end
 
     resources :channel_messages, only: [:create, :destroy]

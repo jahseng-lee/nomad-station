@@ -33,14 +33,18 @@
         Looks like you've joined all available channels.
       </p>
     <% end %>
-  </div>
 
-  <div class="channel-list-actions">
-    TODO
-    <ul>
-      <li>
-        show a back link to regular channel list
-      </li>
-    </ul>
+    <div class="channel-list-actions">
+      <%= link_to(
+        current_user_list_channels_path,
+        class: "btn btn-primary m-2",
+        data: {
+          turbo_stream: true
+        }
+      ) do %>
+        <i class="bi bi-chevron-left" aria-hidden="true"></i>
+        Back to your channels
+      <% end %>
+    </div>
   </div>
 <% end %>
