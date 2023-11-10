@@ -40,4 +40,11 @@ class User < ApplicationRecord
     !self.admin? &&
       self[:subscription_status].nil?
   end
+
+  def unread_message_count
+    channel_members
+      .joins(:chat_channel)
+      .where("channel_members.last_active < channels.last_action_at")
+      .count
+  end
 end

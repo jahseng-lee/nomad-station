@@ -11,6 +11,15 @@ class ChannelMessagesController < ApplicationController
     authorize(@message)
 
     if @message.save
+      ChannelMember
+        .find_by!(
+          user: current_user,
+          chat_channel: @channel
+        )
+        .update!(
+          last_active: Time.now
+        )
+      @channel.update!(last_action_at: Time.now)
       # TODO use turbo_stream and cable to update other users, including:
       #      * their messages
       #      * the relevant channels on the channel list
