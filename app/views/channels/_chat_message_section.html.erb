@@ -5,16 +5,11 @@
     controller: "chat-channel"
   }
 ) do %>
-  <% @is_member = channel
-    .channel_members
-    .where(user_id: current_user.id)
-    .present?
-  %>
 
   <div class="channel-header p-3">
     <h3><%= channel.name %></h3>
 
-    <% if @is_member %>
+    <% if channel.include?(user: current_user) %>
       <div class="dropdown ms-2">
         <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Channel settings">
           <i class="bi bi-gear-fill"></i>
@@ -62,7 +57,7 @@
       <strong>Couldn't scroll to message - it may be offscreen</strong>
     </p>
 
-    <% if @is_member %>
+    <% if channel.include?(user: current_user) %>
       <div id="reply-to-section" class="reply-to-section">
         <p>
           <strong>Replying to

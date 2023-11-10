@@ -9,6 +9,13 @@ class ChannelsController < ApplicationController
     @channels = current_user.chat_channels
     @message = ChannelMessage.new
 
+    if @channel.include?(user: current_user)
+      @channel
+        .channel_members
+        .find_by!(user: current_user)
+        .update!(last_active: Time.now)
+    end
+
     render "chats/show"
   end
 
