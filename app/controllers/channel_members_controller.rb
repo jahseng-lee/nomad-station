@@ -1,7 +1,7 @@
 class ChannelMembersController < ApplicationController
   def create
-    @channel = Channel.find(channel_member_params[:channel_id])
-    @user = User.find(channel_member_params[:user_id])
+    @channel = Channel.find(create_channel_member_params[:channel_id])
+    @user = User.find(create_channel_member_params[:user_id])
 
     @member = ChannelMember.new(
       chat_channel: @channel,
@@ -26,9 +26,19 @@ class ChannelMembersController < ApplicationController
     redirect_to chat_path
   end
 
+  def update_last_active
+    @member = ChannelMember.find(params[:id])
+
+    authorize(@member)
+
+    @member.update!(last_active: Time.now)
+
+    render json: {}, status: 200
+  end
+
   private
 
-  def channel_member_params
+  def create_channel_member_params
     params.require(:channel_member).permit(
       :channel_id,
       :user_id

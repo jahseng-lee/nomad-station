@@ -254,6 +254,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rails/ujs@npm:^7.1.1":
+  version: 7.1.1
+  resolution: "@rails/ujs@npm:7.1.1"
+  checksum: 7ad78c989884765e7cdb424b6e3215c9d7e3cc08092071461bcdd34f72460225972987ec08e8b5bad1d9e81c0403b4bb34a8cf3892de91bc46745b36347e79d4
+  languageName: node
+  linkType: hard
+
 "@tootallnate/once@npm:2":
   version: 2.0.0
   resolution: "@tootallnate/once@npm:2.0.0"
@@ -343,6 +350,7 @@ __metadata:
     "@hotwired/stimulus": ^3.2.2
     "@hotwired/turbo-rails": ^7.3.0
     "@popperjs/core": ^2.11.8
+    "@rails/ujs": ^7.1.1
     autoprefixer: ^10.4.15
     bootstrap: ^5.3.2
     bootstrap-icons: ^1.11.1

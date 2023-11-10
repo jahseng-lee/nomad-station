@@ -2,7 +2,13 @@
   "chat-channel",
   class: "chat-channel-section",
   data: {
-    controller: "chat-channel"
+    controller: "chat-channel",
+    "chat-channel-channel-member-id-value": channel.include?(user: current_user) ? (
+      ChannelMember.find_by(
+        user: current_user,
+        chat_channel: channel
+      ).id
+    ) : nil
   }
 ) do %>
 

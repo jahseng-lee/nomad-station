@@ -1,5 +1,6 @@
-import { Controller } from "@hotwired/stimulus"
-import { Modal } from "bootstrap"
+import { Controller } from "@hotwired/stimulus";
+import { Modal } from "bootstrap";
+import Rails from "@rails/ujs";
 
 export default class extends Controller {
   static targets = [
@@ -7,6 +8,28 @@ export default class extends Controller {
     "replyDisplayName",
     "replyMessageBody"
   ];
+  static values = {
+    channelMemberId: String,
+  };
+
+  connect() {
+    if (!!this.channelMemberIdValue) {
+      setInterval(() => {
+        fetch(
+          `/channel_members/${this.channelMemberIdValue}/update_last_active`,
+          {
+            method: "PATCH",
+            credentials: 'same-origin',
+            headers: { 'X-CSRF_Token': Rails.csrfToken() }
+          }
+        )
+          .catch((error) => {
+            // TODO error handling
+            // Pop a modal up and get them to refresh?
+          });
+      }, 10000);
+    }
+  }
 
   setReplyTo(event) {
     const messageId = event.currentTarget.dataset.messageId;

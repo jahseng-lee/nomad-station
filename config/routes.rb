@@ -14,7 +14,11 @@ Rails.application.routes.draw do
 
     resources :channel_messages, only: [:create, :destroy]
   end
-  resources :channel_members, only: [:create, :destroy]
+  resources :channel_members, only: [:create, :destroy] do
+    member do
+      patch :update_last_active
+    end
+  end
   resource :choose_plan, only: [:show]
   resources :countries, only: [:update] do
     resources :locations, only: [] do
