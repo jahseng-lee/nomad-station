@@ -5,7 +5,9 @@ Rails.application.routes.draw do
     confirmations: "confirmations"
   }
 
-  resource :chat, only: [:show]
+  resource :chat, only: [:show] do
+    get :navbar_link
+  end
   resources :channels, only: [:show, :new, :create] do
     collection do
       get :joinable

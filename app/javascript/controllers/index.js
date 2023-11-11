@@ -19,8 +19,8 @@ application.register("location-tabs", LocationTabsController)
 import ModalController from "./modal_controller"
 application.register("modal", ModalController)
 
-import NavbarController from "./navbar_controller"
-application.register("navbar", NavbarController)
+import NavbarLinkController from "./navbar_link_controller"
+application.register("navbar-link", NavbarLinkController)
 
 import SearchEligibleCountriesController from "./search_eligible_countries_controller"
 application.register("search-eligible-countries", SearchEligibleCountriesController)

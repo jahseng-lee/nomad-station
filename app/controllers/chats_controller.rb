@@ -11,6 +11,20 @@ class ChatsController < ApplicationController
     @channels = current_user.chat_channels
   end
 
+  def navbar_link
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(
+          "navbar-chat-link",
+          partial: "layouts/navbar/chat_link",
+          locals: {
+            user: current_user
+          }
+        )
+      end
+    end
+  end
+
   private
 
   def add_user_to_default_channels
