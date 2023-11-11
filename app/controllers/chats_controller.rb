@@ -8,7 +8,9 @@ class ChatsController < ApplicationController
   def show
     add_user_to_default_channels
 
-    @channels = current_user.chat_channels
+    @channels = current_user
+      .chat_channels
+      .order(:last_action_at)
   end
 
   def navbar_link

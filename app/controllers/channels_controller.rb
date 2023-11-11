@@ -6,7 +6,9 @@ class ChannelsController < ApplicationController
 
     authorize(@channel)
 
-    @channels = current_user.chat_channels
+    @channels = current_user
+      .chat_channels
+      .order(:last_action_at)
     @message = ChannelMessage.new
 
     if @channel.include?(user: current_user)
@@ -58,6 +60,7 @@ class ChannelsController < ApplicationController
 
     @channels = Channel
       .where(id: Channel.pluck(:id) - current_user_channels)
+      .order(:last_action_at)
 
     respond_to do |format|
       format.turbo_stream do
