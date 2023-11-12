@@ -32,17 +32,14 @@
         </li>
 
         <li class="nav-item">
-          <%
-            # Render chat-link as a basic chat link, then
-            # lazily load the chat link updated with any
-            # unread messages from the user
-          %>
           <%= turbo_frame_tag(
             "navbar-chat-link",
-            src: navbar_link_chat_path(
-              format: :turbo_stream,
-              active: request.path.include?("chat") || request.path.include?("channel")
-            )
+            src: current_user.present? ? (
+              navbar_link_chat_path(
+                format: :turbo_stream,
+                active: request.path.include?("chat") || request.path.include?("channel")
+              )
+            ) : nil
           ) do %>
             <%= link_to(
               chat_path,
