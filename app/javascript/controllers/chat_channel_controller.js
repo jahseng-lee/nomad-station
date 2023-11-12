@@ -40,8 +40,8 @@ export default class extends Controller {
 
     // If the first line is long, just get the first 47 characters then
     // "..."
-    if (messageBody > 50) {
-      messageBody = messageBody.slice(0, 47) + "...";
+    if (messageBody.length > 150) {
+      messageBody = messageBody.slice(0, 147) + "...";
     }
 
     document.getElementById("reply-to-section").style.display = "flex";

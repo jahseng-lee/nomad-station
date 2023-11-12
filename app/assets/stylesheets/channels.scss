@@ -66,6 +66,10 @@
         white-space: pre-line;
       }
 
+      .replying-to-link {
+        border-bottom: 1px solid $white;
+      }
+
       .replying-to {
         color: $white;
         font-size: 0.75rem;

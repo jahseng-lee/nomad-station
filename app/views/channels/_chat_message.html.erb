@@ -13,6 +13,8 @@
           <span class="replying-to">
             <i class="bi bi-reply-fill"></i>
             Replying to <%= message.reply_to.sender.display_name %>
+            <br />
+            <%= helper_short_message(message: message.reply_to.body) %>
           </span>
         <% end %>
         <br />
