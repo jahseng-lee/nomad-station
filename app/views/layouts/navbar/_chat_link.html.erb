@@ -1,7 +1,9 @@
+<%= turbo_stream_from "user-#{user.id}-navbar-chat-link" %>
+
 <%= turbo_frame_tag "navbar-chat-link" do %>
   <%= link_to(
     chat_path,
-    class: "nav-link",
+    class: "nav-link#{user.unread_message_count != 0 ? ' fw-bold' : nil}",
     data: {
       controller: "navbar-link",
       "navbar-link-active-paths-value": ['chat', 'channels'],
@@ -13,4 +15,3 @@
     Chat<%= user.unread_message_count != 0 ? " (#{user.unread_message_count})" : nil %>
   <% end %>
 <% end %>
-

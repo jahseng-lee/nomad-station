@@ -45,13 +45,31 @@
     </div>
   <% else %>
     <div class="chat-message">
-      <p<%= message.deleted? ? " class='fst-italic'".html_safe : nil %>><%=
-        message.body
-      %></p>
+      <p
+        <%= message.deleted? ? " class='fst-italic'".html_safe : nil %>>
+        <% if message.reply_to.present? %>
+          <%= link_to(
+            "javascript:void(0);",
+            data: {
+              action: "chat-channel#jumpToReply",
+              "reply-to-id": message.reply_to.id
+            }
+          ) do %>
+            <span class="replying-to">
+              <i class="bi bi-reply-fill"></i>
+              Replying to <%= message.reply_to.sender.display_name %>
+            </span>
+          <% end %>
+          <br />
+        <% end %>
+        <span class="message-body"><%= message.body %></span>
+      </p>
 
-      <%= render partial: "channels/shared/reply_to_link",
-        locals: { message: message }
-      %>
+      <div class="message-actions-container">
+        <%= render partial: "channels/shared/reply_to_link",
+          locals: { message: message }
+        %>
+      </div>
     </div>
   <% end %>
 <% end %>

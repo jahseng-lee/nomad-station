@@ -12,10 +12,21 @@ class ChannelsController < ApplicationController
     @message = ChannelMessage.new
 
     if @channel.include?(user: current_user)
+      # NOTE this should probably be a background job
       @channel
         .channel_members
         .find_by!(user: current_user)
         .update!(last_active: Time.now)
+
+      Turbo::StreamsChannel.broadcast_action_to(
+        "user-#{current_user}-navbar-chat-link",
+        action: :replace,
+        target: "navbar-chat-link",
+        partial: "layouts/navbar/chat_link",
+        locals: {
+          user: current_user
+        }
+      )
     end
 
     render "chats/show"

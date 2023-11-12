@@ -3,7 +3,7 @@ require "securerandom"
 class ChatsController < ApplicationController
   layout false, only: [:show]
 
-  before_action :authenticate_subscription!
+  before_action :authenticate_subscription!, only: [:show]
 
   def show
     add_user_to_default_channels

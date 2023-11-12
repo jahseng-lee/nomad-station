@@ -25,6 +25,9 @@
     flex-direction: column-reverse;
 
     .chat-message {
+      display: flex;
+      flex-direction: row;
+
       .message-actions-container {
         display: none;
         flex-direction: row;
