@@ -1,26 +1,26 @@
 <%= turbo_frame_tag "chat-message-#{message.id}" do %>
-  <% if message.sender == current_user %>
-    <div class="chat-message chat-message-current-user">
-      <p
-        <%= message.deleted? ? " class='fst-italic'".html_safe : nil %>>
-        <% if message.reply_to.present? %>
-          <%= link_to(
-            "javascript:void(0);",
-            data: {
-              action: "chat-channel#jumpToReply",
-              "reply-to-id": message.reply_to.id
-            }
-          ) do %>
-            <span class="replying-to">
-              <i class="bi bi-reply-fill"></i>
-              Replying to <%= message.reply_to.sender.display_name %>
-            </span>
-          <% end %>
-          <br />
+  <div class="chat-message<%= message.sender == current_user ? ' chat-message-current-user'.html_safe : nil %>">
+    <p
+      <%= message.deleted? ? " class='fst-italic'".html_safe : nil %>>
+      <% if message.reply_to.present? %>
+        <%= link_to(
+          "javascript:void(0);",
+          data: {
+            action: "chat-channel#jumpToReply",
+            "reply-to-id": message.reply_to.id
+          }
+        ) do %>
+          <span class="replying-to">
+            <i class="bi bi-reply-fill"></i>
+            Replying to <%= message.reply_to.sender.display_name %>
+          </span>
         <% end %>
-        <span class="message-body"><%= message.body %></span>
-      </p>
-      <div class="message-actions-container">
+        <br />
+      <% end %>
+      <span class="message-body"><%= message.body %></span>
+    </p>
+    <div class="message-actions-container">
+      <% if message.sender == current_user || current_user.admin? %>
         <%= button_to(
           channel_channel_message_path(
             message,
@@ -37,39 +37,11 @@
         ) do %>
           <i class="bi bi-x-circle-fill"></i>
         <% end %>
+      <% end %>
 
-        <%= render partial: "channels/shared/reply_to_link",
-          locals: { message: message }
-        %>
-      </div>
+      <%= render partial: "channels/shared/reply_to_link",
+        locals: { message: message }
+      %>
     </div>
-  <% else %>
-    <div class="chat-message">
-      <p
-        <%= message.deleted? ? " class='fst-italic'".html_safe : nil %>>
-        <% if message.reply_to.present? %>
-          <%= link_to(
-            "javascript:void(0);",
-            data: {
-              action: "chat-channel#jumpToReply",
-              "reply-to-id": message.reply_to.id
-            }
-          ) do %>
-            <span class="replying-to">
-              <i class="bi bi-reply-fill"></i>
-              Replying to <%= message.reply_to.sender.display_name %>
-            </span>
-          <% end %>
-          <br />
-        <% end %>
-        <span class="message-body"><%= message.body %></span>
-      </p>
-
-      <div class="message-actions-container">
-        <%= render partial: "channels/shared/reply_to_link",
-          locals: { message: message }
-        %>
-      </div>
-    </div>
-  <% end %>
+  </div>
 <% end %>

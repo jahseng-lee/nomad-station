@@ -5,6 +5,6 @@ class ChannelMessagePolicy < ApplicationPolicy
   end
 
   def destroy?
-    create?
+    user.admin? || create?
   end
 end
