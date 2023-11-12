@@ -6,9 +6,7 @@ class ChannelsController < ApplicationController
 
     authorize(@channel)
 
-    @channels = current_user
-      .chat_channels
-      .order(:last_action_at)
+    @channels = current_user.chat_channels
     @message = ChannelMessage.new
 
     if @channel.include?(user: current_user)

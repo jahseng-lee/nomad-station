@@ -41,10 +41,21 @@ class User < ApplicationRecord
       self[:subscription_status].nil?
   end
 
-  def unread_message_count
+  def unread_channel_count
     channel_members
       .joins(:chat_channel)
       .where("channel_members.last_active < channels.last_action_at")
+      .count
+  end
+
+  def unread_message_count(channel:)
+    member = channel.channel_members.find_by(user_id: self[:id])
+
+    return 0 if member.nil?
+
+    channel
+      .messages
+      .where("created_at > ?", member.last_active)
       .count
   end
 end

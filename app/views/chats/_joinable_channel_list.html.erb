@@ -26,7 +26,7 @@
   <div class="channel-list">
     <% if channels.any? %>
       <%= render partial: "chats/shared/channel_list",
-        locals: { channels: channels }
+        locals: { user: current_user, channels: channels }
       %>
     <% else %>
       <p class="h5 m-3">

@@ -1,8 +1,8 @@
 <div class="channel-links-container">
-  <% channels.each do |channel| %>
+  <% channels.order(last_action_at: :desc).each do |channel| %>
     <%= link_to(
       channel_path(channel),
-      class: "channel-link",
+      class: "channel-link#{user.unread_message_count(channel: channel) != 0 ? ' fw-bold' : nil}",
       data: {
         turbo_frame: "_top",
         "channel-link": true,
@@ -10,7 +10,10 @@
       }
     ) do %>
       <div class="m-3">
-        <p class="h4"><%= channel.name %></p>
+        <p class="h4">
+          <%= channel.name %>
+          <%= user.unread_message_count(channel: channel) != 0 ? "(#{user.unread_message_count(channel: channel)})".html_safe : nil %>
+        </p>
         <p class="fst-italic">
           <% if channel.messages.any? %>
             <%= helper_short_message(message: channel.latest_message.body) %>

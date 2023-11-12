@@ -27,7 +27,8 @@ class ChannelMessagesController < ApplicationController
       # Update users of the channel
       # NOTE this should probably be a background job
       @channel.channel_members.each do |channel_member|
-        next if current_user == channel_member.user
+        user = channel_member.user
+        next if current_user == user
 
         Turbo::StreamsChannel.broadcast_action_to(
           "user-#{channel_member.user_id}-navbar-chat-link",
@@ -35,28 +36,28 @@ class ChannelMessagesController < ApplicationController
           target: "navbar-chat-link",
           partial: "layouts/navbar/chat_link",
           locals: {
-            user: channel_member.user
+            user: user,
           }
         )
-      end
 
-      # TODO use turbo_stream and cable to update other users, including:
-      #      * their messages
-      #      * the relevant channels on the channel list
-      #      * the navbar
-      #      This should probably be a background task using sidekiq
+        Turbo::StreamsChannel.broadcast_action_to(
+          "user-#{channel_member.user_id}-chat",
+          action: :replace,
+          target: "channel-list",
+          partial: "chats/current_user_channel_list",
+          locals: {
+            user: user,
+          }
+        )
+
+        # TODO broadcast an append to the specific conversation
+      end
     end
 
     # If message.save fails, the partial handles the error messaging
     # Else just re-render the section and show the sent message
     respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.replace(
-          "chat-channel",
-          partial: "channels/chat_message_section",
-          locals: { channel: @channel, message: ChannelMessage.new }
-        )
-      end
+      format.turbo_stream
     end
   end
 

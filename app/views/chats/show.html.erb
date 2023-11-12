@@ -18,9 +18,13 @@
   <body>
     <%= render partial: "layouts/navbar" %>
 
+    <%= turbo_stream_from "user-#{current_user.id}-chat" %>
+
     <div class="chat-screen-container row">
       <%= render partial: "chats/current_user_channel_list",
-        locals: { channels: @channels }
+        locals: {
+          user: current_user
+        }
       %>
 
       <% if @channel.present? %>

@@ -1,7 +1,10 @@
 <%= turbo_frame_tag "channel-list", class: "channel-list-container col pe-0" do %>
   <div class="channel-list">
     <%= render partial: "chats/shared/channel_list",
-      locals: { channels: @channels }
+      locals: {
+        channels: user.chat_channels,
+        user: user
+      }
     %>
 
     <div class="channel-list-actions">
@@ -16,7 +19,7 @@
         Join channel
       <% end %>
 
-      <% if current_user.admin? %>
+      <% if user.admin? %>
         <%= link_to(
           new_channel_path,
           class: "btn btn-primary mx-2 mb-2",
