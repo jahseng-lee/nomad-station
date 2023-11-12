@@ -27,6 +27,8 @@ class ChannelMessagesController < ApplicationController
       # Update users of the channel
       # NOTE this should probably be a background job
       @channel.channel_members.each do |channel_member|
+        next if current_user == channel_member.user
+
         Turbo::StreamsChannel.broadcast_action_to(
           "user-#{channel_member.user_id}-navbar-chat-link",
           action: :replace,
