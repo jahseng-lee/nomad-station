@@ -5,6 +5,7 @@ import Rails from "@rails/ujs";
 export default class extends Controller {
   static targets = [
     "hiddenReplyToField",
+    "messageTextarea",
     "replyDisplayName",
     "replyMessageBody"
   ];
@@ -48,6 +49,7 @@ export default class extends Controller {
     this.hiddenReplyToFieldTarget.value = messageId;
     this.replyDisplayNameTarget.innerText = messageSender;
     this.replyMessageBodyTarget.innerText = messageBody;
+    this.messageTextareaTarget.focus();
   }
 
   clearReplyTo() {
