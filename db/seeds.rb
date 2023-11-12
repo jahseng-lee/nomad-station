@@ -541,7 +541,10 @@ end
 def setup_default_chat_channels
   puts "Setting up default chat channels"
   Channel::DEFAULT_CHAT_CHANNELS.each do |channel_name|
-    Channel.find_or_create_by!(name: channel_name)
+    Channel.find_or_create_by!(
+      name: channel_name,
+      last_action_at: Time.now
+    )
   end
   puts "Finished setting up default chat channels"
 end

@@ -37,7 +37,11 @@ class ChannelsController < ApplicationController
   end
 
   def create
-    @channel = Channel.new(channel_params)
+    @channel = Channel.new(
+      channel_params.merge({
+        last_action_at: Time.now
+      }),
+    )
 
     authorize(@channel)
 
