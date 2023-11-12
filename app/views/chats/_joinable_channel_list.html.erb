@@ -29,9 +29,11 @@
         locals: { user: current_user, channels: channels }
       %>
     <% else %>
-      <p class="h5 m-3">
-        Looks like you've joined all available channels.
-      </p>
+      <div class="channel-links-container">
+        <p class="h5 m-3">
+          Looks like you've joined all available channels.
+        </p>
+      </div>
     <% end %>
 
     <div class="channel-list-actions">
