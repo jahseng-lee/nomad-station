@@ -13,4 +13,8 @@ class Channel < ApplicationRecord
   def include?(user:)
     channel_members.find_by(user_id: user.id).present?
   end
+
+  def latest_message
+    messages.order(:created_at).last
+  end
 end

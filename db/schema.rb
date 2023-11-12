@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_10_094026) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_12_125159) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_10_094026) do
     t.boolean "deleted", default: false
     t.bigint "reply_to_id"
     t.index ["channel_id"], name: "index_channel_messages_on_channel_id"
+    t.index ["created_at"], name: "index_channel_messages_on_created_at"
     t.index ["reply_to_id"], name: "index_channel_messages_on_reply_to_id"
     t.index ["user_id"], name: "index_channel_messages_on_user_id"
   end

@@ -12,7 +12,11 @@
       <div class="m-3">
         <p class="h4"><%= channel.name %></p>
         <p class="fst-italic">
-          Placeholder 'last message sent'
+          <% if channel.messages.any? %>
+            <%= helper_short_message(message: channel.latest_message.body) %>
+          <% else %>
+            No messages sent yet
+          <% end %>
         </p>
       </div>
     <% end %>
