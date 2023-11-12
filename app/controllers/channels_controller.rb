@@ -92,9 +92,9 @@ class ChannelsController < ApplicationController
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: turbo_stream.replace(
-          "channel-list",
+          "joinable-channel-list",
           partial: "chats/current_user_channel_list",
-          locals: { user: current_user }
+          locals: { channels: @channels }
         )
       end
     end

@@ -21,17 +21,11 @@
     <%= turbo_stream_from "user-#{current_user.id}-chat" %>
 
     <div class="chat-screen-container row">
-      <%= turbo_frame_tag(
-        "channel-list",
-        class: "channel-list-container col pe-0",
-        src: current_user_list_channels_path(format: :turbo_stream)
-      ) do %>
-        <div class="channel-list">
-          <div class="channel-links-container">
-            <p class="m-2">Loading channels...</p>
-          </div>
-        </div>
-      <% end %>
+      <%= render partial: "chats/current_user_channel_list",
+        locals: {
+          user: current_user
+        }
+      %>
 
       <% if @channel.present? %>
         <div class="chat-message-section col-9 ps-0">
