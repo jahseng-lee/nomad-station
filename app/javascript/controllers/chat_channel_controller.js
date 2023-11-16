@@ -20,10 +20,15 @@ export default class extends Controller {
           `/channel_members/${this.channelMemberIdValue}/update_last_active`,
           {
             method: "PATCH",
-            credentials: 'same-origin',
-            headers: { 'X-CSRF_Token': Rails.csrfToken() }
+            credentials: "same-origin",
+            headers: { "X-CSRF_Token": Rails.csrfToken() },
+            format: "TURBO_STREAM"
           }
         )
+          .then((response) => response.text())
+          .then((html) => {
+            Turbo.renderStreamMessage(html);
+          })
           .catch((error) => {
             // TODO error handling
             // Pop a modal up and get them to refresh?

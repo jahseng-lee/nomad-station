@@ -31,9 +31,22 @@ class ChannelMembersController < ApplicationController
 
     authorize(@member)
 
+    previous_last_active = @member.last_active
     @member.update!(last_active: Time.now)
 
-    render json: {}, status: 200
+    respond_to do |format|
+      format.turbo_stream do
+        if previous_last_active < @member.chat_channel.last_action_at
+          render turbo_stream: turbo_stream.replace(
+            "channel-list",
+            partial: "chats/current_user_channel_list",
+            locals: {
+              user: current_user
+            }
+          )
+        end
+      end
+    end
   end
 
   private
