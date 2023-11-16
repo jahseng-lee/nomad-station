@@ -50,7 +50,17 @@ class ChannelMessagesController < ApplicationController
           }
         )
 
-        # TODO broadcast an append to the specific conversation
+        Turbo::StreamsChannel.broadcast_action_to(
+          "user-#{channel_member.user_id}-channel-#{@channel.id}",
+          action: :prepend, # NOTE: prepend because column-reverse flex
+          target: "channel-message-section",
+          partial: "channels/chat_message",
+          locals: {
+            message: @message,
+            channel: @channel,
+            user: user
+          }
+        )
       end
     end
 

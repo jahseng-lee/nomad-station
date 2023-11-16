@@ -1,3 +1,5 @@
+<%= turbo_stream_from "user-#{current_user.id}-channel-#{channel.id}" %>
+
 <%= turbo_frame_tag(
   "chat-channel",
   class: "chat-channel-section",
@@ -50,13 +52,17 @@
     <% end %>
   </div>
 
-  <div class="channel-message-section">
+  <%= turbo_frame_tag "channel-message-section", class: "channel-message-section" do %>
     <% channel.messages.order(created_at: :desc).each do |message| %>
       <%= render partial: "channels/chat_message",
-        locals: { message: message, channel: channel }
+        locals: {
+          message: message,
+          channel: channel,
+          user: current_user
+        }
       %>
     <% end %>
-  </div>
+  <% end %>
 
   <div class="channel-message-form-section p-3">
     <p id="error-scroll-to-reply" class="error-scroll-to-reply">
