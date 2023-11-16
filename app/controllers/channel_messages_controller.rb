@@ -82,6 +82,23 @@ class ChannelMessagesController < ApplicationController
 
     @message.update!(deleted: true)
 
+    @channel.channel_members.each do |channel_member|
+      user = channel_member.user
+      next if current_user == user
+
+      Turbo::StreamsChannel.broadcast_action_to(
+        "user-#{channel_member.user_id}-channel-#{@channel.id}",
+        action: :replace,
+        target: "chat-message-#{@message.id}",
+        partial: "channels/chat_message",
+        locals: {
+          message: @message,
+          channel: @channel,
+          user: user
+        }
+      )
+    end
+
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: turbo_stream.replace(
@@ -89,7 +106,8 @@ class ChannelMessagesController < ApplicationController
           partial: "channels/chat_message",
           locals: {
             message: @message,
-            channel: @channel
+            channel: @channel,
+            user: current_user
           }
         )
       end
