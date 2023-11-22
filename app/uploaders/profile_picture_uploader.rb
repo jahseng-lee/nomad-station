@@ -6,7 +6,7 @@ class ProfilePictureUploader < Shrine
 
     {
       # 3x usage size
-      chat: magick.resize_to_fill!(360, 360), # TODO determine size
+      chat: magick.resize_to_fill!(108, 108),
       main: magick.resize_to_fill!(540, 540),
     }
   end
