@@ -1,5 +1,23 @@
 <%= turbo_frame_tag "chat-message-#{message.id}" do %>
+  <% if message.sender != user %>
+    <span class="message-sender">
+      <%= message.sender.display_name %>
+    </span>
+  <% end %>
+
   <div class="chat-message<%= message.sender == user ? ' chat-message-current-user'.html_safe : nil %>">
+    <% if message.sender != user %>
+      <% if message.sender.profile_picture.present? %>
+        <div>
+          <%= image_tag(
+            message.sender.profile_picture.image_url(:chat),
+            class: "profile-picture"
+          ) %>
+        </div>
+      <% else %>
+      <% end %>
+    <% end %>
+
     <p
       <%= message.deleted? ? " class='fst-italic'".html_safe : nil %>>
       <% if message.reply_to.present? %>
@@ -21,6 +39,7 @@
       <% end %>
       <span class="message-body"><%= message.body %></span>
     </p>
+
     <div class="message-actions-container">
       <% if message.sender == user || user.admin? %>
         <%= button_to(
