@@ -82,7 +82,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_22_102306) do
 
   create_table "profile_pictures", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.jsonb "image_data"
+    t.jsonb "image_data", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_profile_pictures_on_user_id"

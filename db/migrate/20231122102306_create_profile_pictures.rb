@@ -2,7 +2,7 @@ class CreateProfilePictures < ActiveRecord::Migration[7.0]
   def change
     create_table :profile_pictures do |t|
       t.references :user, null: false
-      t.jsonb :image_data
+      t.jsonb :image_data, null: false
 
       t.timestamps
     end

@@ -1,0 +1,42 @@
+<%= turbo_frame_tag "upload-profile-picture-modal" do %>
+  <div
+      class="modal"
+      tabindex="-1"
+      data-controller="modal"
+      data-modal-target="modal"
+      >
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <%= form_for(
+          [user, profile_picture],
+          data: { turbo_frame: "_top" }
+        ) do |f| %>
+          <div class="modal-header">
+            <h1 class="modal-title fs-5">Upload profile picture</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <%= f.hidden_field(
+              :image,
+              value: profile_picture.cached_image_data,
+              id: nil
+            ) %>
+
+            <div class="mb-3">
+              <%= f.file_field :image, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <%= f.submit(
+              "Upload",
+              class: "btn btn-primary"
+            ) %>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+<% end %>
