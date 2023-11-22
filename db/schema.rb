@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_12_125159) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_22_102306) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -78,6 +78,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_12_125159) do
     t.text "description"
     t.index ["country_id"], name: "index_locations_on_country_id"
     t.index ["name"], name: "index_locations_on_name"
+  end
+
+  create_table "profile_pictures", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.jsonb "image_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_profile_pictures_on_user_id"
   end
 
   create_table "regions", force: :cascade do |t|

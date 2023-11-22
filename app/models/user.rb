@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :channel_members
   has_many :chat_channels,
     through: :channel_members
+  has_one :profile_picture
   has_many :reviews
 
   validates :display_name,

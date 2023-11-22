@@ -1,0 +1,21 @@
+.profile-picture {
+  border-radius: 50%;
+
+  &.placeholder {
+    height: 180px;
+    width: 180px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: lighten($primary, 20%);
+    color: $white;
+
+    font-size: 5rem;
+
+    &:hover {
+      cursor: default;
+    }
+  }
+}

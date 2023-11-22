@@ -17,6 +17,23 @@
 
   <div class="row">
     <div class="col">
+      <div class="mb-3">
+        <% if @user.profile_picture.present? %>
+          <% # TODO show the profile picture %>
+        <% else %>
+          <div role="img" aria-label="Profile picture" class="profile-picture placeholder mb-3">
+            <span><%= helper_user_initials(user: current_user) %></span>
+          </div>
+
+          <%= link_to(
+            "Upload profile picture",
+            upload_modal_user_profile_pictures_path(user_id: current_user.id),
+            class: "btn btn-primary",
+            "data-turbo-stream": ""
+          ) %>
+        <% end %>
+      </div>
+
       <%= form_for @user, data: { turbo_frame: "_top" } do |f| %>
         <%= f.label :display_name %>
         <div class="row">

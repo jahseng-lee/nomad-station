@@ -61,7 +61,13 @@ Rails.application.routes.draw do
       post :manage
     end
   end
-  resources :users, only: [:update]
+  resources :users, only: [:update] do
+    resources :profile_pictures, only: [:create, :update] do
+      collection do
+        get :upload_modal
+      end
+    end
+  end
   resources :webhooks, only: [:create]
 
   root to: 'home#index'
