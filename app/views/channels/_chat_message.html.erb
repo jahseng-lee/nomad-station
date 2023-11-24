@@ -11,10 +11,13 @@
         <div>
           <%= image_tag(
             message.sender.profile_picture.image_url(:chat),
-            class: "profile-picture"
+            class: "profile-picture chat-profile-picture"
           ) %>
         </div>
       <% else %>
+        <div class="profile-picture chat-profile-picture placeholder">
+          <span><%= helper_user_initials(user: current_user) %></span>
+        </div>
       <% end %>
     <% end %>
 
