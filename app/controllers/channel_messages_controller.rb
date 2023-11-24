@@ -114,7 +114,8 @@ class ChannelMessagesController < ApplicationController
     @channel = Channel.find(params[:channel_id])
     @message = @channel.messages.find_by!(
       id: params[:id],
-      channel: @channel
+      channel: @channel,
+      sender: current_user
     )
 
     authorize(@message)
