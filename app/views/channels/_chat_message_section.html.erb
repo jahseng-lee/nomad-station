@@ -52,17 +52,39 @@
     <% end %>
   </div>
 
-  <%= turbo_frame_tag "channel-message-section", class: "channel-message-section" do %>
-    <% channel.messages.order(created_at: :desc).each do |message| %>
-      <%= render partial: "channels/chat_message",
+  <div class="channel-message-section">
+    <%= turbo_frame_tag "channel-messages" do %>
+      <%= render partial: "channels/chat_messages",
         locals: {
-          message: message,
+          messages: @messages,
           channel: channel,
           user: current_user
         }
       %>
     <% end %>
-  <% end %>
+
+    <% if @messages.length >= 50 %>
+      <%= turbo_frame_tag "load-more-link" do %>
+        <div
+          class="load-more-link-container"
+          data-controller="load-more"
+          data-load-more-page-value="1"
+          data-load-more-url-value="<%= channel_channel_messages_path(channel_id: channel.id) %>"
+          >
+          <%= link_to(
+            "Load more",
+            "javascript:void(0);",
+            class: "btn btn-primary",
+            data: {
+              action: "load-more#loadMoreMessage"
+            }
+          ) %>
+        </div>
+      <% end %>
+    <% else %>
+      <%= render partial: "channels/start_of_conversation" %>
+    <% end %>
+  </div>
 
   <div class="channel-message-form-section p-3">
     <p id="error-scroll-to-reply" class="error-scroll-to-reply">

@@ -1,4 +1,6 @@
 class ChannelsController < ApplicationController
+  include Pagy::Backend
+
   layout false, only: [:show]
 
   def show
@@ -7,6 +9,7 @@ class ChannelsController < ApplicationController
     authorize(@channel)
 
     @channels = current_user.chat_channels
+    @messages = @channel.messages.order(created_at: :desc).limit(50)
     @message = ChannelMessage.new
 
     if @channel.include?(user: current_user)

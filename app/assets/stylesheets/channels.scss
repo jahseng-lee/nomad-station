@@ -87,6 +87,14 @@
         width: 36px;
       }
     }
+
+    .load-more-link-container, .start-of-conversation {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      margin-top: 0.25rem;
+    }
   }
 
   .channel-message-form-section {

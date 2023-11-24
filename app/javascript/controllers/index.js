@@ -13,6 +13,9 @@ application.register("chat-textarea", ChatTextareaController)
 import JoinableChannelListController from "./joinable_channel_list_controller"
 application.register("joinable-channel-list", JoinableChannelListController)
 
+import LoadMoreController from "./load_more_controller"
+application.register("load-more", LoadMoreController)
+
 import LocationTabsController from "./location_tabs_controller"
 application.register("location-tabs", LocationTabsController)
 

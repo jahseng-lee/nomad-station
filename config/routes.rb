@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       get :current_user_list
     end
 
-    resources :channel_messages, only: [:create, :destroy]
+    resources :channel_messages, only: [:index, :create, :destroy]
   end
   resources :channel_members, only: [:create, :destroy] do
     member do

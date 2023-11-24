@@ -1,0 +1,9 @@
+<% messages.reverse_each do |message| %>
+  <%= render partial: "channels/chat_message",
+    locals: {
+      message: message,
+      channel: channel,
+      user: current_user
+    }
+  %>
+<% end %>
