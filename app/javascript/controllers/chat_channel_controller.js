@@ -25,13 +25,23 @@ export default class extends Controller {
             format: "TURBO_STREAM"
           }
         )
-          .then((response) => response.text())
-          .then((html) => {
-            Turbo.renderStreamMessage(html);
+          .then((response) => {
+            if (response.ok) {
+              return response.text()
+            } else {
+              const modal = document.getElementById("disconnected-modal");
+
+              if (modal.style.display != "block") {
+                new Modal(
+                  modal,
+                  {}
+                ).show();
+              }
+            }
           })
-          .catch((error) => {
-            // TODO error handling
-            // Pop a modal up and get them to refresh?
+          .then((html) => {
+            if (!html) return;
+            Turbo.renderStreamMessage(html);
           });
       }, 10000);
     }

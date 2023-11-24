@@ -47,6 +47,8 @@ class ChannelMembersController < ApplicationController
         end
       end
     end
+  rescue StandardError
+    render json: {}, status: 500
   end
 
   private

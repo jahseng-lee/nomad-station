@@ -17,6 +17,7 @@
 
   <body>
     <%= render partial: "layouts/navbar" %>
+    <%= render partial: "chats/disconnected_modal" %>
 
     <%= turbo_stream_from "user-#{current_user.id}-chat" %>
 
