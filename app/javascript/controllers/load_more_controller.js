@@ -7,11 +7,6 @@ export default class extends Controller {
     url: String,
   };
 
-  connect() {
-    console.log(this.pageValue);
-    console.log(this.urlValue);
-  }
-
   loadMoreMessage() {
     this.pageValue++
 
