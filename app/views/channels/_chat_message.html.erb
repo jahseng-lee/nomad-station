@@ -1,0 +1,71 @@
+<%= turbo_frame_tag "chat-message-#{message.id}" do %>
+  <% if message.sender != user %>
+    <span class="message-sender">
+      <%= message.sender.display_name %>
+    </span>
+  <% end %>
+
+  <div class="chat-message<%= message.sender == user ? ' chat-message-current-user'.html_safe : nil %>">
+    <% if message.sender != user %>
+      <% if message.sender.profile_picture.present? %>
+        <div>
+          <%= image_tag(
+            message.sender.profile_picture.image_url(:chat),
+            class: "profile-picture chat-profile-picture"
+          ) %>
+        </div>
+      <% else %>
+        <div class="profile-picture chat-profile-picture placeholder">
+          <span><%= helper_user_initials(user: current_user) %></span>
+        </div>
+      <% end %>
+    <% end %>
+
+    <p
+      <%= message.deleted? ? " class='fst-italic'".html_safe : nil %>>
+      <% if message.reply_to.present? %>
+        <%= link_to(
+          "javascript:void(0);",
+          data: {
+            action: "chat-channel#jumpToReply",
+            "reply-to-id": message.reply_to.id
+          }
+        ) do %>
+          <span class="replying-to">
+            <i class="bi bi-reply-fill"></i>
+            Replying to <%= message.reply_to.sender.display_name %>
+            <br />
+            <%= helper_short_message(message: message.reply_to.body) %>
+          </span>
+        <% end %>
+        <br />
+      <% end %>
+      <span class="message-body"><%= message.body %></span>
+    </p>
+
+    <div class="message-actions-container">
+      <% if message.sender == user || user.admin? %>
+        <%= button_to(
+          channel_channel_message_path(
+            message,
+            channel_id: channel.id
+          ),
+          method: :delete,
+          class: "delete-button me-2",
+          aria: { label: "Delete message" },
+          form: {
+            data: {
+              turbo_confirm: "Are you sure you want to delete this message? This action can't be undone."
+            }
+          }
+        ) do %>
+          <i class="bi bi-x-circle-fill"></i>
+        <% end %>
+      <% end %>
+
+      <%= render partial: "channels/shared/reply_to_link",
+        locals: { message: message }
+      %>
+    </div>
+  </div>
+<% end %>

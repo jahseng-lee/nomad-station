@@ -4,12 +4,48 @@ $primary: #262626;
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 
+@import 'channels';
 @import 'chats';
 @import 'home';
 @import 'location';
+@import 'profiles';
 @import 'search_location';
 @import 'visas';
 
 .navbar-actions {
   display: flex;
 }
+
+.profile-picture {
+  border-radius: 50%;
+
+  height: 180px;
+  width: 180px;
+
+  &.chat-profile-picture {
+    margin-right: 4px;
+
+    height: 36px;
+    width: 36px;
+
+    &.placeholder {
+      font-size: 1rem;
+    }
+  }
+
+  &.placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: lighten($primary, 20%);
+    color: $white;
+
+    font-size: 5rem;
+
+    &:hover {
+      cursor: default;
+    }
+  }
+}
+

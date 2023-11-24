@@ -1,0 +1,26 @@
+<div
+    class="modal"
+    tabindex="-1"
+    id="disconnected-modal"
+    >
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">It appeas you've disconnected</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <p>
+          Click here to refresh the page and reconnect
+        </p>
+        <%= link_to "Refresh",
+          "javascript:window.location.reload(true)",
+          class: "btn btn-primary"
+        %>
+      </div>
+
+    </div>
+  </div>
+</div>

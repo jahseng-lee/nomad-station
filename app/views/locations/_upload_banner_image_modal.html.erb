@@ -10,7 +10,7 @@
 
         <%= form_for(
           [location, banner_image],
-          data: { turbo: false }
+          data: { turbo_frame: "_top" }
         ) do |f| %>
           <div class="modal-header">
             <h1 class="modal-title fs-5">Upload banner image</h1>

@@ -1,0 +1,29 @@
+<div class="container mt-5">
+  <h3>Adding a new channel</h3>
+
+  <% if flash[:error_create_channel].present? %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%= flash[:error_create_channel] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
+
+  <%= form_for @channel, data: { turbo_frame: "_top" } do |f| %>
+    <div class="mb-3">
+      <%= f.label :name, "Channel name" %>
+      <%= f.text_field :name,
+        class: "form-control#{ @channel.errors[:name].any? ? ' is-invalid' : nil}"
+      %>
+
+      <% if @channel.errors[:name].present? %>
+        <div class="invalid-feedback">
+          Channel name <%= @channel.errors[:name].first %>
+        </div>
+      <% end %>
+    </div>
+
+    <%= f.submit "Add channel",
+      class: "btn btn-success"
+    %>
+  <% end %>
+</div>

@@ -1,0 +1,137 @@
+.chat-channel-section {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  .channel-header {
+    flex: 0;
+
+    display: flex;
+    flex-direction: row;
+
+    border-bottom: 1px solid $primary;
+
+    .leave-channel-button {
+      color: $danger;
+    }
+  }
+
+  .channel-message-section {
+    flex: 1 0 0;
+    overflow: scroll;
+
+    display: flex;
+    flex-direction: column-reverse;
+
+    .chat-message {
+      display: flex;
+      flex-direction: row;
+
+      align-items: center;
+
+      margin: 0 0.25rem 0.25rem 0.25rem;
+
+      .message-actions-container {
+        display: none;
+        flex-direction: row;
+        align-items: center;
+
+        a, button {
+          display: flex;
+        }
+
+        .delete-icon {
+          color: $danger;
+        }
+      }
+
+      &:hover {
+        .message-actions-container {
+          display: flex;
+        }
+      }
+
+      p {
+        max-width: 50vw;
+        margin: 0; // reset margin
+        padding: 0.5rem 0.75rem;
+        border-radius: 1.5rem;
+
+        color: $white;
+        background-color: $primary;
+      }
+
+      &.chat-message-current-user {
+        display: flex;
+        flex-direction: row-reverse;
+      }
+
+      .message-body {
+        white-space: pre-line;
+      }
+
+      .replying-to-link {
+        border-bottom: 1px solid $white;
+      }
+
+      .replying-to {
+        color: $white;
+        font-size: 0.75rem;
+      }
+    }
+
+    .load-more-link-container, .start-of-conversation {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      margin-top: 0.25rem;
+    }
+  }
+
+  .channel-message-form-section {
+    flex: 0;
+    border-top: 1px solid $primary;
+
+    .channel-message-form {
+      display: flex;
+      flex-direction: row;
+
+      .channel-message-textarea {
+        flex: 1;
+      }
+
+      .channel-message-button-container {
+        min-width: 6rem;
+        flex: 0;
+      }
+    }
+
+    .reply-to-section {
+      display: none;
+      flex-direction: row;
+
+      p {
+        flex: 1;
+      }
+    }
+
+    .error-scroll-to-reply {
+      display: none;
+      color: $danger;
+    }
+
+    .join-channel-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .message-sender {
+    font-size: 0.75rem;
+    margin-left: 44px; // align with message
+  }
+}

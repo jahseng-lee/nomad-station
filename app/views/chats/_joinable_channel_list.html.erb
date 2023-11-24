@@ -1,0 +1,52 @@
+<%= turbo_frame_tag(
+  "joinable-channel-list",
+  class: "channel-list-container col pe-0",
+  data: {
+    controller: "joinable-channel-list"
+  }
+) do %>
+  <div class="m-2">
+    <div class="input-group">
+      <%= text_field(
+        "",
+        :filter,
+        class: "form-control",
+        placeholder: "Search channels...",
+        data: {
+          "joinable-channel-list-target": "filterQuery",
+          action: "joinable-channel-list#filter",
+        }
+      ) %>
+      <span class="input-group-text">
+        <i class="bi bi-search" aria-hidden="true"></i>
+      </span>
+    </div>
+  </div>
+
+  <div class="channel-list">
+    <% if channels.any? %>
+      <%= render partial: "chats/shared/channel_list",
+        locals: { user: current_user, channels: channels }
+      %>
+    <% else %>
+      <div class="channel-links-container">
+        <p class="h5 m-3">
+          Looks like you've joined all available channels.
+        </p>
+      </div>
+    <% end %>
+
+    <div class="channel-list-actions">
+      <%= link_to(
+        current_user_list_channels_path,
+        class: "btn btn-primary m-2",
+        data: {
+          turbo_stream: true
+        }
+      ) do %>
+        <i class="bi bi-chevron-left" aria-hidden="true"></i>
+        Back to your channels
+      <% end %>
+    </div>
+  </div>
+<% end %>

@@ -10,6 +10,7 @@ def seed_database
   denomarlize_united_kingdom
   update_bali
   setup_content_account
+  setup_default_chat_channels
 end
 
 def setup_regions
@@ -526,14 +527,26 @@ def setup_content_account
 
   puts "Creating content-robot account"
   user = User.new(
+    display_name: "Content robot",
     email: "content-robot@nomadstation.io",
     # This account should never be logged into
     # so generate a random password
     password: SecureRandom.hex(20)
   )
   user.skip_confirmation!
-  user.save
+  user.save!
   puts "Finished creating content-robot account"
+end
+
+def setup_default_chat_channels
+  puts "Setting up default chat channels"
+  Channel::DEFAULT_CHAT_CHANNELS.each do |channel_name|
+    Channel.find_or_create_by!(
+      name: channel_name,
+      last_action_at: Time.now
+    )
+  end
+  puts "Finished setting up default chat channels"
 end
 
 seed_database

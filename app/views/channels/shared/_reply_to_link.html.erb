@@ -1,0 +1,12 @@
+<%= link_to(
+  "javascript:void(0);",
+  aria: { label: "Reply to message" },
+  data: {
+    action: "chat-channel#setReplyTo",
+    "message-id": message.id,
+    "message-body": message.body,
+    "message-sender": message.sender.display_name
+  }
+) do %>
+  <i class="bi bi-reply-fill"></i>
+<% end %>

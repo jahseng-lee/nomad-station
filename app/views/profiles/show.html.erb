@@ -13,11 +13,47 @@
     </div>
   <% end %>
 
+  <% if flash[:error_upload_profile_picture].present? %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%= flash[:error_upload_profile_picture] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
+
   <h1>Profile</h1>
 
   <div class="row">
     <div class="col">
-      <%= form_for @user, data: { turbo: false } do |f| %>
+      <div class="mb-3">
+        <% if @user.profile_picture.present? %>
+          <div>
+            <%= image_tag(
+              @user.profile_picture.image_url(:main),
+              class: "profile-picture mb-3"
+            ) %>
+          </div>
+
+          <%= link_to(
+            "Update profile picture",
+            upload_modal_user_profile_pictures_path(user_id: current_user.id),
+            class: "btn btn-primary",
+            "data-turbo-stream": ""
+          ) %>
+        <% else %>
+          <div role="img" aria-label="Profile picture" class="profile-picture placeholder mb-3">
+            <span><%= helper_user_initials(user: current_user) %></span>
+          </div>
+
+          <%= link_to(
+            "Upload profile picture",
+            upload_modal_user_profile_pictures_path(user_id: current_user.id),
+            class: "btn btn-primary",
+            "data-turbo-stream": ""
+          ) %>
+        <% end %>
+      </div>
+
+      <%= form_for @user, data: { turbo_frame: "_top" } do |f| %>
         <%= f.label :display_name %>
         <div class="row">
           <div class="col">

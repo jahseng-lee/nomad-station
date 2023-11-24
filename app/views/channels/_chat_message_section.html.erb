@@ -1,0 +1,178 @@
+<%= turbo_stream_from "user-#{current_user.id}-channel-#{channel.id}" %>
+
+<%= turbo_frame_tag(
+  "chat-channel",
+  class: "chat-channel-section",
+  data: {
+    controller: "chat-channel",
+    "chat-channel-channel-member-id-value": channel.include?(user: current_user) ? (
+      ChannelMember.find_by(
+        user: current_user,
+        chat_channel: channel
+      ).id
+    ) : nil
+  }
+) do %>
+
+  <div class="channel-header p-3">
+    <h3><%= channel.name %></h3>
+
+    <% if channel.include?(user: current_user) %>
+      <div class="dropdown ms-2">
+        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Channel settings">
+          <i class="bi bi-gear-fill"></i>
+        </button>
+
+        <ul class="dropdown-menu">
+          <li>
+            <%= button_to(
+              channel_member_path(ChannelMember.find_by!(
+                user: current_user,
+                chat_channel: channel
+              )),
+              method: :delete,
+              class: "leave-channel-button dropdown-item",
+              data: {
+                turbo_frame: "_top"
+              },
+              form: {
+                data: {
+                  turbo_confirm: "Are you sure you want to leave this channel?"
+                }
+              }
+            ) do %>
+              <strong>
+                Leave channel
+                <i class="bi bi-box-arrow-right"></i>
+              </strong>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="channel-message-section">
+    <%= turbo_frame_tag "channel-messages" do %>
+      <%= render partial: "channels/chat_messages",
+        locals: {
+          messages: @messages,
+          channel: channel,
+          user: current_user
+        }
+      %>
+    <% end %>
+
+    <% if @messages.length >= 50 %>
+      <%= turbo_frame_tag "load-more-link" do %>
+        <div
+          class="load-more-link-container"
+          data-controller="load-more"
+          data-load-more-page-value="1"
+          data-load-more-url-value="<%= channel_channel_messages_path(channel_id: channel.id) %>"
+          >
+          <%= link_to(
+            "Load more",
+            "javascript:void(0);",
+            class: "btn btn-primary",
+            data: {
+              action: "load-more#loadMoreMessage"
+            }
+          ) %>
+        </div>
+      <% end %>
+    <% else %>
+      <%= render partial: "channels/start_of_conversation" %>
+    <% end %>
+  </div>
+
+  <div class="channel-message-form-section p-3">
+    <p id="error-scroll-to-reply" class="error-scroll-to-reply">
+      <strong>Couldn't scroll to message - it may be offscreen</strong>
+    </p>
+
+    <% if channel.include?(user: current_user) %>
+      <div id="reply-to-section" class="reply-to-section">
+        <p>
+          <strong>Replying to
+            <span data-chat-channel-target="replyDisplayName"></span>
+          </strong>
+          <br />
+          <span data-chat-channel-target="replyMessageBody"></span>
+        </p>
+        <%= link_to(
+          "javascript:void(0)",
+          data: { action: "chat-channel#clearReplyTo" }
+        ) do %>
+          <i class="bi bi-x-circle-fill"></i>
+        <% end %>
+      </div>
+      <%= form_for [channel, message] do |f| %>
+        <%= f.hidden_field(
+          :reply_to_id,
+          value: nil,
+          data: {
+            "chat-channel-target": "hiddenReplyToField"
+          }
+        ) %>
+
+        <div class="channel-message-form">
+          <div class="channel-message-textarea" data-controller="chat-textarea">
+            <%= f.text_area(
+              :body,
+              class: "form-control#{ message.errors[:body].any? ? ' is-invalid' : nil }",
+              rows: 1,
+              placeholder: "Type message...",
+              autofocus: true,
+              data: {
+                "chat-channel-target": "messageTextarea",
+                "chat-textarea-target": "textarea",
+                action: "chat-textarea#resizeTextarea"
+              }
+            ) %>
+
+            <% if message.errors[:body].present? %>
+              <div class="invalid-feedback">
+                Message body <%= message.errors[:body].first %>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="channel-message-button-container">
+            <%= f.button(
+              "Send",
+              type: :submit,
+              class: "btn btn-success ms-2"
+            ) do %>
+              <i class="bi bi-send"></i>
+              Send
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="join-channel-section">
+        <% if flash[:error_join_channel] %>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%= flash[:error_join_channel] %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% end %>
+
+        <%= form_for(
+          ChannelMember.new,
+          data: {
+            turbo_frame: "_top"
+          }
+        ) do |f| %>
+          <%= f.hidden_field :channel_id, value: channel.id %>
+          <%= f.hidden_field :user_id, value: current_user.id %>
+
+          <%= f.submit "Join channel",
+            class: "btn btn-success btn-lg"
+          %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

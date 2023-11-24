@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_23_085457) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_22_102306) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,37 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_23_085457) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["location_id"], name: "index_banner_images_on_location_id"
+  end
+
+  create_table "channel_members", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "channel_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "last_active"
+    t.index ["channel_id"], name: "index_channel_members_on_channel_id"
+    t.index ["user_id"], name: "index_channel_members_on_user_id"
+  end
+
+  create_table "channel_messages", force: :cascade do |t|
+    t.text "body", null: false
+    t.bigint "channel_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "deleted", default: false
+    t.bigint "reply_to_id"
+    t.index ["channel_id"], name: "index_channel_messages_on_channel_id"
+    t.index ["created_at"], name: "index_channel_messages_on_created_at"
+    t.index ["reply_to_id"], name: "index_channel_messages_on_reply_to_id"
+    t.index ["user_id"], name: "index_channel_messages_on_user_id"
+  end
+
+  create_table "channels", force: :cascade do |t|
+    t.text "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "last_action_at"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -47,6 +78,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_23_085457) do
     t.text "description"
     t.index ["country_id"], name: "index_locations_on_country_id"
     t.index ["name"], name: "index_locations_on_name"
+  end
+
+  create_table "profile_pictures", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.jsonb "image_data", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_profile_pictures_on_user_id"
   end
 
   create_table "regions", force: :cascade do |t|
@@ -108,4 +147,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_23_085457) do
   end
 
   add_foreign_key "banner_images", "locations"
+  add_foreign_key "channel_messages", "channel_messages", column: "reply_to_id"
 end

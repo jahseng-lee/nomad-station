@@ -75,9 +75,6 @@ gem "postmark-rails"
 # Subscription management
 gem "stripe"
 
-# Chat
-gem "stream-chat-ruby"
-
 # Markdown support
 gem "redcarpet"
 

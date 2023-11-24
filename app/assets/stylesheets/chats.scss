@@ -1,43 +1,63 @@
-@import 'stream-chat-react/dist/scss/v2/index.scss';
-
 body {
   height: 100vh;
-}
+  max-height: 100vh;
 
-.chat-root {
   display: flex;
+  flex-direction: column;
 
-  .str-chat__channel {
+  .navbar {
+    flex: 0;
+  }
+
+  .chat-screen-container {
     flex: 1;
+
+    .chat-message-section {
+      display: flex;
+      flex-direction: column;
+
+      border-left: 1px solid $primary;
+
+      &.no-chat {
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    .channel-list-container {
+      display: flex;
+      flex-direction: column;
+
+      .channel-list {
+        flex: 1;
+
+        display: flex;
+        flex-direction: column;
+
+        .channel-links-container {
+          flex: 1 0 0;
+          overflow: scroll;
+
+          display: flex;
+          flex-direction: column;
+
+          .channel-link {
+            border-bottom: 1px solid $primary;
+            text-decoration: none;
+
+            &:hover {
+              background-color: lighten($primary, 70%);
+            }
+          }
+        }
+
+        .channel-list-actions {
+          flex: 0;
+
+          display: grid;
+        }
+      }
+    }
   }
-
-  .str-chat-channel-list {
-    width: 20vw;
-  }
-}
-
-.str-chat {
-  --str-chat__primary-color: #262626;
-  --str-chat__own-message-bubble-background-color: #262626;
-  --str-chat__own-message-bubble-color: white;
-}
-
-.str-chat__message--me {
-  --str-chat__message-mention-color: white;
-}
-
-.str-chat__message-input {
-  position: abolute;
-  bottom: 0.5rem;
-}
-
-.str-chat__list {
-  min-height: 75vh;
-  max-height: 75vh;
-  overflow: scroll;
-}
-
-.str-chat__thread {
-  max-width: 30vw;
 }
 

@@ -1,0 +1,11 @@
+<%= turbo_stream.replace(
+  "chat-channel",
+  partial: "channels/chat_message_section",
+  locals: { channel: @channel, message: ChannelMessage.new }
+) %>
+
+<%= turbo_stream.replace(
+  "channel-list",
+  partial: "chats/current_user_channel_list",
+  locals: { user: current_user }
+) %>

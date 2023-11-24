@@ -5,7 +5,22 @@ Rails.application.routes.draw do
     confirmations: "confirmations"
   }
 
-  resource :chat, only: [:show]
+  resource :chat, only: [:show] do
+    get :navbar_link
+  end
+  resources :channels, only: [:show, :new, :create] do
+    collection do
+      get :joinable
+      get :current_user_list
+    end
+
+    resources :channel_messages, only: [:index, :create, :destroy]
+  end
+  resources :channel_members, only: [:create, :destroy] do
+    member do
+      patch :update_last_active
+    end
+  end
   resource :choose_plan, only: [:show]
   resources :countries, only: [:update] do
     resources :locations, only: [] do
@@ -46,7 +61,13 @@ Rails.application.routes.draw do
       post :manage
     end
   end
-  resources :users, only: [:update]
+  resources :users, only: [:update] do
+    resources :profile_pictures, only: [:create, :update] do
+      collection do
+        get :upload_modal
+      end
+    end
+  end
   resources :webhooks, only: [:create]
 
   root to: 'home#index'

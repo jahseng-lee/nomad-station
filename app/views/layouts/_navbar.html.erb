@@ -1,7 +1,6 @@
 <nav
     class="navbar navbar-expand-lg bg-primary"
     data-bs-theme="dark"
-    data-controller="navbar"
     >
 
   <div class="container-fluid">
@@ -22,7 +21,9 @@
             root_path,
             class: "nav-link",
             data: {
-              "navbar-target": "exploreLink",
+              controller: "navbar-link",
+              "navbar-link-active-paths-value": ['search_locations', 'locations', ''],
+              "navbar-link-target": "link"
             }
           ) do %>
             <i class="bi bi-search" aria-hidden="true"></i>
@@ -31,16 +32,28 @@
         </li>
 
         <li class="nav-item">
-          <%= link_to(
-            chat_path,
-            class: "nav-link",
-            data: {
-              "navbar-target": "chatLink",
-              turbo: false,
-            }
+          <%= turbo_frame_tag(
+            "navbar-chat-link",
+            src: current_user.present? ? (
+              navbar_link_chat_path(
+                format: :turbo_stream,
+                active: request.path.include?("chat") || request.path.include?("channel")
+              )
+            ) : nil
           ) do %>
-            <i class="bi bi-chat-fill" aria-hidden="true"></i>
-            Chat
+            <%= link_to(
+              chat_path,
+              class: "nav-link",
+              data: {
+                controller: "navbar-link",
+                "navbar-link-active-paths-value": ['chat', 'channels'],
+                "navbar-link-target": "link",
+                turbo_frame: "_top"
+              }
+            ) do %>
+              <i class="bi bi-chat-fill" aria-hidden="true"></i>
+              Chat
+            <% end %>
           <% end %>
         </li>
 
@@ -49,7 +62,9 @@
             profile_path,
             class: "nav-link",
             data: {
-              "navbar-target": "profileLink",
+              controller: "navbar-link",
+              "navbar-link-active-paths-value": ['profile'],
+              "navbar-link-target": "link"
             }
           ) do %>
             <i class="bi bi-person-fill" aria-hidden="true"></i>
@@ -70,7 +85,6 @@
           <%= link_to(
             "Sign in",
             new_user_session_path,
-            method: :delete,
             class: "btn btn-outline-light me-2"
           ) %>
 
