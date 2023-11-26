@@ -3,6 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = [
     "overviewLink",
+    "reviewsLink",
     "visaLink",
   ];
 
@@ -12,6 +13,8 @@ export default class extends Controller {
 
     if (pathElements.includes("visa_information")) {
       this.visaLinkTarget.classList.add("active");
+    } else if (pathElements.includes("reviews")) {
+      this.reviewsLinkTarget.classList.add("active");
     } else {
       this.overviewLinkTarget.classList.add("active");
     }

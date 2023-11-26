@@ -1,25 +1,47 @@
-<div class="container mt-5">
-  <%= render partial: "locations/shared/back_link",
+<% content_for :page_title do %>
+  Review for <%= @location.name %>, <%= @location.country.name %>
+  by <%= @review.user.display_name %>
+<% end %>
+
+<%= render partial: "locations/header",
+  locals: {
+    location: @location,
+  }
+%>
+
+<div class="container mt-3">
+  <%= render partial: "locations/tabs",
     locals: {
       location: @location,
     }
   %>
 
-  <% if flash[:success_save_review].present? %>
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <%= flash[:success_save_review] %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  <% end %>
+  <div class="mb-3">
+    <%= link_to(
+      location_reviews_path(location_id: @location.id),
+    ) do %>
+      <i class="bi bi-chevron-left" aria-hidden="true"></i>
+      Back to all reviews
+    <% end %>
+  </div>
 
-  <% if flash[:success_generate_review].present? %>
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <%= flash[:success_generate_review] %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  <% end %>
+  <div class="mb-3">
+    <% if flash[:success_save_review].present? %>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <%= flash[:success_save_review] %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
 
-  <div class="ms-3">
+    <% if flash[:success_generate_review].present? %>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <%= flash[:success_generate_review] %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
+  </div>
+
+  <div>
     <p class="h3">
       Overall: <%= helper_star_rating(rating: @review.overall) %>
     </p>
