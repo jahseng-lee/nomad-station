@@ -20,5 +20,15 @@
         }
       ) %>
     </li>
+    <li class="nav-item">
+      <%= link_to(
+        "Reviews",
+        location_reviews_path(location_id: location.id),
+        class: "nav-link",
+        data: {
+          "location-tabs-target": "reviewsLink"
+        }
+      ) %>
+    </li>
   </ul>
 </div>

@@ -109,26 +109,35 @@
         </div>
       </div>
 
-      <% if current_user && @existing_review = Review.find_by(
-        user: current_user,
-        location: @location
-      ) %>
+      <div>
         <%= link_to(
-          edit_location_review_path(@existing_review, location_id: @location.id),
+          location_reviews_path(location_id: @location.id),
           class: "btn btn-primary"
         ) do %>
-          <i class="bi bi-pencil-square" aria-hidden="true"></i>
-          Edit review
+          <i class="bi bi-search" aria-hidden="true"></i>
+          See all reviews
         <% end %>
-      <% else %>
-        <%= link_to(
-          new_location_review_path(location_id: @location.id),
-          class: "btn btn-primary"
-        ) do %>
-          <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
-          Add review
+        <% if current_user && @existing_review = Review.find_by(
+          user: current_user,
+          location: @location
+        ) %>
+          <%= link_to(
+            edit_location_review_path(@existing_review, location_id: @location.id),
+            class: "btn btn-primary"
+          ) do %>
+            <i class="bi bi-pencil-square" aria-hidden="true"></i>
+            Edit review
+          <% end %>
+        <% else %>
+          <%= link_to(
+            new_location_review_path(location_id: @location.id),
+            class: "btn btn-primary"
+          ) do %>
+            <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
+            Add review
+          <% end %>
         <% end %>
-      <% end %>
+      </div>
     </div>
   </div>
 </div>

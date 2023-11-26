@@ -1,5 +1,8 @@
 class ReviewsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:show]
+  def index
+    @location = Location.find(params[:location_id])
+    @reviews = @location.reviews
+  end
 
   def show
     @location = Location.find(params[:location_id])

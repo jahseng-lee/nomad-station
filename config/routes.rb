@@ -44,7 +44,7 @@ Rails.application.routes.draw do
 
     resources :banner_images, only: [:create, :update]
 
-    resources :reviews, only: [:show, :new, :create, :edit, :update] do
+    resources :reviews, only: [:index, :show, :new, :create, :edit, :update] do
       collection do
         post :generate_review
       end
