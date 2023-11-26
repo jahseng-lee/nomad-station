@@ -15,7 +15,7 @@ export default class extends Controller {
 
   connect() {
     if (!!this.channelMemberIdValue) {
-      setInterval(() => {
+      this.updateLastActiveIntervalId = setInterval(() => {
         fetch(
           `/channel_members/${this.channelMemberIdValue}/update_last_active`,
           {
@@ -45,6 +45,10 @@ export default class extends Controller {
           });
       }, 10000);
     }
+  }
+
+  disconnect() {
+    clearInterval(this.updateLastActiveIntervalId);
   }
 
   setReplyTo(event) {
