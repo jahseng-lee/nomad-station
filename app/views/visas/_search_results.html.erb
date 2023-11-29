@@ -1,7 +1,7 @@
 <%= turbo_frame_tag(
   "search-results",
   data: {
-    "search-eligible-countries-target": "searchResults",
+    "search-countries-target": "searchResults",
   }
 ) do %>
   <% if flash[:error_create_eligible_country].present? %>
