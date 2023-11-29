@@ -1,7 +1,3 @@
-<% content_for :page_title do %>
-  <%= @location.name %>, <%= @location.country.name %>
-<% end %>
-
 <%= render partial: "locations/header",
   locals: {
     location: @location,
@@ -104,3 +100,12 @@
     </p>
   <% end %>
 </div>
+
+<%
+  set_meta_tags(
+    title: "Visa info for #{@location.name_utf8}, #{@location.country.name}",
+    description: "Up to date visa information for #{@location.name}, #{@location.country.name}, specially tailored for you!",
+    index: true,
+    follow: true
+  )
+%>

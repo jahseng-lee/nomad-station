@@ -35,7 +35,7 @@ RSpec.describe "Adding a location review", type: :feature, js: true do
 
         it "shows the 'Add review' form" do
           expect(page).to have_content(
-            "Review for #{location.name_utf8}, #{location.country.name}"
+            "Reviewing #{location.name_utf8}, #{location.country.name}"
           )
 
           expect(page).to have_button("Finish")
@@ -59,7 +59,7 @@ RSpec.describe "Adding a location review", type: :feature, js: true do
           it "saves the review to the location" do
             # Redirected successfully
             expect(page).not_to have_content(
-              "Review for #{location.name_utf8}, #{location.country.name}"
+              "Reviewing #{location.name_utf8}, #{location.country.name}"
             )
 
             expect(page).to have_content("Saved review")

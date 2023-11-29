@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <% if content_for? :page_title %>
-      <title><%= yield :page_title %> | Nomadstation</title>
-    <% else %>
-      <title>Nomadstation</title>
-    <% end %>
-
+    <%
+      # Looks like meta-tags gem doesn't play nice with a custom layout
+      # Just do it manually here
+    %>
+    <title>Nomadstation | <%= @channel.present? ? "#{@channel.name} chat channel" : "Chat" %></title>
+    <meta name="description" content='<%= @channel.present? ? "#{@channel.name} chat channel for our Digital Nomad community. Join in!" : "Meet others online and in your area in our well moderated community chat channels." %>'>
+    <meta name="robots" content="index, follow">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
