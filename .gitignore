@@ -40,5 +40,5 @@
 /node_modules
 .byebug_history
 
-public/
+public/uploads
 .yarn/cache
