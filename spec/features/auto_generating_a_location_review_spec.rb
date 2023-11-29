@@ -38,7 +38,7 @@ RSpec.describe "Auto-generating a location review", type: :feature, js: true do
 
         it "shows the 'Add review' form with an 'Auto-generate review' button" do
           expect(page).to have_content(
-            "Review for #{location.name_utf8}, #{location.country.name}"
+            "Reviewing #{location.name_utf8}, #{location.country.name}"
           )
 
           expect(page).to have_content("Auto-generate review")
