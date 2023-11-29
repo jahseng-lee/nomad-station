@@ -6,7 +6,7 @@
   %>
 
   <h2>
-    Review for <%= @location.name_utf8 %>, <%= @location.country.name %>
+    Reviewing <%= @location.name_utf8 %>, <%= @location.country.name %>
   </h2>
 
   <%= render partial: "reviews/shared/form",
@@ -16,3 +16,12 @@
     }
   %>
 </div>
+
+<%
+  set_meta_tags(
+    title: "Reviewing #{@location.name_utf8}, #{@location.country.name}",
+    description: "Help others with their Digital Nomad adventures by reviewing #{@location.name_utf8}, #{@location.country.name}.",
+    index: true,
+    follow: true
+  )
+%>

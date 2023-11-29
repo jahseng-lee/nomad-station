@@ -1,7 +1,3 @@
-<% content_for :page_title do %>
-  <%= @location.name %>, <%= @location.country.name %>
-<% end %>
-
 <%= render partial: "locations/header",
   locals: {
     location: @location,
@@ -141,3 +137,12 @@
     </div>
   </div>
 </div>
+
+<%
+  set_meta_tags(
+    title: "#{@location.name_utf8}, #{@location.country.name}",
+    description: helper_location_short_description(location: @location),
+    index: true,
+    follow: true
+  )
+%>

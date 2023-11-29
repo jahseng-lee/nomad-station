@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <% if content_for? :page_title %>
-      <title><%= yield :page_title %> | Nomadstation</title>
-    <% else %>
-      <title>Nomadstation</title>
-    <% end %>
-
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -19,7 +13,6 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
 
     <%= display_meta_tags site: "Nomadstation" %>
-
   </head>
 
   <body>

@@ -16,3 +16,12 @@
     }
   %>
 </div>
+
+<%
+  set_meta_tags(
+    title: "Update your review for #{@location.name_utf8}, #{@location.country.name}",
+    description: "Help others with their Digital Nomad adventures by reviewing #{@location.name_utf8}, #{@location.country.name}.",
+    index: true,
+    follow: true
+  )
+%>
