@@ -16,6 +16,34 @@ RSpec.describe "User specific visas", type: :feature, js: true do
 
   before { sign_in user }
 
+  def setup_visas
+    # create an NZ visa for Australians
+    visa = create(:visa, name: "Visa for #{aus.name}", country: nz)
+    create(
+      :eligible_countries_for_visa,
+      visa: visa,
+      eligible_country: aus
+    )
+    # create an NZ visa for the English
+    visa = create(:visa, name: "Visa for #{england.name}", country: nz)
+    create(
+      :eligible_countries_for_visa,
+      visa: visa,
+      eligible_country: england
+    )
+    # create an NZ visa for Malaysians
+    visa = create(
+      :visa,
+      name: "Visa for #{malaysia.name}",
+      country: nz
+    )
+    create(
+      :eligible_countries_for_visa,
+      visa: visa,
+      eligible_country: malaysia
+    )
+  end
+
   describe "a user who has set up their citizenships" do
     before do
       visit root_path
@@ -32,31 +60,7 @@ RSpec.describe "User specific visas", type: :feature, js: true do
 
     context "visiting a location page with visas for the user" do
       before do
-        # create an NZ visa for Australians
-        visa = create(:visa, name: "Visa for #{aus.name}", country: nz)
-        create(
-          :eligible_countries_for_visa,
-          visa: visa,
-          eligible_country: aus
-        )
-        # create an NZ visa for the English
-        visa = create(:visa, name: "Visa for #{england.name}", country: nz)
-        create(
-          :eligible_countries_for_visa,
-          visa: visa,
-          eligible_country: england
-        )
-        # create an NZ visa for Malaysians
-        visa = create(
-          :visa,
-          name: "Visa for #{malaysia.name}",
-          country: nz
-        )
-        create(
-          :eligible_countries_for_visa,
-          visa: visa,
-          eligible_country: malaysia
-        )
+        setup_visas
 
         visit location_visa_information_path(wellington)
       end
@@ -110,14 +114,17 @@ RSpec.describe "User specific visas", type: :feature, js: true do
 
     context "visiting a location page with visas for the user" do
       before do
-        # TODO create a visa for Australians
-        # TODO create a visa for the English
-        # TODO create a visa for Malaysians
-        # TODO visit the Visas page for Wellington
+        setup_visas
+
+        visit location_visa_information_path(wellington)
       end
 
       it "shows all available visa" do
-        pending "TODO"
+        expect(page).to have_content("Go to your profile page to add")
+
+        expect(page).to have_content("Visa for #{aus.name}")
+        expect(page).to have_content("Visa for #{england.name}")
+        expect(page).to have_content("Visa for #{malaysia.name}")
       end
     end
   end
