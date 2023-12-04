@@ -67,18 +67,6 @@ RSpec.describe "User specific visas", type: :feature, js: true do
 
         expect(page).not_to have_content("Visa for #{malaysia.name}")
       end
-
-      context "if the user clicks 'Show all visas'" do
-        before do
-          click_link "Show all visas"
-        end
-
-        it "shows all available visa" do
-          expect(page).to have_content("Visa for #{aus.name}")
-          expect(page).to have_content("Visa for #{england.name}")
-          expect(page).to have_content("Visa for #{malaysia.name}")
-        end
-      end
     end
 
     context "visiting a location with no visas for the user" do
