@@ -2,10 +2,11 @@ require 'rails_helper'
 
 RSpec.describe "User specific visas", type: :feature, js: true do
   let(:user) { create(:user) }
-  let!(:nz) { create(:country, name: "New Zealand") }
+  let(:nz) { create(:country, name: "New Zealand") }
   let!(:aus) { create(:country, name: "Australia") }
   let!(:england) { create(:country, name: "England") }
-  let!(:location) do
+  let!(:malaysia) { create(:country, name: "Malaysia") }
+  let!(:wellington) do
     create(
       :location,
       name: "Wellington",
@@ -31,30 +32,58 @@ RSpec.describe "User specific visas", type: :feature, js: true do
 
     context "visiting a location page with visas for the user" do
       before do
-        # TODO create an NZ visa for Australians
-        # TODO create an NZ visa for the English
-        # TODO create an NZ visa for Malaysians
-        # TODO visit the Visas page for Wellington
+        # create an NZ visa for Australians
+        visa = create(:visa, name: "Visa for #{aus.name}", country: nz)
+        create(
+          :eligible_countries_for_visa,
+          visa: visa,
+          eligible_country: aus
+        )
+        # create an NZ visa for the English
+        visa = create(:visa, name: "Visa for #{england.name}", country: nz)
+        create(
+          :eligible_countries_for_visa,
+          visa: visa,
+          eligible_country: england
+        )
+        # create an NZ visa for Malaysians
+        visa = create(
+          :visa,
+          name: "Visa for #{malaysia.name}",
+          country: nz
+        )
+        create(
+          :eligible_countries_for_visa,
+          visa: visa,
+          eligible_country: malaysia
+        )
+
+        visit location_visa_information_path(wellington)
       end
 
-      it "shows the relevant visas for the user only" do
-        pending "TODO"
+      it "shows the relevant visas for the user only", :aggregate_failures do
+        expect(page).to have_content("Visa for #{aus.name}")
+        expect(page).to have_content("Visa for #{england.name}")
+
+        expect(page).not_to have_content("Visa for #{malaysia.name}")
       end
 
       context "if the user clicks 'Show all visas'" do
         before do
-          click_link "Show all visa"
+          click_link "Show all visas"
         end
 
         it "shows all available visa" do
-          pending "TODO"
+          expect(page).to have_content("Visa for #{aus.name}")
+          expect(page).to have_content("Visa for #{england.name}")
+          expect(page).to have_content("Visa for #{malaysia.name}")
         end
       end
     end
 
     context "visiting a location with no visas for the user" do
       let(:antarctica) { create(:country, name: "Antarctica") }
-      let!(:location) do
+      let!(:club_penguin) do
         create(
           :location,
           name: "Club penguin",
