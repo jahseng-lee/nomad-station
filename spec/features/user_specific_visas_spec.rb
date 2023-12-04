@@ -92,18 +92,25 @@ RSpec.describe "User specific visas", type: :feature, js: true do
       end
 
       before do
-        # TODO create a visa for Malaysians only
-        # TODO visit the Visas page for Club penguin
+        # create an NZ visa for Malaysians
+        visa = create(
+          :visa,
+          name: "Visa for #{malaysia.name}",
+          country: antarctica
+        )
+        create(
+          :eligible_countries_for_visa,
+          visa: visa,
+          eligible_country: antarctica
+        )
+
+        visit location_visa_information_path(club_penguin)
       end
 
       it "shows a message showing no relevant visas" do
         expect(page).to have_content(
-          "We can't find any visas for any of your listed citizenships."
+          "We can't find any visas for any of your listed citizenships"
         )
-      end
-
-      it "shows all available visa" do
-        pending "TODO"
       end
     end
   end

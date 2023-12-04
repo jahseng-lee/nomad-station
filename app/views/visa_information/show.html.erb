@@ -42,8 +42,19 @@
         <% end %>
 
         <% if @country.visas.any? %>
+          <% @visas = helper_eligible_visas(
+            country: @country,
+            user: current_user
+          ) %>
+
           <% if current_user.citizenships.any? %>
-            <p class="fs-2">You're eligible for the following visas</p>
+            <% if @visas.any? %>
+              <p class="fs-2">You're eligible for the following visas</p>
+            <% else %>
+              <div class="alert alert-danger" role="alert">
+                We can't find any visas for any of your listed citizenships
+              </div>
+            <% end %>
           <% else %>
             <div class="alert alert-warning" role="alert">
               Go to <%= link_to "your profile page", profile_path %> to add
@@ -52,13 +63,16 @@
             </div>
           <% end %>
 
-          <%= render partial: "visa_information/visa_table",
-            locals: {
-              user: current_user,
-              country: @country,
-              location: @location,
-            }
-          %>
+          <% if @visas.any? %>
+            <%= render partial: "visa_information/visa_table",
+              locals: {
+                user: current_user,
+                country: @country,
+                location: @location,
+                visas: @visas
+              }
+            %>
+          <% end %>
         <% end %>
       <% else %>
         <p>

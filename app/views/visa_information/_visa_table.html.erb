@@ -12,10 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <% helper_eligible_visas(
-          country: country,
-          user: user
-        ).each do |visa| %>
+        <% visas.each do |visa| %>
           <tr>
             <td>
               <%= visa.name %>
