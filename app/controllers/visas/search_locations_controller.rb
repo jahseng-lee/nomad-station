@@ -1,9 +1,8 @@
+# TODO rename to SearchCountriesController
 class Visas::SearchLocationsController < ApplicationController
 
   def index
     if current_user.admin?
-      # NOTE: params[:query] is working
-
       @visa = Visa.find(params[:visa_id])
       @query = params[:query]
 

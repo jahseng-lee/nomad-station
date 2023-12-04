@@ -1,0 +1,32 @@
+<%= turbo_frame_tag "profile-citizenship-section" do %>
+  <div
+    data-controller="search-countries"
+    data-search-countries-search-url-value=<%= citizenships_search_countries_path %>
+    >
+    <ul>
+      <li>
+        TODO delete button for citizenships
+      </li>
+      <li>
+        TODO cancel button for this section
+      </li>
+    </ul>
+
+    <%= label_tag "I am a citizen of..." %>
+    <%= text_field_tag(
+      "search-countries",
+      "",
+      class: "form-control mb-2",
+      placeholder: "Search countries...",
+      data: {
+        "search-countries-target": "searchField",
+        action: "search-countries#searchOnDebounce"
+      }
+    ) %>
+
+    <%= turbo_frame_tag "search-results" do %>
+      <div data-search-countries-target="searchResults">
+      </div>
+    <% end %>
+  </div>
+<% end %>

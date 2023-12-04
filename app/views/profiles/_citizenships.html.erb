@@ -1,0 +1,49 @@
+<%= turbo_frame_tag "profile-citizenship-section" do %>
+  <% if flash[:error_create_citizenship].present? %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%= flash[:error_create_citizenship] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
+
+  <% if current_user.citizenships.any? %>
+    <div>
+      I am a citizen of
+      <% if current_user.citizenships.count == 1 %>
+        <span class="fw-bold">
+          <%= current_user.citizenships.first.country.name %>
+        </span>
+      <% else %>
+        <ul>
+          <% current_user.citizenships.each do |citizenship| %>
+            <li>
+              <span class="fw-bold"><%= citizenship.country.name %></span>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+
+    <%= link_to(
+      new_citizenship_path,
+      "data-turbo-stream": ""
+    ) do %>
+      <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
+      Add citizenship
+    <% end %>
+  <% else %>
+    <div class="mb-2">
+      <%= link_to(
+        new_citizenship_path,
+        "data-turbo-stream": ""
+      ) do %>
+        <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
+        Add citizenship
+      <% end %>
+    </div>
+
+    <div class="fst-italic">
+      We use your citizenships to show ensure any visa information shown is relevant to you.
+    </div>
+  <% end %>
+<% end %>
