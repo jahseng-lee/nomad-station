@@ -47,7 +47,13 @@
             user: current_user
           ) %>
 
-          <% if current_user.citizenships.any? %>
+          <% if current_user.admin? %>
+            <div class="alert alert-info" role="alert">
+              As you're an admin, you see all visas available in the
+              location. Regular users should only see relevant visas,
+              provided they've added their citizenships.
+            </div>
+          <% elsif current_user.citizenships.any? %>
             <% if @visas.any? %>
               <p class="fs-2">You're eligible for the following visas</p>
             <% else %>
