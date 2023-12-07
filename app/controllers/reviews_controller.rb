@@ -33,9 +33,26 @@ class ReviewsController < ApplicationController
         location_id: @location.id
       )
     else
-      flash[:error_save_review] = "Couldn't save your review"
+      respond_to do |format|
+        format.html do
+          flash[:error_save_review] = "Couldn't save your review"
 
-      render :new
+          render :new
+        end
+
+        format.turbo_stream do
+          flash.now[:error_save_review] = "Couldn't save your review"
+
+          render turbo_stream: turbo_stream.replace(
+            "review-form",
+            partial: "reviews/shared/form",
+            locals: {
+              location: @location,
+              review: @review
+            }
+          )
+        end
+      end
     end
   end
 
@@ -62,9 +79,26 @@ class ReviewsController < ApplicationController
         location_id: @location.id
       )
     else
-      flash[:error_save_review] = "Couldn't save your review"
+      respond_to do |format|
+        format.html do
+          flash[:error_save_review] = "Couldn't save your review"
 
-      render :new
+          render :edit
+        end
+
+        format.turbo_stream do
+          flash.now[:error_save_review] = "Couldn't save your review"
+
+          render turbo_stream: turbo_stream.replace(
+            "review-form",
+            partial: "reviews/shared/form",
+            locals: {
+              location: @location,
+              review: @review
+            }
+          )
+        end
+      end
     end
   end
 

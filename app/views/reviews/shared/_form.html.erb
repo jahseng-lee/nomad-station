@@ -1,140 +1,142 @@
-<% if flash[:error_save_review].present? %>
-  <div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <%= flash[:error_save_review] %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-<% end %>
-
-<% if flash[:error_generate_review].present? %>
-  <div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <%= flash[:error_generate_review] %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-<% end %>
-
-<%= form_for [location, review], data: { turbo_frame: "_top" } do |f| %>
-  <div class="row mb-3">
-    <%= f.label :overall, class: "col-2 col-form-label" %>
-    <div class="col-2">
-      <%= f.select(
-        :overall,
-        helper_review_rating_options,
-        {
-          include_blank: "",
-          selected: review.overall
-        },
-        {
-          class: "form-select#{review.errors[:overall].any? ? ' is-invalid' : ''}",
-          aria: {
-            label: "Overall rating",
-          }
-        }
-      ) %>
+<%= turbo_frame_tag "review-form" do %>
+  <% if flash[:error_save_review].present? %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%= flash[:error_save_review] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-  </div>
+  <% end %>
 
-  <div class="row mb-3">
-    <%= f.label :fun, class: "col-2 col-form-label" %>
-    <div class="col-2">
-      <%= f.select(
-        :fun,
-        helper_review_rating_options,
-        {
-          include_blank: "",
-          selected: review.fun
-        },
-        {
-          class: "form-select#{review.errors[:fun].any? ? ' is-invalid' : ''}",
-          aria: {
-            label: "Fun rating",
-          }
-        }
-      ) %>
+  <% if flash[:error_generate_review].present? %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%= flash[:error_generate_review] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-  </div>
+  <% end %>
 
-  <div class="row mb-3">
-    <%= f.label :cost, class: "col-2 col-form-label" %>
-    <div class="col-2">
-      <%= f.select(
-        :cost,
-        helper_review_rating_options,
-        {
-          include_blank: "",
-          selected: review.cost
-        },
-        {
-          class: "form-select#{review.errors[:cost].any? ? ' is-invalid' : ''}",
-          aria: {
-            label: "Cost rating",
+  <%= form_for [location, review], data: { turbo_frame: "_top" } do |f| %>
+    <div class="row mb-3">
+      <%= f.label :overall, class: "col-2 col-form-label" %>
+      <div class="col-2">
+        <%= f.select(
+          :overall,
+          helper_review_rating_options,
+          {
+            include_blank: "",
+            selected: review.overall
+          },
+          {
+            class: "form-select#{review.errors[:overall].any? ? ' is-invalid' : ''}",
+            aria: {
+              label: "Overall rating",
+            }
           }
-        }
-      ) %>
+        ) %>
+      </div>
     </div>
-  </div>
 
-  <div class="row mb-3">
-    <%= f.label :internet, class: "col-2 col-form-label" %>
-    <div class="col-2">
-      <%= f.select(
-        :internet,
-        helper_review_rating_options,
-        {
-          include_blank: "",
-          selected: review.internet
-        },
-        {
-          class: "form-select#{review.errors[:internet].any? ? ' is-invalid' : ''}",
-          aria: {
-            label: "Internet rating",
+    <div class="row mb-3">
+      <%= f.label :fun, class: "col-2 col-form-label" %>
+      <div class="col-2">
+        <%= f.select(
+          :fun,
+          helper_review_rating_options,
+          {
+            include_blank: "",
+            selected: review.fun
+          },
+          {
+            class: "form-select#{review.errors[:fun].any? ? ' is-invalid' : ''}",
+            aria: {
+              label: "Fun rating",
+            }
           }
-        }
-      ) %>
+        ) %>
+      </div>
     </div>
-  </div>
 
-  <div class="row mb-3">
-    <%= f.label :safety, class: "col-2 col-form-label" %>
-    <div class="col-2">
-      <%= f.select(
-        :safety,
-        helper_review_rating_options,
-        {
-          include_blank: "",
-          selected: review.safety
-        },
-        {
-          class: "form-select#{review.errors[:safety].any? ? ' is-invalid' : ''}",
-          aria: {
-            label: "Safety rating",
+    <div class="row mb-3">
+      <%= f.label :cost, class: "col-2 col-form-label" %>
+      <div class="col-2">
+        <%= f.select(
+          :cost,
+          helper_review_rating_options,
+          {
+            include_blank: "",
+            selected: review.cost
+          },
+          {
+            class: "form-select#{review.errors[:cost].any? ? ' is-invalid' : ''}",
+            aria: {
+              label: "Cost rating",
+            }
           }
-        }
-      ) %>
+        ) %>
+      </div>
     </div>
-  </div>
 
-  <%= f.label :body, "Summary", class: "form-label"%>
-  <%= f.text_area :body,
-    class: "form-control mb-3",
-    rows: 6
-  %>
-  <%= f.button(
-    "Finish",
-    type: :submit,
-    class: "btn btn-primary mb-2",
-  ) %>
-<% end %>
+    <div class="row mb-3">
+      <%= f.label :internet, class: "col-2 col-form-label" %>
+      <div class="col-2">
+        <%= f.select(
+          :internet,
+          helper_review_rating_options,
+          {
+            include_blank: "",
+            selected: review.internet
+          },
+          {
+            class: "form-select#{review.errors[:internet].any? ? ' is-invalid' : ''}",
+            aria: {
+              label: "Internet rating",
+            }
+          }
+        ) %>
+      </div>
+    </div>
 
-<% if current_user.admin? %>
-  <%= button_to(
-    "Auto-generate review",
-    generate_review_location_reviews_path(
-      review, location_id: location.id
-    ),
-    method: :post,
-    class: "btn btn-secondary",
-    data: {
-      turbo: false,
-    }
-  ) %>
+    <div class="row mb-3">
+      <%= f.label :safety, class: "col-2 col-form-label" %>
+      <div class="col-2">
+        <%= f.select(
+          :safety,
+          helper_review_rating_options,
+          {
+            include_blank: "",
+            selected: review.safety
+          },
+          {
+            class: "form-select#{review.errors[:safety].any? ? ' is-invalid' : ''}",
+            aria: {
+              label: "Safety rating",
+            }
+          }
+        ) %>
+      </div>
+    </div>
+
+    <%= f.label :body, "Summary", class: "form-label"%>
+    <%= f.text_area :body,
+      class: "form-control mb-3",
+      rows: 6
+    %>
+    <%= f.button(
+      "Finish",
+      type: :submit,
+      class: "btn btn-primary mb-2",
+    ) %>
+  <% end %>
+
+  <% if current_user.admin? %>
+    <%= button_to(
+      "Auto-generate review",
+      generate_review_location_reviews_path(
+        review, location_id: location.id
+      ),
+      method: :post,
+      class: "btn btn-secondary",
+      data: {
+        turbo: false,
+      }
+    ) %>
+  <% end %>
 <% end %>

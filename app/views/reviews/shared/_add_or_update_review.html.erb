@@ -1,0 +1,20 @@
+<% if user && @existing_review = Review.find_by(
+  user: user,
+  location: location
+) %>
+  <%= link_to(
+    edit_location_review_path(@existing_review, location_id: location.id),
+    class: "btn btn-primary"
+  ) do %>
+    <i class="bi bi-pencil-square" aria-hidden="true"></i>
+    Edit review
+  <% end %>
+<% else %>
+  <%= link_to(
+    new_location_review_path(location_id: location.id),
+    class: "btn btn-primary"
+  ) do %>
+    <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
+    Add review
+  <% end %>
+<% end %>

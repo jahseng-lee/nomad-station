@@ -11,30 +11,43 @@
     }
   %>
 
-  <div class="row row-cols-xl-3 row-cols-md-2 row-cols-1">
-    <% @reviews.each do |review| %>
-      <div class="col">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title"><%= review.user.display_name %></h5>
-            <p class="card-text">
-              Overall: <%= helper_star_rating(rating: review.overall) %>
-            </p>
-            <% if review.body.present? %>
+  <div class="mb-2">
+    <%= render partial: "reviews/shared/add_or_update_review",
+      locals: {
+        user: current_user,
+        location: @location
+      }
+    %>
+  </div>
+
+  <% if @reviews.any? %>
+    <div class="row row-cols-xl-3 row-cols-md-2 row-cols-1">
+      <% @reviews.each do |review| %>
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%= review.user.display_name %></h5>
               <p class="card-text">
-                <%= helper_short_body(review: review) %>
+                Overall: <%= helper_star_rating(rating: review.overall) %>
               </p>
-            <% end %>
-            <%= link_to(
-              "See full review",
-              location_review_path(review, location_id: @location.id),
-              class: "btn btn-secondary"
-            ) %>
+              <% if review.body.present? %>
+                <p class="card-text">
+                  <%= helper_short_body(review: review) %>
+                </p>
+              <% end %>
+              <%= link_to(
+                "See full review",
+                location_review_path(review, location_id: @location.id),
+                class: "btn btn-secondary"
+              ) %>
+            </div>
           </div>
         </div>
-      </div>
-    <% end %>
-  </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="fs-3">No reviews yet.</p>
+  <% end %>
 </div>
 
 <%
