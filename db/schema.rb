@@ -66,7 +66,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_07_111217) do
   create_table "countries", force: :cascade do |t|
     t.text "name", null: false
     t.integer "region_id"
-    t.text "visa_summary_information"
     t.index ["region_id"], name: "index_countries_on_region_id"
   end
 

@@ -13,19 +13,6 @@
 
       <% if current_user.admin? %>
         <div class="mb-3">
-          <%= link_to(
-            edit_location_visa_information_path(location_id: @location.id),
-            class: "me-2"
-          ) do %>
-            <% if @country.visa_summary_information.present? %>
-              <i class="bi bi-pencil-fill" aria-hidden="true"></i>
-              Edit visas summary
-            <% else %>
-              <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
-              Add visas summary
-            <% end %>
-          <% end %>
-
           <%= link_to new_country_location_visa_path(
             country_id: @country.id,
             location_id: @location.id,
@@ -36,11 +23,7 @@
         </div>
       <% end %>
 
-      <% if @country.visa_summary_information.present? || @country.visas.any? %>
-        <% if @country.visa_summary_information.present? %>
-          <%= @markdown.render(@country.visa_summary_information).html_safe %>
-        <% end %>
-
+      <% if @country.visas.any? %>
         <% if @country.visas.any? %>
           <% @visas = helper_eligible_visas(
             country: @country,

@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   namespace :citizenships do
     resources :search_countries, only: [:index]
   end
-  resources :countries, only: [:update] do
+  resources :countries, only: [] do
     resources :locations, only: [] do
       resources :visas, only: [:new, :create, :edit, :update, :destroy] do
         resources :eligible_countries_for_visas,
