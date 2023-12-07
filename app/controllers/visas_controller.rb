@@ -19,7 +19,8 @@ class VisasController < ApplicationController
 
     @visa = Visa.new(
       country: @country,
-      name: visa_params[:name]
+      name: visa_params[:name],
+      description: visa_params[:description]
     )
 
     if @visa.save
@@ -31,6 +32,7 @@ class VisasController < ApplicationController
         location_id: @location.id
       )
     else
+      # TODO this doesn't work... the error doesn't show. Something about turbo
       flash[:error_save_visa] = "Couldn't save visa. Please try again"
 
       render :new
@@ -52,7 +54,10 @@ class VisasController < ApplicationController
 
     authorize(@country, :edit?)
 
-    @visa.assign_attributes(name: visa_params[:name])
+    @visa.assign_attributes(
+      name: visa_params[:name],
+      description: visa_params[:description]
+    )
 
     if @visa.save
       flash[:success_save_visa] = "Visa saved"
@@ -84,6 +89,6 @@ class VisasController < ApplicationController
   private
 
   def visa_params
-    params.require(:visa).permit(:name)
+    params.require(:visa).permit(:name, :description)
   end
 end

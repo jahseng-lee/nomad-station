@@ -4,6 +4,7 @@
       <thead>
         <tr>
           <th>Visa</th>
+          <th>Description</th>
           <th>Eligible countries</th>
           <% if user.admin? %>
             <% # Empty for controls %>
@@ -16,6 +17,9 @@
           <tr>
             <td>
               <%= visa.name %>
+            </td>
+            <td>
+              <%= @markdown.render(visa.description).html_safe %>
             </td>
             <td>
               <ul>

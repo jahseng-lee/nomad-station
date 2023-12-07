@@ -7,4 +7,5 @@ class Visa < ApplicationRecord
     class_name: "Country"
 
   validates :name, presence: true
+  validates :description, presence: true
 end

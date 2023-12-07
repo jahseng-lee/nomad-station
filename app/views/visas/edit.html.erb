@@ -27,6 +27,11 @@
       <%= f.text_field :name, class: "form-control" %>
     </div>
 
+    <div class="mb-1">
+      <%= f.label :description %>
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+
     <%= f.submit "Update", class: "btn btn-success mb-1" %>
   <% end %>
 
