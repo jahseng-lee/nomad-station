@@ -112,12 +112,12 @@ RSpec.describe "Adding location visa information", type: :feature, js: true do
 
         context "adding multiple countries to the visa" do
           before do
-            fill_in "search-eligible-countries", with: "Malay"
+            fill_in "search-countries", with: "Malay"
             click_button "Malaysia"
 
             expect(page).to have_content "Malaysia"
 
-            fill_in "search-eligible-countries", with: "Germa"
+            fill_in "search-countries", with: "Germa"
             click_button "Germany"
 
             expect(page).to have_content "Germany"
