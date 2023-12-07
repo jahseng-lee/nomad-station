@@ -22,7 +22,20 @@
   ) do |f| %>
     <div class="mb-3">
       <%= f.label :name, "Visa name" %>
-      <%= f.text_field :name, class: "form-control" %>
+      <%= f.text_field(
+        :name,
+        class: "form-control",
+        placeholder: "Visitor visa exemption"
+      ) %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :description %>
+      <%= f.text_area(
+        :description,
+        class: "form-control",
+        placeholder: "Enter the country for 90 days without a visa. 30 days extensions available by visiting the immigration office"
+      ) %>
     </div>
 
     <%= f.submit "Add visa", class: "btn btn-success" %>

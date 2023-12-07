@@ -5,15 +5,10 @@
   }
 ) do %>
   <% countries.each do |country| %>
-    <%= form_for([
-      Country.find(country_id),
-      Location.find(location_id),
-      visa,
-      EligibleCountriesForVisa.new
-    ]) do |f| %>
-      <%= f.hidden_field :eligible_country_id, value: country.id %>
+    <%= form_for Citizenship.new do |f| %>
+      <%= f.hidden_field :country_id, value: country.id %>
 
-      <%= f.button :submit, class: 'btn btn-primary mb-1' do %>
+      <%= f.button "", class: 'btn btn-primary mb-1' do %>
         <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
         <%= country.name %>
       <% end %>

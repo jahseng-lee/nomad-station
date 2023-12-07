@@ -33,41 +33,6 @@ RSpec.describe "Adding location visa information", type: :feature, js: true do
       )
     end
 
-    context "clicking on 'Edit'" do
-      before do
-        click_link "Add visas summary"
-      end
-
-      it "shows the page to add visa summary for the country" do
-        expect(page).to have_content(
-          "Adding visa summary for #{country.name}"
-        )
-      end
-
-      context "filling out the form and clicking 'Save'" do
-        let(:visa_info) do
-          "Visa summary with **bold text**"
-        end
-
-        before do
-          fill_in "country_visa_summary_information", with: visa_info
-
-          click_button "Save"
-        end
-
-        it "shows the visa summary on the location page" do
-          expect(page).to have_content(
-            "Visa summary with bold text"
-          )
-          # NOTE capybara doesn't wait for `current_path`, which is
-          #      gross as. Use #have_content first to make it wait
-          expect(page.current_path).to eq(
-            location_visa_information_path(location_id: location.id)
-          )
-        end
-      end
-    end
-
     context "clicking 'Add a visa'" do
       before do
         click_link "Add a visa"
@@ -79,6 +44,7 @@ RSpec.describe "Adding location visa information", type: :feature, js: true do
 
       context "adding a name, multiple eligible countries then clicking 'Save'" do
         let(:visa_name) { "90 day visa exemption" }
+        let(:visa_description) { "90 day visa exemption description" }
         let!(:country_1) do
           create(
             :country,
@@ -92,12 +58,15 @@ RSpec.describe "Adding location visa information", type: :feature, js: true do
           )
         end
         before do
-          fill_in "visa_name", with: visa_name
+          fill_in "Visa name", with: visa_name
+          fill_in "Description", with: visa_description
+
           click_button "Add visa"
         end
 
         it "shows the visa" do
-          expect(page).to have_content("#{visa_name} for #{country.name}")
+          expect(page).to have_content("#{visa_name}")
+          expect(page).to have_content("#{visa_description}")
 
           # NOTE capybara doesn't wait for `current_path`, which is
           #      gross as. Use #have_content first to make it wait
@@ -112,12 +81,12 @@ RSpec.describe "Adding location visa information", type: :feature, js: true do
 
         context "adding multiple countries to the visa" do
           before do
-            fill_in "search-eligible-countries", with: "Malay"
+            fill_in "search-countries", with: "Malay"
             click_button "Malaysia"
 
             expect(page).to have_content "Malaysia"
 
-            fill_in "search-eligible-countries", with: "Germa"
+            fill_in "search-countries", with: "Germa"
             click_button "Germany"
 
             expect(page).to have_content "Germany"

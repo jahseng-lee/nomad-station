@@ -1,111 +1,81 @@
-<%= render partial: "locations/header",
-  locals: {
-    location: @location,
-  }
-%>
+    <%= render partial: "locations/header",
+      locals: {
+        location: @location,
+      }
+    %>
 
-<div class="container mt-3">
-  <%= render partial: "locations/tabs",
-    locals: {
-      location: @location,
-    }
-  %>
+    <div class="container mt-3">
+      <%= render partial: "locations/tabs",
+        locals: {
+          location: @location,
+        }
+      %>
 
-  <% if current_user.admin? %>
-    <div class="mb-3">
-      <%= link_to(
-        edit_location_visa_information_path(location_id: @location.id),
-        class: "me-2"
-      ) do %>
-        <% if @country.visa_summary_information.present? %>
-          <i class="bi bi-pencil-fill" aria-hidden="true"></i>
-          Edit visas summary
-        <% else %>
-          <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
-          Add visas summary
-        <% end %>
+      <% if current_user.admin? %>
+        <div class="mb-3">
+          <%= link_to new_country_location_visa_path(
+            country_id: @country.id,
+            location_id: @location.id,
+          ) do %>
+            <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
+            Add a visa
+          <% end %>
+        </div>
       <% end %>
 
-      <%= link_to new_country_location_visa_path(
-        country_id: @country.id,
-        location_id: @location.id,
-      ) do %>
-        <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
-        Add a visa
+      <% if @country.visas.any? %>
+        <% if @country.visas.any? %>
+          <% @visas = helper_eligible_visas(
+            country: @country,
+            user: current_user
+          ) %>
+
+          <% if current_user.admin? %>
+            <div class="alert alert-info" role="alert">
+              As you're an admin, you see all visas available in the
+              location. Regular users should only see relevant visas,
+              provided they've added their citizenships.
+            </div>
+          <% elsif current_user.citizenships.any? %>
+            <% if @visas.any? %>
+              <p class="fs-2">You're eligible for the following visas</p>
+            <% else %>
+              <div class="alert alert-danger" role="alert">
+                We can't find any visas for any of your listed citizenships
+              </div>
+            <% end %>
+          <% else %>
+            <div class="alert alert-warning" role="alert">
+              Go to <%= link_to "your profile page", profile_path %> to add
+              your citizenships. Without that information, we can only show
+              you generic visa information for the country.
+            </div>
+          <% end %>
+
+          <% if @visas.any? %>
+            <%= render partial: "visa_information/visa_table",
+              locals: {
+                user: current_user,
+                country: @country,
+                location: @location,
+                visas: @visas
+              }
+            %>
+          <% end %>
+
+        <% end %>
+      <% else %>
+        <p>
+          No visa information for <%= @country.name %> yet
+        </p>
       <% end %>
     </div>
-  <% end %>
 
-  <% if @country.visa_summary_information.present? || @country.visas.any? %>
-    <% if @country.visa_summary_information.present? %>
-      <%= @markdown.render(@country.visa_summary_information).html_safe %>
-    <% end %>
-
-    <% if @country.visas.any? %>
-      <div class="card">
-        <div class="card-body">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Visa</th>
-                <th>Eligible countries</th>
-                <% if current_user.admin? %>
-                  <% # Empty for controls %>
-                  <th></th>
-                <% end %>
-              </tr>
-            </thead>
-            <tbody>
-              <% @country.visas.each do |visa| %>
-                <tr>
-                  <td>
-                    <%= visa.name %>
-                  </td>
-                  <td>
-                    <ul>
-                      <% visa.eligible_countries.each do |eligible_country| %>
-                        <li>
-                          <%= eligible_country.name %>
-                        </li>
-                      <% end %>
-                    </ul>
-                  </td>
-
-                  <% if current_user.admin? %>
-                    <td>
-                      <%= link_to(
-                        edit_country_location_visa_path(
-                          visa,
-                          location_id: @location.id,
-                          country_id: @country.id
-                        ),
-                        aria: {
-                          label: "Edit visa"
-                        }
-                      ) do %>
-                        <i class="bi bi-pencil-fill" aria-hidden="true"></i>
-                      <% end %>
-                    </td>
-                  <% end %>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    <% end %>
-  <% else %>
-    <p>
-      No visa information for <%= @country.name %> yet
-    </p>
-  <% end %>
-</div>
-
-<%
-  set_meta_tags(
-    title: "Visa info for #{@location.name_utf8}, #{@location.country.name}",
-    description: "Up to date visa information for #{@location.name}, #{@location.country.name}, specially tailored for you!",
-    index: true,
-    follow: true
-  )
-%>
+    <%
+      set_meta_tags(
+        title: "Visa info for #{@location.name_utf8}, #{@location.country.name}",
+        description: "Up to date visa information for #{@location.name}, #{@location.country.name}, specially tailored for you!",
+        index: true,
+        follow: true
+      )
+    %>

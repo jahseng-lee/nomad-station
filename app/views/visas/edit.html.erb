@@ -27,6 +27,11 @@
       <%= f.text_field :name, class: "form-control" %>
     </div>
 
+    <div class="mb-1">
+      <%= f.label :description %>
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+
     <%= f.submit "Update", class: "btn btn-success mb-1" %>
   <% end %>
 
@@ -57,8 +62,8 @@
   %>
 
   <div
-      data-controller="search-eligible-countries"
-      data-search-eligible-countries-search-url-value=<%=
+      data-controller="search-countries"
+      data-search-countries-search-url-value=<%=
         country_location_visa_search_locations_path(
           @visa,
           location_id: @location.id,
@@ -68,13 +73,13 @@
       >
     <div class="input-group mb-3">
       <%= text_field_tag(
-        "search-eligible-countries",
+        "search-countries",
         nil,
         class: "form-control",
         placeholder: "Search eligible countries...",
         data: {
-          "search-eligible-countries-target": "searchField",
-          action: "search-eligible-countries#searchOnDebounce search-eligible-countries#toggleEligibleCountries"
+          "search-countries-target": "searchField",
+          action: "search-countries#searchOnDebounce"
         }
       ) %>
 
