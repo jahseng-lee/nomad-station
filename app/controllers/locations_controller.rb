@@ -70,6 +70,12 @@ class LocationsController < ApplicationController
     end
   end
 
+  def emergency_info
+    # Intended to be a mobile/small screen only link as normally the
+    # emergency info is hidden on mobile
+    @location = Location.find(params[:id])
+  end
+
   private
 
   def location_params

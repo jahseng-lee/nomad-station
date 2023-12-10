@@ -1,0 +1,23 @@
+<%= render partial: "locations/header",
+  locals: {
+    location: @location,
+  }
+%>
+
+<div class="container mt-3">
+  <%= render partial: "locations/tabs",
+    locals: {
+      location: @location,
+    }
+  %>
+
+  <% if @location.has_emergency_numbers? %>
+    <%= render partial: "locations/shared/emergency_numbers",
+      locals: {
+        location: @location
+      }
+    %>
+  <% else %>
+    <p>No emergency information for this location</p>
+  <% end %>
+</div>

@@ -76,24 +76,18 @@
       </div>
 
       <% if @location.has_emergency_numbers? %>
-        <div class="card d-none d-lg-block d-xl-block d-xxl-block mb-3">
-          <div class="card-body">
-            <p class="fs-5 fw-bold mb-1">Emergency numbers</p>
-
-            <% @location.emergency_numbers.each do |emergency_number| %>
-              <div class="emergency-number">
-                <span><%= emergency_number[:name].capitalize %>:</span>
-                <span class="fw-bold">
-                  <%= emergency_number[:number] %>
-                </span>
-              </div>
-            <% end %>
-          </div>
+        <% # Only render on non-mobile/small screens %>
+        <div class="d-none d-lg-block d-xl-block d-xxl-block mb-3">
+          <%= render partial: "locations/shared/emergency_numbers",
+            locals: {
+              location: @location
+            }
+          %>
         </div>
       <% end %>
     </div>
 
-    <hr class="d-lg-none my-4">
+    <hr class="d-lg-none d-xl-none d-xxl-none my-4">
 
     <div class="col-12 col-lg-9">
       <% if current_user&.admin? %>
