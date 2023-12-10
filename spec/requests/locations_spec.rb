@@ -40,13 +40,17 @@ RSpec.describe "Locations", type: :request do
 
   describe "POST #update" do
     context "with valid params" do
-      let(:new_descsription) do
-        "I think #{location.name} is very cool"
-      end
+      let(:new_descsription) { "I think #{location.name} is very cool" }
+      let(:ambulance_number) { "111" }
+      let(:police_number) { "222" }
+      let(:fire_number) { "333" }
       let(:params) do
         {
           location: {
-            description: new_descsription
+            description: new_descsription,
+            ambulance_number: ambulance_number,
+            police_number: police_number,
+            fire_number: fire_number,
           }
         }
       end
@@ -60,7 +64,11 @@ RSpec.describe "Locations", type: :request do
           put location_path(location), params: params
 
           location.reload
+
           expect(location.description).to eq new_descsription
+          expect(location.ambulance_number).to eq ambulance_number
+          expect(location.police_number).to eq police_number
+          expect(location.fire_number).to eq fire_number
         end
       end
 

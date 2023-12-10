@@ -44,4 +44,18 @@ class Location < ApplicationRecord
       safety: reviews.average(:safety).round(1),
     }
   end
+
+  def emergency_numbers
+    [
+      { name: "ambulance", number: ambulance_number },
+      { name: "police", number: police_number },
+      { name: "fire", number: fire_number },
+    ]
+  end
+
+  def has_emergency_numbers?
+    emergency_numbers
+      .map{ |emergency_number| emergency_number[:number]}
+      .any?
+  end
 end
