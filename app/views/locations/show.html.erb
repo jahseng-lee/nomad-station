@@ -13,37 +13,7 @@
 
   <%= render partial: "locations/show_location_alerts" %>
 
-  <% if current_user&.admin? %>
-    <div class="mb-3">
-      <%= link_to(
-        upload_banner_image_modal_location_path(@location),
-        "data-turbo-stream": "",
-      ) do %>
-        <% if @location.banner_image.present? %>
-          <i class="bi bi-pencil-fill" aria-hidden="true"></i>
-          Update banner image
-        <% else %>
-          <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
-          Add banner image
-        <% end %>
-      <% end %>
-
-      <%= link_to edit_location_path(@location), class: "ms-3" do %>
-        <i class="bi bi-pencil-fill" aria-hidden="true"></i>
-        Update location
-      <% end %>
-    </div>
-  <% end %>
-
   <div class="row row-cols-1 row-cols-lg-2">
-    <div class="col-12 col-lg-9">
-      <%= @markdown.render(
-        helper_location_description(location: @location)
-      ).html_safe %>
-    </div>
-
-    <hr class="d-lg-none my-4">
-
     <div class="col-12 col-lg-3">
       <div class="card mb-2">
         <div class="card-body">
@@ -105,25 +75,8 @@
         </div>
       </div>
 
-      <div class="mb-3">
-        <%= link_to(
-          location_reviews_path(location_id: @location.id),
-          class: "btn btn-primary"
-        ) do %>
-          <i class="bi bi-search" aria-hidden="true"></i>
-          See all reviews
-        <% end %>
-
-        <%= render partial: "reviews/shared/add_or_update_review",
-          locals: {
-            user: current_user,
-            location: @location
-          }
-        %>
-      </div>
-
       <% if @location.has_emergency_numbers? %>
-        <div class="card mb-3">
+        <div class="card d-none d-lg-block d-xl-block d-xxl-block mb-3">
           <div class="card-body">
             <p class="fs-5 fw-bold mb-1">Emergency numbers</p>
 
@@ -138,6 +91,36 @@
           </div>
         </div>
       <% end %>
+    </div>
+
+    <hr class="d-lg-none my-4">
+
+    <div class="col-12 col-lg-9">
+      <% if current_user&.admin? %>
+        <div class="mb-3">
+          <%= link_to(
+            upload_banner_image_modal_location_path(@location),
+            "data-turbo-stream": "",
+          ) do %>
+            <% if @location.banner_image.present? %>
+              <i class="bi bi-pencil-fill" aria-hidden="true"></i>
+              Update banner image
+            <% else %>
+              <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
+              Add banner image
+            <% end %>
+          <% end %>
+
+          <%= link_to edit_location_path(@location), class: "ms-3" do %>
+            <i class="bi bi-pencil-fill" aria-hidden="true"></i>
+            Update location
+          <% end %>
+        </div>
+      <% end %>
+
+      <%= @markdown.render(
+        helper_location_description(location: @location)
+      ).html_safe %>
     </div>
   </div>
 </div>
