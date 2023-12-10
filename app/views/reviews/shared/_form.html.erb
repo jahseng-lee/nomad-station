@@ -1,4 +1,4 @@
-<%= turbo_frame_tag "review-form" do %>
+<%= turbo_frame_tag "review-form", class: "review-form" do %>
   <% if flash[:error_save_review].present? %>
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
       <%= flash[:error_save_review] %>
