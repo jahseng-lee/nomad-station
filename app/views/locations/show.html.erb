@@ -85,6 +85,16 @@
           %>
         </div>
       <% end %>
+
+      <% if current_user&.admin? %>
+        <%= link_to edit_location_country_path(
+          @location.country,
+          location_id: @location.id
+        ) do %>
+          <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
+          Add emergency info.
+        <% end %>
+      <% end %>
     </div>
 
     <hr class="d-lg-none d-xl-none d-xxl-none my-4">

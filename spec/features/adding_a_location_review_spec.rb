@@ -10,20 +10,22 @@ RSpec.describe "Adding a location review", type: :feature, js: true do
   end
 
 
-  describe "logged in as a user " do
+  describe "logged in as a user" do
     let(:user) { create(:user) }
     before do
       sign_in user
     end
 
-    context "on a location page" do
+    context "on a location's review page" do
       before do
         visit location_path(location)
+
+        click_link "Reviews"
       end
 
       it "shows a 'Add review' link" do
         expect(page).to have_content(
-          "No reviews for #{location.name_utf8} yet"
+          "No reviews yet."
         )
         expect(page).to have_link("Add review")
       end

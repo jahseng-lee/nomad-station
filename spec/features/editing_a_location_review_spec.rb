@@ -23,6 +23,8 @@ RSpec.describe "Editing a location review", type: :feature, js: true do
     context "on a location page" do
       before do
         visit location_path(location)
+
+        click_link "Reviews"
       end
 
       it "shows a 'Edit review' link" do

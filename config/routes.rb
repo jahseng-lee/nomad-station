@@ -48,7 +48,7 @@ Rails.application.routes.draw do
     end
 
     resources :banner_images, only: [:create, :update]
-
+    resources :countries, only: [:edit, :update]
     resources :reviews, only: [:index, :show, :new, :create, :edit, :update] do
       collection do
         post :generate_review

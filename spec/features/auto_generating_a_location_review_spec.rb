@@ -22,11 +22,13 @@ RSpec.describe "Auto-generating a location review", type: :feature, js: true do
     context "on a location page" do
       before do
         visit location_path(location)
+
+        click_link "Reviews"
       end
 
       it "shows a 'Add review' link" do
         expect(page).to have_content(
-          "No reviews for #{location.name_utf8} yet"
+          "No reviews yet."
         )
         expect(page).to have_link("Add review")
       end

@@ -12,11 +12,13 @@
   %>
 
   <% if @location.has_emergency_numbers? %>
-    <%= render partial: "locations/shared/emergency_numbers",
-      locals: {
-        location: @location
-      }
-    %>
+    <div>
+      <%= render partial: "locations/shared/emergency_numbers",
+        locals: {
+          location: @location
+        }
+      %>
+    </div>
   <% else %>
     <p>No emergency information for this location</p>
   <% end %>
