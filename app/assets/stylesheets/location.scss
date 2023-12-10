@@ -22,3 +22,11 @@
     align-items: center;
   }
 }
+
+.emergency-number {
+  display: flex;
+
+  span:first-child {
+    flex-grow: 1;
+  }
+}

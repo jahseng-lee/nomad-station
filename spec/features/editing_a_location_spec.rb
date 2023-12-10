@@ -17,13 +17,13 @@ RSpec.describe "Editing a location", type: :feature, js: true do
           visit location_path(location)
         end
 
-        it "shows an 'Update location description' link" do
-          expect(page).to have_link("Update location description")
+        it "shows an 'Update location' link" do
+          expect(page).to have_link("Update location")
         end
 
-        context "clicking the 'Update location description' link" do
+        context "clicking the 'Update location' link" do
           before do
-            click_link "Update location description"
+            click_link "Update location"
           end
 
           it "takes you to the edit location' page" do
@@ -32,18 +32,31 @@ RSpec.describe "Editing a location", type: :feature, js: true do
             )
           end
 
-          context "updating the description" do
+          context "updating the location" do
             let(:new_descsription) do
               "I think Wellington is very cool"
             end
             before do
               fill_in "Description", with: new_descsription
+
+              fill_in "Police", with: "111"
+              fill_in "Ambulance", with: "222"
+              fill_in "Fire", with: "333"
+
               click_button "Save"
             end
 
-            it "saves the description" do
+            it "saves the location information" do
               expect(page).to have_content(new_descsription)
               expect(page).to have_content("Updated location")
+
+              expect(page).to have_content("Emergency numbers")
+              expect(page).to have_content("Police")
+              expect(page).to have_content("111")
+              expect(page).to have_content("Ambulance")
+              expect(page).to have_content("222")
+              expect(page).to have_content("Fire")
+              expect(page).to have_content("333")
 
               # Ensure redirect has occured
               expect(page).not_to have_content(

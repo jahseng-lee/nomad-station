@@ -10,34 +10,64 @@
   <h1>Editing <%= @location.name_utf8 %>, <%= @location.country.name %></h1>
 
   <%= form_for @location do |f| %>
-    <div class="mb-3">
-      <%= f.label :description, class: "form-label"%>
+    <div class="mb-2">
+      <%= f.label :description, class: "form-label fw-bold" %>
       <%= f.text_area :description,
         class: "form-control",
         rows: 8
       %>
     </div>
+
+    <div class="mb-3">
+      <% if @location.description.present? %>
+        <%= f.button "Auto-generate",
+          type: :submit,
+          data: {
+            turbo_confirm: "Are you sure? This location already has a description, this action will overwrite the existing data permanently"
+          },
+          class: "btn btn-danger",
+          formaction: generate_description_location_path(@location)
+        %>
+      <% else %>
+        <%= f.button "Auto-generate",
+          type: :submit,
+          class: "btn btn-secondary",
+          formaction: generate_description_location_path(@location)
+        %>
+      <% end %>
+    </div>
+
+    <div>
+      <p class="fs-4 fw-bold">Emergency numbers</p>
+
+      <div class="mb-3">
+        <%= f.label(
+          :ambulance_number,
+          "Ambulance",
+          class: "form-label fw-bold"
+        ) %>
+        <%= f.text_field :ambulance_number, class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label(
+          :police_number,
+          "Police",
+          class: "form-label fw-bold"
+        ) %>
+        <%= f.text_field :police_number, class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :fire_number, "Fire", class: "form-label fw-bold" %>
+        <%= f.text_field :fire_number, class: "form-control" %>
+      </div>
+    </div>
+
     <%= f.button "Save",
       type: :submit,
       class: "btn btn-primary"
     %>
-
-    <% if @location.description.present? %>
-      <%= f.button "Auto-generate",
-        type: :submit,
-        data: {
-          turbo_confirm: "Are you sure? This location already has a description, this action will overwrite the existing data permanently"
-        },
-        class: "btn btn-danger",
-        formaction: generate_description_location_path(@location)
-      %>
-    <% else %>
-      <%= f.button "Auto-generate",
-        type: :submit,
-        class: "btn btn-secondary",
-        formaction: generate_description_location_path(@location)
-      %>
-    <% end %>
   <% end %>
 </div>
 
