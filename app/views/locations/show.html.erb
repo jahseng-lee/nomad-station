@@ -91,8 +91,13 @@
           @location.country,
           location_id: @location.id
         ) do %>
-          <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
-          Add emergency info.
+          <% if @location.has_emergency_numbers? %>
+            <i class="bi bi-pencil-fill" aria-hidden="true"></i>
+            Update emergency info.
+          <% else %>
+            <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
+            Add emergency info.
+          <% end %>
         <% end %>
       <% end %>
     </div>
