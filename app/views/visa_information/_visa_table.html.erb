@@ -1,67 +1,69 @@
 <div class="card">
   <div class="card-body">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Visa</th>
-          <th>Description</th>
-          <th>Eligible countries</th>
-          <% if user.admin? %>
-            <% # Empty for controls %>
-            <th></th>
-          <% end %>
-        </tr>
-      </thead>
-      <tbody>
-        <% visas.each do |visa| %>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
           <tr>
-            <td>
-              <%= visa.name %>
-            </td>
-            <td>
-              <%= @markdown.render(visa.description).html_safe %>
-            </td>
-            <td>
-              <ul>
-                <% user_citizenships = user&.citizenships.map(&:country) %>
-
-                <% # List the users eligible_countries first... %>
-                <% user_citizenships.select{ |country|
-                  visa.eligible_countries.include?(country)
-                }.each do |eligible_country| %>
-                  <li class="fw-bold">
-                    <%= eligible_country.name %>
-                  </li>
-                <% end %>
-
-                <% # ...then the rest  %>
-                <% (visa.eligible_countries - user_citizenships).each do |eligible_country| %>
-                  <li>
-                    <%= eligible_country.name %>
-                  </li>
-                <% end %>
-              </ul>
-            </td>
-
+            <th>Visa</th>
+            <th>Description</th>
+            <th>Eligible countries</th>
             <% if user.admin? %>
-              <td>
-                <%= link_to(
-                  edit_country_location_visa_path(
-                    visa,
-                    location_id: location.id,
-                    country_id: country.id
-                  ),
-                  aria: {
-                    label: "Edit visa"
-                  }
-                ) do %>
-                  <i class="bi bi-pencil-fill" aria-hidden="true"></i>
-                <% end %>
-              </td>
+              <% # Empty for controls %>
+              <th></th>
             <% end %>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% visas.each do |visa| %>
+            <tr>
+              <td>
+                <%= visa.name %>
+              </td>
+              <td>
+                <%= @markdown.render(visa.description).html_safe %>
+              </td>
+              <td>
+                <ul>
+                  <% user_citizenships = user&.citizenships.map(&:country) %>
+
+                  <% # List the users eligible_countries first... %>
+                  <% user_citizenships.select{ |country|
+                    visa.eligible_countries.include?(country)
+                  }.each do |eligible_country| %>
+                    <li class="fw-bold">
+                      <%= eligible_country.name %>
+                    </li>
+                  <% end %>
+
+                  <% # ...then the rest  %>
+                  <% (visa.eligible_countries - user_citizenships).each do |eligible_country| %>
+                    <li>
+                      <%= eligible_country.name %>
+                    </li>
+                  <% end %>
+                </ul>
+              </td>
+
+              <% if user.admin? %>
+                <td>
+                  <%= link_to(
+                    edit_country_location_visa_path(
+                      visa,
+                      location_id: location.id,
+                      country_id: country.id
+                    ),
+                    aria: {
+                      label: "Edit visa"
+                    }
+                  ) do %>
+                    <i class="bi bi-pencil-fill" aria-hidden="true"></i>
+                  <% end %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
