@@ -79,27 +79,13 @@ class ChannelsController < ApplicationController
       .order(:last_action_at)
 
     respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.replace(
-          "channel-list",
-          partial: "chats/joinable_channel_list",
-          locals: { channels: @channels }
-        )
-      end
+      format.turbo_stream
     end
   end
 
   def current_user_list
     respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.replace(
-          "joinable-channel-list",
-          partial: "chats/current_user_channel_list",
-          locals: {
-            user: current_user
-          }
-        )
-      end
+      format.turbo_stream
     end
   end
 

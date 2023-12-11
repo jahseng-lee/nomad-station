@@ -1,4 +1,7 @@
-<%= turbo_frame_tag "channel-list", class: "channel-list-container col pe-0" do %>
+<%= turbo_frame_tag(
+  local_assigns[:turbo_id] ? turbo_id : "channel-list",
+  class: "channel-list-frame"
+) do %>
   <div class="channel-list">
     <%= render partial: "chats/shared/channel_list",
       locals: {
