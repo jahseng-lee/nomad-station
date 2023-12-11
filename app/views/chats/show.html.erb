@@ -39,8 +39,17 @@
         </div>
       <% else %>
         <div class="chat-message-section no-chat col col-md-9 ps-md-0">
-          <p class="h2">
-            Click on one of channels on the left to start chatting
+          <p class="h2 d-none d-md-block">
+            Click on one of the channels to start chatting
+          </p>
+
+          <div class="d-md-none">
+            <%= render partial: "chats/shared/mobile_user_channel_list",
+              locals: {
+                user: current_user,
+                button_label: "Browse channels"
+              }
+            %>
           </p>
         </div>
       <% end %>

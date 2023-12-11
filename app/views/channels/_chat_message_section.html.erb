@@ -52,24 +52,11 @@
     <% end %>
 
     <div class="d-md-none">
-      <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#channelList" aria-controls="channelList">
-        <i class="bi bi-chevron-left"></i>
-        Browse
-      </button>
-
-      <div class="offcanvas offcanvas-end" tabindex="-1" id="channelList" aria-labelledby="Channel list">
-        <div class="offcanvas-header">
-          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="channel-list-container offcanvas-body">
-          <%= render partial: "chats/current_user_channel_list",
-            locals: {
-              user: current_user,
-              turbo_id: "mobile-channel-list"
-            }
-          %>
-        </div>
-      </div>
+      <%= render partial: "chats/shared/mobile_user_channel_list",
+        locals: {
+          user: current_user
+        }
+      %>
     </div>
   </div>
 
