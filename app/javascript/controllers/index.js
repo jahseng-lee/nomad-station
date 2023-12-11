@@ -25,9 +25,6 @@ application.register("modal", ModalController)
 import NavbarLinkController from "./navbar_link_controller"
 application.register("navbar-link", NavbarLinkController)
 
-import PagyController from "./pagy_controller"
-application.register("pagy", PagyController)
-
 import SearchCountriesController from "./search_countries_controller"
 application.register("search-countries", SearchCountriesController)
 
