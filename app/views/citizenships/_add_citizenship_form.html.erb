@@ -3,15 +3,6 @@
     data-controller="search-countries"
     data-search-countries-search-url-value=<%= citizenships_search_countries_path %>
     >
-    <ul>
-      <li>
-        TODO delete button for citizenships
-      </li>
-      <li>
-        TODO cancel button for this section
-      </li>
-    </ul>
-
     <%= label_tag "I am a citizen of..." %>
     <%= text_field_tag(
       "search-countries",
@@ -28,5 +19,12 @@
       <div data-search-countries-target="searchResults">
       </div>
     <% end %>
+
+    <%= link_to(
+      "Cancel",
+      cancel_citizenships_path,
+      class: "btn btn-danger",
+      "data-turbo-stream": ""
+    ) %>
   </div>
 <% end %>

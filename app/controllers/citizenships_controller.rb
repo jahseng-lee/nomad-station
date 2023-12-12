@@ -36,7 +36,30 @@ class CitizenshipsController < ApplicationController
   end
 
   def destroy
-    raise NotImplementedError, "TODO"
+    @citizenship = Citizenship.find(params[:id])
+
+    authorize(@citizenship)
+    @citizenship.destroy!
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(
+          "profile-citizenship-section",
+          partial: "profiles/citizenships"
+        )
+      end
+    end
+  end
+
+  def cancel
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(
+          "profile-citizenship-section",
+          partial: "profiles/citizenships"
+        )
+      end
+    end
   end
 
   private
