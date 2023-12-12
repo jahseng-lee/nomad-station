@@ -8,10 +8,6 @@ export default class extends Controller {
     "searchForm",
   ];
 
-  connect() {
-    this._autoFocusInput();
-  }
-
   regionSelect() {
     this.countrySelectTarget.value = "";
     this.submitSearch();
@@ -26,13 +22,6 @@ export default class extends Controller {
     document.getElementById("search-results").innerHTML = this._loadingSpinner();
 
     this.searchFormTarget.submit();
-  }
-
-  _autoFocusInput() {
-    const end = this.queryInputTarget.value.length;
-
-    this.queryInputTarget.setSelectionRange(end, end);
-    this.queryInputTarget.focus();
   }
 
   _loadingSpinner() {
