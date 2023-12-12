@@ -29,6 +29,11 @@
     justify-content: center;
     align-items: center;
   }
+
+  .title, .subtitle {
+    backdrop-filter: blur(1px);
+    filter: drop-shadow(2px 4px 6px black);
+  }
 }
 
 .location-tabs {
