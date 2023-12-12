@@ -12,6 +12,14 @@
   }
 }
 
+.emergency-number {
+  display: flex;
+
+  span:first-child {
+    flex-grow: 1;
+  }
+}
+
 .hero {
   text-align: center;
 
@@ -23,10 +31,14 @@
   }
 }
 
-.emergency-number {
-  display: flex;
+.location-tabs {
+  ul {
+    overflow-x: auto;
+    flex-wrap: nowrap;
 
-  span:first-child {
-    flex-grow: 1;
+    li {
+      display: inline-block;
+      float: none;
+    }
   }
 }
