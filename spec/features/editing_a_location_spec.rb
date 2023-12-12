@@ -38,25 +38,12 @@ RSpec.describe "Editing a location", type: :feature, js: true do
             end
             before do
               fill_in "Description", with: new_descsription
-
-              fill_in "Police", with: "111"
-              fill_in "Ambulance", with: "222"
-              fill_in "Fire", with: "333"
-
               click_button "Save"
             end
 
             it "saves the location information" do
               expect(page).to have_content(new_descsription)
               expect(page).to have_content("Updated location")
-
-              expect(page).to have_content("Emergency numbers")
-              expect(page).to have_content("Police")
-              expect(page).to have_content("111")
-              expect(page).to have_content("Ambulance")
-              expect(page).to have_content("222")
-              expect(page).to have_content("Fire")
-              expect(page).to have_content("333")
 
               # Ensure redirect has occured
               expect(page).not_to have_content(

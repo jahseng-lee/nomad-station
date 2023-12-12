@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="card-body">
+    <p class="fs-5 fw-bold mb-1">Emergency numbers</p>
+
+    <% location.emergency_numbers.each do |emergency_number| %>
+      <div class="emergency-number">
+        <span><%= emergency_number[:name].capitalize %>:</span>
+        <span class="fw-bold">
+          <%= emergency_number[:number] %>
+        </span>
+      </div>
+    <% end %>
+  </div>
+</div>

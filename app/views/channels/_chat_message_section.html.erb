@@ -50,6 +50,14 @@
         </ul>
       </div>
     <% end %>
+
+    <div class="d-md-none">
+      <%= render partial: "chats/shared/mobile_user_channel_list",
+        locals: {
+          user: current_user
+        }
+      %>
+    </div>
   </div>
 
   <div class="channel-message-section">

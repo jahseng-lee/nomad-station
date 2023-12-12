@@ -37,33 +37,6 @@
       <% end %>
     </div>
 
-    <div>
-      <p class="fs-4 fw-bold">Emergency numbers</p>
-
-      <div class="mb-3">
-        <%= f.label(
-          :ambulance_number,
-          "Ambulance",
-          class: "form-label fw-bold"
-        ) %>
-        <%= f.text_field :ambulance_number, class: "form-control" %>
-      </div>
-
-      <div class="mb-3">
-        <%= f.label(
-          :police_number,
-          "Police",
-          class: "form-label fw-bold"
-        ) %>
-        <%= f.text_field :police_number, class: "form-control" %>
-      </div>
-
-      <div class="mb-3">
-        <%= f.label :fire_number, "Fire", class: "form-label fw-bold" %>
-        <%= f.text_field :fire_number, class: "form-control" %>
-      </div>
-    </div>
-
     <%= f.button "Save",
       type: :submit,
       class: "btn btn-primary"

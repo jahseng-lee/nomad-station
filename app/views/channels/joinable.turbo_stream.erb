@@ -1,0 +1,14 @@
+<%= turbo_stream.replace(
+  "channel-list",
+  partial: "chats/joinable_channel_list",
+  locals: { channels: @channels }
+) %>
+
+<%= turbo_stream.replace(
+  "mobile-channel-list",
+  partial: "chats/joinable_channel_list",
+  locals: {
+    channels: @channels,
+    turbo_id: "mobile-joinable-channel-list"
+  }
+) %>

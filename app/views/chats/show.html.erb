@@ -23,22 +23,33 @@
     <%= turbo_stream_from "user-#{current_user.id}-chat" %>
 
     <div class="chat-screen-container row">
-      <%= render partial: "chats/current_user_channel_list",
-        locals: {
-          user: current_user
-        }
-      %>
+      <div class="channel-list-container col pe-0 d-none d-md-flex">
+        <%= render partial: "chats/current_user_channel_list",
+          locals: {
+            user: current_user
+          }
+        %>
+      </div>
 
       <% if @channel.present? %>
-        <div class="chat-message-section col-9 ps-0">
+        <div class="chat-message-section col col-md-9 ps-md-0">
           <%= render partial: "channels/chat_message_section",
             locals: { channel: @channel, message: @message }
           %>
         </div>
       <% else %>
-        <div class="chat-message-section no-chat col-9 ps-0">
-          <p class="h2">
-            Click on one of channels on the left to start chatting
+        <div class="chat-message-section no-chat col col-md-9 ps-md-0">
+          <p class="h2 d-none d-md-block">
+            Click on one of the channels to start chatting
+          </p>
+
+          <div class="d-md-none">
+            <%= render partial: "chats/shared/mobile_user_channel_list",
+              locals: {
+                user: current_user,
+                button_label: "Browse channels"
+              }
+            %>
           </p>
         </div>
       <% end %>

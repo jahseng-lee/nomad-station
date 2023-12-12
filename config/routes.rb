@@ -42,12 +42,13 @@ Rails.application.routes.draw do
   resources :locations, only: [:show, :edit, :update] do
     member do
       get :upload_banner_image_modal
+      get :emergency_info
 
       patch :generate_description
     end
 
     resources :banner_images, only: [:create, :update]
-
+    resources :countries, only: [:edit, :update]
     resources :reviews, only: [:index, :show, :new, :create, :edit, :update] do
       collection do
         post :generate_review

@@ -47,9 +47,9 @@ class Location < ApplicationRecord
 
   def emergency_numbers
     [
-      { name: "ambulance", number: ambulance_number },
-      { name: "police", number: police_number },
-      { name: "fire", number: fire_number },
+      { name: "ambulance", number: country.ambulance_number },
+      { name: "police", number: country.police_number },
+      { name: "fire", number: country.fire_number },
     ]
   end
 

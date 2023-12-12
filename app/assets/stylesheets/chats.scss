@@ -28,6 +28,17 @@ body {
       display: flex;
       flex-direction: column;
 
+      &.offcanvas-body {
+        padding: 0;
+      }
+
+      .channel-list-frame {
+        flex: 1;
+
+        display: flex;
+        flex-direction: column;
+      }
+
       .channel-list {
         flex: 1;
 

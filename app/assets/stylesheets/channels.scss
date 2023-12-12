@@ -12,6 +12,10 @@
 
     border-bottom: 1px solid $primary;
 
+    .dropdown {
+      flex: 1;
+    }
+
     .leave-channel-button {
       color: $danger;
     }

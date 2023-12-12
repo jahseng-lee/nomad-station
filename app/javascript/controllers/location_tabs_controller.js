@@ -5,6 +5,7 @@ export default class extends Controller {
     "overviewLink",
     "reviewsLink",
     "visaLink",
+    "emergencyInfoLink"
   ];
 
   connect() {
@@ -15,6 +16,8 @@ export default class extends Controller {
       this.visaLinkTarget.classList.add("active");
     } else if (pathElements.includes("reviews")) {
       this.reviewsLinkTarget.classList.add("active");
+    } else if (pathElements.includes("emergency_info")) {
+      this.emergencyInfoLinkTarget.classList.add("active");
     } else {
       this.overviewLinkTarget.classList.add("active");
     }
