@@ -32,18 +32,5 @@ class DeviseMailer < Devise::Mailer
       message_stream: "outbound"
     )
   end
-
-  def confirmation_instructions(record, token, opts = {})
-    self.template_model = ApplicationMailer::DEFAULT_ARGS.merge({
-      action_url: confirmation_url(record, confirmation_token: token),
-      display_name: record.display_name,
-    })
-
-    mail(
-      to: record.email,
-      postmark_template_alias: "confirmation-instructions",
-      track_opens: "true",
-      message_stream: "outbound"
-    )
-  end
 end
+
