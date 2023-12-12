@@ -157,7 +157,7 @@ require 'pagy/extras/bootstrap'
 
 # Multi size var used by the *_nav_js helpers
 # See https://ddnexus.github.io/pagy/docs/extras/navs#steps
-Pagy::DEFAULT[:steps] = { 0 => [2,3,3,2], 540 => [3,5,5,3], 720 => [5,7,7,5] }
+Pagy::DEFAULT[:steps] = { 0 => [1,2,2,1], 540 => [2,3,3,2], 720 => [3, 5, 5, 3] }
 
 # Feature Extras
 
