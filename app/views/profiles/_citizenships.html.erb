@@ -10,14 +10,31 @@
     <div>
       I am a citizen of
       <% if current_user.citizenships.count == 1 %>
+        <% citizenship = current_user.citizenships.first %>
         <span class="fw-bold">
-          <%= current_user.citizenships.first.country.name %>
+          <%= citizenship.country.name %>
+          <%= button_to(
+            citizenship_path(citizenship),
+            method: :delete,
+            class: "delete-button",
+            form_class: "d-inline-block"
+          ) do %>
+            <i class="bi bi-x-circle-fill"></i>
+          <% end %>
         </span>
       <% else %>
         <ul>
           <% current_user.citizenships.each do |citizenship| %>
             <li>
               <span class="fw-bold"><%= citizenship.country.name %></span>
+              <%= button_to(
+                citizenship_path(citizenship),
+                method: :delete,
+                class: "delete-button",
+                form_class: "d-inline-block"
+              ) do %>
+                <i class="bi bi-x-circle-fill"></i>
+              <% end %>
             </li>
           <% end %>
         </ul>

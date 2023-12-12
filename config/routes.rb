@@ -22,7 +22,11 @@ Rails.application.routes.draw do
     end
   end
   resource :choose_plan, only: [:show]
-  resources :citizenships, only: [:new, :create, :destroy]
+  resources :citizenships, only: [:new, :create, :destroy] do
+    collection do
+      get :cancel
+    end
+  end
   namespace :citizenships do
     resources :search_countries, only: [:index]
   end
