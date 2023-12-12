@@ -1,4 +1,6 @@
 class ProfilePicturesController < ApplicationController
+  before_action :authenticate_subscription!
+
   def create
     @user = User.find(params[:user_id])
 

@@ -1,4 +1,5 @@
 class VisaInformationController < ApplicationController
+  before_action :authenticate_subscription!
   before_action :initialize_markdown_renderer, only: :show
 
   def show

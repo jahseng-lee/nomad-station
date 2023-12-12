@@ -1,4 +1,6 @@
 class CitizenshipsController < ApplicationController
+  before_action :authenticate_subscription!
+
   def new
     respond_to do |format|
       format.turbo_stream do

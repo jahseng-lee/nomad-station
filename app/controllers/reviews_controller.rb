@@ -1,4 +1,6 @@
 class ReviewsController < ApplicationController
+  before_action :authenticate_subscription!
+
   def index
     @location = Location.find(params[:location_id])
     @reviews = @location.reviews
