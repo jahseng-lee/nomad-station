@@ -6,7 +6,7 @@ class ChoosePlansController < ApplicationController
         current_user.cancelled_subscription?
       @checkout_client_reference_id = SecureRandom.hex(32)
 
-      User.update!(
+      current_user.update!(
         last_checkout_reference: @checkout_client_reference_id
       )
     else
