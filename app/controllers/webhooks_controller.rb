@@ -57,7 +57,18 @@ class WebhooksController < ApplicationController
 
       user = User.find_by(stripe_customer_id: data["customer"])
       if user.nil?
-        raise StripeCustomerNotFound, "Couldn't find a User with stripe_customer_id: #{data['customer']}. event.type: #{event.type}"
+        # NOTE: for now, just return a 200
+        #       It turns out that this always happens _before_ a checkout
+        #       session is completed; this means that anytime someone signs
+        #       up we'd raise and error as the user wouldn't have their
+        #       customer_id yet.
+        #       Ideally, log these events somewhere but _don't_ raise an
+        #       exception
+
+
+        render json: { message: :success }
+        return
+        # raise StripeCustomerNotFound, "Couldn't find a User with stripe_customer_id: #{data['customer']}. event.type: #{event.type}"
       end
 
       # Always update the status just in case
