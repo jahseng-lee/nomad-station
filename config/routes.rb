@@ -37,9 +37,9 @@ Rails.application.routes.draw do
           only: [:create, :destroy],
           controller: "visas/eligible_countries_for_visas"
 
-        resources :search_locations,
+        resources :search_countries,
           only: [:index],
-          controller: "visas/search_locations"
+          controller: "visas/search_countries"
       end
     end
   end

@@ -1,6 +1,4 @@
-# TODO rename to SearchCountriesController
-class Visas::SearchLocationsController < ApplicationController
-
+class Visas::SearchCountriesController < ApplicationController
   def index
     if current_user.admin?
       @visa = Visa.find(params[:visa_id])
