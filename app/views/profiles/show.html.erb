@@ -107,35 +107,13 @@
         </div>
       </div>
 
-      <div class="card">
-        <div class="card-header">
-          Subscription
-        </div>
-        <div class="card-body">
-          <p class="card-text">
-            Status:
-            <strong><%= current_user.subscription_status %></strong>
-          </p>
+      <%= turbo_frame_tag(
+        "subscription-status-section",
+        src: profile_section_subscriptions_path(format: :turbo_stream)
+      ) do %>
+        Loading subscription status...
+      <% end %>
 
-          <% if current_user.cancelled_subscription? %>
-            <%= link_to "Re-subscribe",
-              choose_plan_path,
-              class: "btn btn-success"
-            %>
-          <% elsif current_user.no_subscription? %>
-            <%= link_to "Add subscription",
-              choose_plan_path,
-              class: "btn btn-success"
-            %>
-          <% else %>
-            <%= button_to "Manage subscription",
-              manage_subscriptions_path,
-              method: :post,
-              class: "btn btn-secondary"
-            %>
-          <% end %>
-        </div>
-      </div>
     </div>
   </div>
 </div>

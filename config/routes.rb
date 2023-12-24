@@ -67,7 +67,7 @@ Rails.application.routes.draw do
   resources :search_locations, only: [:index]
   resources :subscriptions, only: [] do
     collection do
-      post :manage
+      get :profile_section
     end
   end
   resources :users, only: [:update] do

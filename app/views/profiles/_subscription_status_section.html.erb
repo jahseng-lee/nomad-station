@@ -1,0 +1,32 @@
+<div class="card">
+  <div class="card-header">
+    Subscription
+  </div>
+  <div class="card-body">
+    <p class="card-text">
+      Status:
+      <strong><%= user.subscription_status %></strong>
+    </p>
+
+    <% if user.cancelled_subscription? %>
+      <%= link_to "Re-subscribe",
+        choose_plan_path,
+        class: "btn btn-success"
+      %>
+    <% elsif user.no_subscription? %>
+      <%= link_to "Add subscription",
+        choose_plan_path,
+        class: "btn btn-success"
+      %>
+    <% elsif @portal_session_url.present? # set by app/controllers/subscription_controller.rb %>
+      <%= link_to "Manage subscription",
+        @portal_session_url,
+        allow_other_host: true,
+        class: "btn btn-secondary",
+        data: {
+          turbo_stream: "false",
+        }
+      %>
+    <% end %>
+  </div>
+</div>
