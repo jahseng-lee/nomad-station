@@ -3,6 +3,9 @@ class Location < ApplicationRecord
 
   pg_search_scope :search_by_name,
     against: :name,
+    associated_against: {
+      country: [:name]
+    },
     using: {
       tsearch: { prefix: true }
     },
