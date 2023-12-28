@@ -3,7 +3,7 @@ class ReviewsController < ApplicationController
 
   def index
     @location = Location.find(params[:location_id])
-    @reviews = @location.reviews
+    @reviews = @location.reviews.order(created_at: :desc)
   end
 
   def show
