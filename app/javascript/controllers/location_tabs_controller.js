@@ -4,7 +4,6 @@ export default class extends Controller {
   static targets = [
     "overviewLink",
     "reviewsLink",
-    "visaLink",
     "emergencyInfoLink"
   ];
 
@@ -12,9 +11,7 @@ export default class extends Controller {
     const pathname = window.location.pathname;
     const pathElements = pathname.split("/")
 
-    if (pathElements.includes("visa_information")) {
-      this.visaLinkTarget.classList.add("active");
-    } else if (pathElements.includes("reviews")) {
+    if (pathElements.includes("reviews")) {
       this.reviewsLinkTarget.classList.add("active");
     } else if (pathElements.includes("emergency_info")) {
       this.emergencyInfoLinkTarget.classList.add("active");

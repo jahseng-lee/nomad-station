@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_24_092544) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_13_123509) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -70,13 +70,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_24_092544) do
     t.text "police_number"
     t.text "fire_number"
     t.index ["region_id"], name: "index_countries_on_region_id"
-  end
-
-  create_table "eligible_countries_for_visas", force: :cascade do |t|
-    t.bigint "country_id", null: false
-    t.bigint "visa_id", null: false
-    t.index ["country_id"], name: "index_eligible_countries_for_visas_on_country_id"
-    t.index ["visa_id"], name: "index_eligible_countries_for_visas_on_visa_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -145,15 +138,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_24_092544) do
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  end
-
-  create_table "visas", force: :cascade do |t|
-    t.bigint "country_id", null: false
-    t.text "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "description", null: false
-    t.index ["country_id"], name: "index_visas_on_country_id"
   end
 
   add_foreign_key "banner_images", "locations"

@@ -30,19 +30,6 @@ Rails.application.routes.draw do
   namespace :citizenships do
     resources :search_countries, only: [:index]
   end
-  resources :countries, only: [] do
-    resources :locations, only: [] do
-      resources :visas, only: [:new, :create, :edit, :update, :destroy] do
-        resources :eligible_countries_for_visas,
-          only: [:create, :destroy],
-          controller: "visas/eligible_countries_for_visas"
-
-        resources :search_countries,
-          only: [:index],
-          controller: "visas/search_countries"
-      end
-    end
-  end
   resources :locations, only: [:show, :edit, :update] do
     member do
       get :upload_banner_image_modal
@@ -58,10 +45,6 @@ Rails.application.routes.draw do
         post :generate_review
       end
     end
-
-    resource :visa_information,
-      only: [:show, :edit],
-      controller: "visa_information"
   end
   resource :profile, only: [:show]
   resources :search_locations, only: [:index]
