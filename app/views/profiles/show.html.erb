@@ -97,23 +97,12 @@
     </div>
 
     <div class="col">
-      <div class="card mb-3">
-        <div class="card-header">
-          Citizenships
-        </div>
-
-        <div class="card-body">
-          <%= render partial: "profiles/citizenships" %>
-        </div>
-      </div>
-
       <%= turbo_frame_tag(
         "subscription-status-section",
         src: profile_section_subscriptions_path(format: :turbo_stream)
       ) do %>
         Loading subscription status...
       <% end %>
-
     </div>
   </div>
 </div>
