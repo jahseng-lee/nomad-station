@@ -29,7 +29,8 @@ class User < ApplicationRecord
 
   def active_subscription?
     self.admin? ||
-      self[:subscription_status] == "active"
+      self[:subscription_status] == "active" ||
+      self[:subscription_status] == "trialing"
   end
 
   def cancelled_subscription?
