@@ -9,8 +9,13 @@
 
     display: flex;
     flex-direction: row;
+    align-items: center;
 
     border-bottom: 1px solid $primary;
+
+    h3 {
+      margin-bottom: 0;
+    }
 
     .dropdown {
       flex: 1;
