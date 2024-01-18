@@ -65,7 +65,7 @@ class ChannelMessagesController < ApplicationController
       # NOTE this should probably be a background job
       @channel.channel_members.each do |channel_member|
         user = channel_member.user
-        next if current_user == user
+        next if user.nil? || current_user == user
 
         Turbo::StreamsChannel.broadcast_action_to(
           "user-#{channel_member.user_id}-navbar-chat-link",
