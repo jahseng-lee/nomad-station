@@ -11,8 +11,8 @@ class ChatGpt
               " why people should visit"\
               " #{location.name_utf8}, #{location.country.name}? Make it"\
               " 500-900 characters long and aimed at Digital Nomads."\
-              " Please include basic formatting like new lines and"\
-              " paragraph breaks."
+              " Please include line breaks and paragraph breaks every 1"\
+              " to 3 sentences, this is very important."
           }
         ],
         temperature: 1.0,
