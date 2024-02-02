@@ -10,7 +10,9 @@ class ChatGpt
             content: "Could you generate a short paragraph of"\
               " why people should visit"\
               " #{location.name_utf8}, #{location.country.name}? Make it"\
-              " 500-700 characters long and aimed at Digital Nomads."\
+              " 500-900 characters long and aimed at Digital Nomads."\
+              " Please include basic formatting like new lines and"\
+              " paragraph breaks."
           }
         ],
         temperature: 1.0,
