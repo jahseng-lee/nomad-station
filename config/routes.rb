@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     end
   end
   resource :choose_plan, only: [:show]
-  resources :locations, only: [:show, :edit, :update] do
+  resources :locations, only: [:show, :edit, :update, :destroy] do
     member do
       get :upload_banner_image_modal
       get :emergency_info

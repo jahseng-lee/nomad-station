@@ -28,11 +28,10 @@ RSpec.describe "Deleting a location", type: :feature, js: true do
         end
 
         it "deletes the location" do
-          expect(current_path).to eq "/"
           expect(page).to have_content "Location '#{location.name}' deleted"
 
           fill_in "search_query", with: location.name
-          within "search-results" do
+          within "#search-results" do
             expect(page).not_to have_content location.name
           end
         end

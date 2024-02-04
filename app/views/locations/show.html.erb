@@ -106,25 +106,9 @@
 
     <div class="col-12 col-lg-9">
       <% if current_user&.admin? %>
-        <div class="mb-3">
-          <%= link_to(
-            upload_banner_image_modal_location_path(@location),
-            "data-turbo-stream": "",
-          ) do %>
-            <% if @location.banner_image.present? %>
-              <i class="bi bi-pencil-fill" aria-hidden="true"></i>
-              Update banner image
-            <% else %>
-              <i class="bi bi-plus-circle-fill" aria-hidden="true"></i>
-              Add banner image
-            <% end %>
-          <% end %>
-
-          <%= link_to edit_location_path(@location), class: "ms-3" do %>
-            <i class="bi bi-pencil-fill" aria-hidden="true"></i>
-            Update location
-          <% end %>
-        </div>
+        <%= render partial: "locations/admin_actions",
+          locals: { location: @location }
+        %>
       <% end %>
 
       <%= @markdown.render(
