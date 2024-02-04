@@ -11,6 +11,7 @@ def seed_database
   update_bali
   setup_content_account
   setup_default_chat_channels
+  create_location_tags
 end
 
 def setup_regions
@@ -547,6 +548,33 @@ def setup_default_chat_channels
     )
   end
   puts "Finished setting up default chat channels"
+end
+
+def create_location_tags
+  if Tag.count != 0
+    puts "Already set up default system tags"
+    return
+  end
+
+  puts "Creating default system tags"
+  [
+    "Party",
+    "Beach",
+    "Nightlife",
+    "Yoga",
+    "Nature",
+    "Cheap",
+    "History",
+    "Safe",
+    "Hot",
+    "Popular",
+    "Surf",
+    "Quiet",
+    "Remote",
+    "Ski/snowboard",
+    "Food",
+  ].each do |tag_name|
+  end
 end
 
 seed_database
