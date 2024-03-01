@@ -6,13 +6,6 @@
     </div>
   <% end %>
 
-  <% if flash[:error_generate_review].present? %>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-      <%= flash[:error_generate_review] %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  <% end %>
-
   <%= form_for [location, review], data: { turbo_frame: "_top" } do |f| %>
     <div class="row mb-3">
       <%= f.label :overall, class: "col-2 col-form-label" %>
@@ -123,20 +116,6 @@
       "Finish",
       type: :submit,
       class: "btn btn-primary mb-2",
-    ) %>
-  <% end %>
-
-  <% if current_user.admin? %>
-    <%= button_to(
-      "Auto-generate review",
-      generate_review_location_reviews_path(
-        review, location_id: location.id
-      ),
-      method: :post,
-      class: "btn btn-secondary",
-      data: {
-        turbo: false,
-      }
     ) %>
   <% end %>
 <% end %>

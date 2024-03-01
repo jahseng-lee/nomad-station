@@ -32,11 +32,7 @@ Rails.application.routes.draw do
 
     resources :banner_images, only: [:create, :update]
     resources :countries, only: [:edit, :update]
-    resources :reviews, only: [:index, :show, :new, :create, :edit, :update] do
-      collection do
-        post :generate_review
-      end
-    end
+    resources :reviews, only: [:index, :show, :new, :create, :edit, :update]
   end
   resource :profile, only: [:show]
   resources :search_locations, only: [:index]
