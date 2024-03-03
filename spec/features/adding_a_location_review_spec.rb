@@ -41,7 +41,6 @@ RSpec.describe "Adding a location review", type: :feature, js: true do
           )
 
           expect(page).to have_button("Finish")
-          expect(page).not_to have_content("Auto-generate review")
         end
 
         context "filling out the form and clicking 'Finish'" do

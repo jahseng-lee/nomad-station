@@ -27,6 +27,21 @@ class LocationsController < ApplicationController
     end
   end
 
+  def destroy
+    @location = Location.find(params[:id])
+    authorize(@location)
+
+    if @location.delete
+      flash[:success_delete_location] = "Location '#{@location.name}' deleted"
+
+      redirect_to root_path
+    else
+      flash[:error_delete_location] = "Couldn't delete '#{@location.name}', please try again"
+
+      redirect_to @location
+    end
+  end
+
   def generate_description
     @location = Location.find(params[:id])
     authorize(@location, :edit?)

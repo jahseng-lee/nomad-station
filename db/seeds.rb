@@ -9,7 +9,6 @@ def seed_database
   associate_countries_and_regions
   denomarlize_united_kingdom
   update_bali
-  setup_content_account
   setup_default_chat_channels
   create_location_tags
 end
@@ -518,25 +517,6 @@ end
 def update_bali
   # ...I don't know why Bali is part of India in the db
   Location.find_by(name: "Bali").update!(country: Country.find_by(name: "Indonesia"))
-end
-
-def setup_content_account
-  if User.find_by(email: "content-robot@nomadstation.io").present?
-    puts "Already setup 'content-robot@nomadstation.io'"
-    return
-  end
-
-  puts "Creating content-robot account"
-  user = User.new(
-    display_name: "Content robot",
-    email: "content-robot@nomadstation.io",
-    # This account should never be logged into
-    # so generate a random password
-    password: SecureRandom.hex(20)
-  )
-  user.skip_confirmation!
-  user.save!
-  puts "Finished creating content-robot account"
 end
 
 def setup_default_chat_channels

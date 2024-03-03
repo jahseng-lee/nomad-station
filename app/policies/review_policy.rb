@@ -18,8 +18,4 @@ class ReviewPolicy < ApplicationPolicy
   def update?
     edit?
   end
-
-  def generate_review?
-    user.admin?
-  end
 end
