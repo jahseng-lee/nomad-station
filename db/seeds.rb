@@ -554,6 +554,7 @@ def create_location_tags
     "Ski/snowboard",
     "Food",
   ].each do |tag_name|
+    Tag.create!(name: tag_name)
   end
 end
 
