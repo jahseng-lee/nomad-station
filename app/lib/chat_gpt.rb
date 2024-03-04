@@ -20,4 +20,29 @@ class ChatGpt
     )
     response.dig("choices")[0].dig("message", "content")
   end
+
+  def self.generate_location_tags(location:)
+    prompt = "Could you give me the most relevant tags for"\
+      " #{location.name_utf8}, #{location.country.name} from this"\
+      " array? Don't tag 'Popular' unless it's a highly visited"\
+      " destination for digital nomads in particular. Don't tag"\
+      " 'Shopping' unless it's a world renowed shopping center.\n"\
+      " #{Tag.pluck(:name)}\n"\
+      " Make your answer an array of tags and nothing else, as if you"\
+      " were a JSON API. Limit the maximum tags to 6."
+    client = OpenAI::Client.new
+    response = client.chat(
+      parameters: {
+        model: "gpt-4",
+        messages: [
+          {
+            role: "user",
+            content: prompt
+          }
+        ],
+        temperature: 1.0,
+      }
+    )
+    response.dig("choices")[0].dig("message", "content")
+  end
 end
