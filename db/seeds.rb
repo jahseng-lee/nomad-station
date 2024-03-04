@@ -540,7 +540,6 @@ def create_location_tags
   [
     "Party",
     "Beach",
-    "Nightlife",
     "Yoga",
     "Nature",
     "Cheap",
@@ -553,6 +552,7 @@ def create_location_tags
     "Remote",
     "Ski/snowboard",
     "Food",
+    "Shopping",
   ].each do |tag_name|
     Tag.create!(name: tag_name)
   end
