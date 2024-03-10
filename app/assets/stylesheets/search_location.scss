@@ -17,6 +17,11 @@ a.location-search-result-link {
 
   color: $primary;
   border: 1px solid $primary;
+
+  &.is-active {
+    color: $white;
+    background-color: $primary;
+  }
 }
 
 .location-card {
@@ -47,7 +52,7 @@ a.location-search-result-link {
   height: 100%;
 }
 
-.tag-filter-buttons {
+.tag-filter-links {
   display: flex;
   flex-wrap: wrap;
 

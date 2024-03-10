@@ -43,6 +43,7 @@ class SearchLocationsController < ApplicationController
       :region_id,
       :country_id,
       :query,
+      :filter
     )
   end
 end
