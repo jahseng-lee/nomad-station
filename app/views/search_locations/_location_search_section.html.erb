@@ -96,7 +96,7 @@
             "tag-value": "#{tag.name}"
           }
         ) do %>
-          <%= helper_filter_button_icon(tag_name: tag.name) %>
+          <%= helper_location_tag_icon(tag_name: tag.name) %>
           <%= tag.name %>
         <% end %>
       <% end %>
@@ -131,18 +131,9 @@
                 </div>
 
                 <div class="card-footer">
-                  <% if location.tags.any? %>
-                    <div>
-                      <% location.tags.order(:name).each do |tag| %>
-                        <span class="location-tag-badge badge rounded-pill">
-                          <%= helper_filter_button_icon(
-                            tag_name: tag.name
-                          ) %>
-                          <%= tag.name %>
-                        </span>
-                      <% end %>
-                    </div>
-                  <% end %>
+                  <%= render partial: "shared/location_tags", locals: {
+                    location: location
+                  } %>
 
                   <% if location.tags.any? && location.reviews.any? %>
                     <hr />
