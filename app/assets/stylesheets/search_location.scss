@@ -12,10 +12,21 @@ a.location-search-result-link {
   }
 }
 
+.location-tag-badge {
+  margin-top: 0.4rem;
+
+  color: $primary;
+  border: 1px solid $primary;
+}
+
 .location-card {
   .card-body {
     max-height: 200px;
     overflow: hidden;
+  }
+
+  .card-footer {
+    background-color: $white;
   }
 }
 
@@ -34,4 +45,21 @@ a.location-search-result-link {
 .search-result-img {
   object-fit: cover;
   height: 100%;
+}
+
+.tag-filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+
+  a {
+    display: flex;
+    align-items: center;
+
+    text-decoration: none;
+
+    i {
+      margin-right: 0.2rem;
+      font-size: 1.2rem;
+    }
+  }
 }

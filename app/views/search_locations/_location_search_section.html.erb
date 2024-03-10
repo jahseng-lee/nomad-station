@@ -76,6 +76,21 @@
         <i class="bi bi-search" aria-hidden="true"></i>
       </span>
     </div>
+
+    <div class="tag-filter-buttons mt-2">
+      <% Tag.order(:name).each do |tag| %>
+        <%= link_to(
+          "javascript:void(0)",
+          class: "location-tag-badge badge rounded-pill me-2",
+          data: {
+            action: "search-locations#filterByTag"
+          }
+        ) do %>
+          <%= helper_filter_button_icon(tag_name: tag.name) %>
+          <%= tag.name %>
+        <% end %>
+      <% end %>
+    </div>
   <% end %>
 </div>
 
@@ -105,14 +120,33 @@
                   </p>
                 </div>
 
-                <% if location.reviews.any? %>
-                  <div class="card-footer">
-                    <%= helper_review_summary_star_rating(
-                      location: location,
-                      review_field: :overall
-                    ) %>
-                  </div>
-                <% end %>
+                <div class="card-footer">
+                  <% if location.tags.any? %>
+                    <div>
+                      <% location.tags.order(:name).each do |tag| %>
+                        <span class="location-tag-badge badge rounded-pill">
+                          <%= helper_filter_button_icon(
+                            tag_name: tag.name
+                          ) %>
+                          <%= tag.name %>
+                        </span>
+                      <% end %>
+                    </div>
+                  <% end %>
+
+                  <% if location.tags.any? && location.reviews.any? %>
+                    <hr />
+                  <% end %>
+
+                  <% if location.reviews.any? %>
+                    <div>
+                      <%= helper_review_summary_star_rating(
+                        location: location,
+                        review_field: :overall
+                      ) %>
+                    </div>
+                  <% end %>
+                </div>
               </div>
             </div>
           </div>
