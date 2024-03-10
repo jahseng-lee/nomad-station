@@ -10,6 +10,7 @@ def seed_database
   denomarlize_united_kingdom
   update_bali
   setup_default_chat_channels
+  create_location_tags
 end
 
 def setup_regions
@@ -527,6 +528,34 @@ def setup_default_chat_channels
     )
   end
   puts "Finished setting up default chat channels"
+end
+
+def create_location_tags
+  if Tag.count != 0
+    puts "Already set up default system tags"
+    return
+  end
+
+  puts "Creating default system tags"
+  [
+    "Party",
+    "Beach",
+    "Yoga",
+    "Nature",
+    "Cheap",
+    "History",
+    "Safe",
+    "Hot",
+    "Popular",
+    "Surf",
+    "Quiet",
+    "Remote",
+    "Ski/snowboard",
+    "Food",
+    "Shopping",
+  ].each do |tag_name|
+    Tag.create!(name: tag_name)
+  end
 end
 
 seed_database

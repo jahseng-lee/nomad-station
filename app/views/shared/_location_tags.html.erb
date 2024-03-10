@@ -1,0 +1,12 @@
+<% if location.tags.any? %>
+  <div>
+    <% location.tags.order(:name).each do |tag| %>
+      <span class="location-tag-badge badge rounded-pill">
+        <%= helper_location_tag_icon(
+          tag_name: tag.name
+        ) %>
+        <%= tag.name %>
+      </span>
+    <% end %>
+  </div>
+<% end %>

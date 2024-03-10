@@ -17,6 +17,10 @@ a.location-search-result-link {
     max-height: 200px;
     overflow: hidden;
   }
+
+  .card-footer {
+    background-color: $white;
+  }
 }
 
 .review-summary-row {
@@ -34,4 +38,21 @@ a.location-search-result-link {
 .search-result-img {
   object-fit: cover;
   height: 100%;
+}
+
+.tag-filter-links {
+  display: flex;
+  flex-wrap: wrap;
+
+  a {
+    display: flex;
+    align-items: center;
+
+    text-decoration: none;
+
+    i {
+      margin-right: 0.2rem;
+      font-size: 1.2rem;
+    }
+  }
 }

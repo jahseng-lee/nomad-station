@@ -26,6 +26,18 @@ $primary: #262626;
   }
 }
 
+.location-tag-badge {
+  margin-top: 0.4rem;
+
+  color: $primary;
+  border: 1px solid $primary;
+
+  &.is-active {
+    color: $white;
+    background-color: $primary;
+  }
+}
+
 .navbar-actions {
   display: flex;
 }

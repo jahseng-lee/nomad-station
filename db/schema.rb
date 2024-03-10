@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_13_124348) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_02_123140) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -75,6 +75,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_13_124348) do
     t.index ["name"], name: "index_locations_on_name"
   end
 
+  create_table "locations_tags", id: false, force: :cascade do |t|
+    t.bigint "location_id", null: false
+    t.bigint "tag_id", null: false
+  end
+
   create_table "profile_pictures", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.jsonb "image_data", null: false
@@ -102,6 +107,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_13_124348) do
     t.datetime "updated_at", null: false
     t.index ["location_id"], name: "index_reviews_on_location_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.text "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
