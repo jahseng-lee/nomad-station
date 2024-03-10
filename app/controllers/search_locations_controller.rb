@@ -16,6 +16,12 @@ class SearchLocationsController < ApplicationController
     if @country.present?
       @locations = @locations.by_country(search_params[:country_id])
     end
+    if params[:filter].present?
+      filter_array = params[:filter].split(",");
+      @locations = @locations
+        .joins(:tags)
+        .where(tags: { name: filter_array })
+    end
 
     if @query.present?
       @pagy, @locations = pagy(

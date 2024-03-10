@@ -33,32 +33,38 @@ RSpec.describe "Filtering by tags", type: :feature, js: true do
       expect(page).to have_content(location_3.name_utf8)
     end
 
-    it "shows the tag buttons" do
-      expect(page).to have_button(tag_1.name)
-      expect(page).to have_button(tag_2.name)
-      expect(page).to have_button(tag_3.name)
+    it "shows the tag links" do
+      within ".tag-filter-links" do
+        expect(page).to have_link(tag_1.name)
+        expect(page).to have_link(tag_2.name)
+        expect(page).to have_link(tag_3.name)
+      end
     end
 
-    context "clicking the first tag's filter button" do
+    context "clicking the first tag's filter link" do
       before do
-        click_button tag_1.name
+        within ".tag-filter-links" do
+          click_link tag_1.name
+        end
       end
 
       it "only shows the locations with the first tag" do
-        expect(page).to have_content(location_1.name)
-        expect(page).not_to have_content(location_2.name)
-        expect(page).not_to have_content(location_3.name)
+        expect(page).to have_content(location_1.name_utf8)
+        expect(page).not_to have_content(location_2.name_utf8)
+        expect(page).not_to have_content(location_3.name_utf8)
       end
 
-      context "clicking the second tag's filter button" do
+      context "clicking the second tag's filter link" do
         before do
-          click_button tag_2.name
+          within ".tag-filter-links" do
+            click_link tag_2.name
+          end
         end
 
         it "only shows the locations with either the first or second tag" do
-          expect(page).to have_content(location_1.name)
-          expect(page).to have_content(location_2.name)
-          expect(page).not_to have_content(location_3.name)
+          expect(page).to have_content(location_1.name_utf8)
+          expect(page).to have_content(location_2.name_utf8)
+          expect(page).not_to have_content(location_3.name_utf8)
         end
       end
     end
