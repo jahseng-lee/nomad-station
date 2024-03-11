@@ -37,4 +37,48 @@ namespace :locations do
         " #{location.name_utf8}, #{location.country.name}"
     end
   end
+
+  desc "Applies a specific tag to a location"
+  task :tag_location, [:location_id, :tag_name] => :environment do |t, args|
+    if args[:location_id] == nil
+      abort("Must supply a location_id and a tag_name, i.e. tag_location[1, \"Beach\"]")
+    end
+    if args[:tag_name] == nil
+      abort("Must supply a location_id and a tag_name, i.e. tag_location[1, \"Beach\"]")
+    end
+
+    location = Location.find_by(id: args[:location_id])
+    if location.nil?
+      abort("Location with id: #{args[:location_id]} not found")
+    end
+
+    tag = Tag.find_by(name: args[:tag_name])
+    if tag.nil?
+      abort("Tag with name #{args[:tag_name]} not found")
+    end
+
+    location.tags << tag
+  end
+
+  desc "Removes a specific tag from a location"
+  task :untag_location, [:location_id, :tag_name] => :environment do |t, args|
+    if args[:location_id] == nil
+      abort("Must supply a location_id and a tag_name, i.e. tag_location[1, \"Beach\"]")
+    end
+    if args[:tag_name] == nil
+      abort("Must supply a location_id and a tag_name, i.e. tag_location[1, \"Beach\"]")
+    end
+
+    location = Location.find_by(id: args[:location_id])
+    if location.nil?
+      abort("Location with id: #{args[:location_id]} not found")
+    end
+
+    tag = location.tags.find_by(name: args[:tag_name])
+    if tag.nil?
+      abort("Tag with name #{args[:tag_name]} not found on location #{location.name_utf8}")
+    end
+
+    location.tags.delete(tag)
+  end
 end
