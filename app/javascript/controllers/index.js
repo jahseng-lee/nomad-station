@@ -19,6 +19,9 @@ application.register("load-more", LoadMoreController)
 import LocationTabsController from "./location_tabs_controller"
 application.register("location-tabs", LocationTabsController)
 
+import LocationTagBadgesController from "./location_tag_badges_controller"
+application.register("location-tag-badges", LocationTagBadgesController)
+
 import ModalController from "./modal_controller"
 application.register("modal", ModalController)
 
