@@ -8,8 +8,18 @@ class SearchLocationsController < ApplicationController
     @country = Country.find_by(id: search_params[:country_id])
     @query = search_params[:query]
 
-    @locations = Location.all
+    # Apply search query first
+    if @query.present?
+      location_ids = PgSearch
+        .multisearch(I18n.transliterate(@query))
+        .where(searchable_type: "Location")
+        .pluck(:searchable_id)
+      @locations = Location.where(id: location_ids)
+    else
+      @locations = Location.all
+    end
 
+    # Apply region, country and tag filters
     if @region.present?
       @locations = @locations.by_region(search_params[:region_id])
     end
@@ -23,17 +33,11 @@ class SearchLocationsController < ApplicationController
         .where(tags: { name: filter_array })
     end
 
-    if @query.present?
-      @pagy, @locations = pagy(
-        @locations.search_by_name(I18n.transliterate(@query)),
-        items: 18
-      )
-    else
-      @pagy, @locations = pagy(
-        @locations.ordered_for_search_results,
-        items: 18
-      )
-    end
+    # Paginate and order
+    @pagy, @locations = pagy(
+      @locations.ordered_for_search_results,
+      items: 18
+    )
 
     respond_to do |format|
       format.html do
