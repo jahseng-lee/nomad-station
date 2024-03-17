@@ -1,17 +1,12 @@
 class Location < ApplicationRecord
   include PgSearch::Model
 
-  pg_search_scope :search_by_name,
-    against: :name,
-    associated_against: {
-      country: [:name]
-    },
-    using: {
-      tsearch: { prefix: true }
-    },
-    # TODO this is pretty shit, but can't figure out
-    #      how to order better
-    order_within_rank: "updated_at DESC"
+  multisearchable(
+    against: [:name, :country_name],
+    additional_attributes: -> (location) {
+      { country_name: Country.find(location.country_id).name }
+    }
+  )
 
   belongs_to :country
 
@@ -38,6 +33,10 @@ class Location < ApplicationRecord
         "avg(reviews.overall) DESC NULLS LAST, count(reviews) DESC NULLS LAST, population desc"
       )
   }
+
+  def country_name
+    country.name
+  end
 
   def review_summary
     @review_summary ||= {
