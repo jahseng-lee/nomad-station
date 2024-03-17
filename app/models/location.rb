@@ -4,7 +4,12 @@ class Location < ApplicationRecord
   multisearchable(
     against: [:name, :country_name],
     additional_attributes: -> (location) {
-      { country_name: Country.find(location.country_id).name }
+      country = Country.find(location.country_id)
+      {
+        country_name: country.name,
+        country_id: country.id,
+        region_id: country.region_id,
+      }
     }
   )
 
@@ -16,15 +21,6 @@ class Location < ApplicationRecord
   has_one :banner_image
 
   validates :name, :name_utf8, presence: true
-
-  scope :by_region, -> (region_id) {
-    joins(:country)
-      .where("countries.region_id = ?", region_id)
-  }
-
-  scope :by_country, -> (country_id) {
-    where(country_id: country_id)
-  }
 
   scope :ordered_for_search_results, -> {
     left_outer_joins(:reviews)

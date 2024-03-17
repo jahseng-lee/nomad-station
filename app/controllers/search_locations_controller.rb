@@ -9,23 +9,31 @@ class SearchLocationsController < ApplicationController
     @query = search_params[:query]
 
     # Apply search query first
-    if @query.present?
-      location_ids = PgSearch
+    if @query&.present?
+      location_documents = PgSearch
         .multisearch(I18n.transliterate(@query))
         .where(searchable_type: "Location")
-        .pluck(:searchable_id)
-      @locations = Location.where(id: location_ids)
     else
-      @locations = Location.all
+      location_documents = PgSearch::Document
+        .where(searchable_type: "Location")
     end
 
-    # Apply region, country and tag filters
+    # Apply region and country filters
     if @region.present?
-      @locations = @locations.by_region(search_params[:region_id])
+      location_documents = location_documents.where(
+        region_id: search_params[:region_id]
+      )
     end
     if @country.present?
-      @locations = @locations.by_country(search_params[:country_id])
+      location_documents = location_documents.where(
+        country_id: search_params[:country_id]
+      )
     end
+
+    # Get the locations
+    @locations = Location.where(id: location_documents.pluck(:searchable_id))
+
+    # Apply tag filters
     if params[:filter].present?
       filter_array = params[:filter].split(",");
       @locations = @locations

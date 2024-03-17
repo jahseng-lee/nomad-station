@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_17_065248) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_17_081126) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -87,6 +87,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_17_065248) do
     t.bigint "searchable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "region_id"
+    t.bigint "country_id"
+    t.index ["country_id"], name: "index_pg_search_documents_on_country_id"
+    t.index ["region_id"], name: "index_pg_search_documents_on_region_id"
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable"
   end
 
