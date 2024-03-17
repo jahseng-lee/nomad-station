@@ -18,6 +18,12 @@ RSpec.describe "Navbar", type: :feature, js: true do
       )
       create(
         :location,
+        name: "Auckland",
+        name_utf8: "Auckland",
+        country: nz
+      )
+      create(
+        :location,
         name: "Melbourne",
         name_utf8: "Melbourne",
         country: aus
@@ -42,6 +48,7 @@ RSpec.describe "Navbar", type: :feature, js: true do
 
       it "filters results based on region" do
         expect(page).to have_text("Wellington")
+        expect(page).to have_text("Auckland")
         expect(page).to have_text("Melbourne")
 
         expect(page).not_to have_text("Bangkok")
@@ -57,9 +64,25 @@ RSpec.describe "Navbar", type: :feature, js: true do
 
         it "filters results based on country" do
           expect(page).to have_text("Wellington")
+          expect(page).to have_text("Auckland")
 
           expect(page).not_to have_text("Melbourne")
           expect(page).not_to have_text("Bangkok")
+        end
+
+        context "searching with filters applied" do
+          before do
+            fill_in "search_query", with: "Well"
+            find("#search_query").send_keys(:enter)
+          end
+
+          it "applies the search correctly" do
+            expect(page).to have_text("Wellington")
+
+            expect(page).not_to have_text("Auckland")
+            expect(page).not_to have_text("Melbourne")
+            expect(page).not_to have_text("Bangkok")
+          end
         end
       end
     end
