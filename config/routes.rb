@@ -21,7 +21,7 @@ Rails.application.routes.draw do
       patch :update_last_active
     end
   end
-  resource :choose_plan, only: [:show]
+  #resource :choose_plan, only: [:show]
   resources :locations, only: [:show, :edit, :update, :destroy] do
     member do
       get :upload_banner_image_modal

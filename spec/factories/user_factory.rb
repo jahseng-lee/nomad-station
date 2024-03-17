@@ -8,7 +8,8 @@ FactoryBot.define do
     end
     password { "HulkBeatsThor" }
     admin { false }
-    subscription_status { "active" }
+    subscription_status { "free" }
+    #subscription_status { "active" }
 
     after(:create) { |user| user.confirm }
   end

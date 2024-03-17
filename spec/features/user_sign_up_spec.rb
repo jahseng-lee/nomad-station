@@ -49,8 +49,9 @@ RSpec.describe "User sign up", type: :feature, js: true do
             click_button "Sign in"
           end
 
-          it "takes them to a home page with a welcome message and billing information" do
-            expect(current_path).to eq "/choose_plan"
+          it "takes them to the home page" do
+            #expect(current_path).to eq "/choose_plan"
+            expect(current_path).to eq root_path
           end
         end
       end
