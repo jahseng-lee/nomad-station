@@ -9,7 +9,7 @@ class ChatGpt
             role: "user",
             content: "Could you generate a short paragraph of"\
               " why people should visit"\
-              " #{location.name_utf8}, #{location.country.name}? Make it"\
+              " #{location.name_utf8}, #{location.country_name}? Make it"\
               " 500-900 characters long and aimed at Digital Nomads."\
               " Please include line breaks and paragraph breaks every 1"\
               " to 3 sentences, this is very important."
@@ -23,7 +23,7 @@ class ChatGpt
 
   def self.generate_location_tags(location:)
     prompt = "Could you give me the most relevant tags for"\
-      " #{location.name_utf8}, #{location.country.name} from this"\
+      " #{location.name_utf8}, #{location.country_name} from this"\
       " array? Don't tag 'Popular' unless it's a highly visited"\
       " destination for digital nomads in particular. Don't tag"\
       " 'Shopping' unless it's a world renowed shopping center.\n"\

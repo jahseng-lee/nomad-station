@@ -28,7 +28,7 @@ RSpec.describe "Editing a location", type: :feature, js: true do
 
           it "takes you to the edit location' page" do
             expect(page).to have_content(
-              "Editing #{location.name}, #{location.country.name}"
+              "Editing #{location.name}, #{location.country_name}"
             )
           end
 
@@ -47,7 +47,7 @@ RSpec.describe "Editing a location", type: :feature, js: true do
 
               # Ensure redirect has occured
               expect(page).not_to have_content(
-                "Editing #{location.name}, #{location.country.name}"
+                "Editing #{location.name}, #{location.country_name}"
               )
             end
           end
@@ -61,7 +61,7 @@ RSpec.describe "Editing a location", type: :feature, js: true do
               expect(page).to have_content("Auto-generation successful")
 
               expect(page).to have_content(
-                "Editing #{location.name}, #{location.country.name}"
+                "Editing #{location.name}, #{location.country_name}"
               )
               expect(page).to have_content(
                 "This content was auto-generated. In production, this should call ChatGPT instead"

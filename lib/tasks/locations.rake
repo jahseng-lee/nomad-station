@@ -14,10 +14,10 @@ namespace :locations do
   task tag_all: :environment do
     Location.find_each do |location|
       if location.tags.any?
-        puts "#{location.name_utf8}, #{location.country.name} already has tags - skipping."
+        puts "#{location.name_utf8}, #{location.country_name} already has tags - skipping."
         next
       end
-      puts "Tagging #{location.name_utf8}, #{location.country.name}"
+      puts "Tagging #{location.name_utf8}, #{location.country_name}"
 
       tags_array = JSON.parse(
         ChatGpt.generate_location_tags(location: location)
@@ -34,7 +34,7 @@ namespace :locations do
         location.tags << tag
       end
       puts "Finished tagging"\
-        " #{location.name_utf8}, #{location.country.name}"
+        " #{location.name_utf8}, #{location.country_name}"
     end
   end
 
