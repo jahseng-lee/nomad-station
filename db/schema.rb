@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_17_081126) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_17_082528) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -78,6 +78,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_17_081126) do
   create_table "locations_tags", id: false, force: :cascade do |t|
     t.bigint "location_id", null: false
     t.bigint "tag_id", null: false
+    t.index ["location_id", "tag_id"], name: "index_locations_tags_on_location_id_and_tag_id", unique: true
+    t.index ["tag_id"], name: "index_locations_tags_on_tag_id"
   end
 
   create_table "pg_search_documents", force: :cascade do |t|
