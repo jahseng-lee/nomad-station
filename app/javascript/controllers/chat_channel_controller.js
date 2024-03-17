@@ -101,12 +101,18 @@ export default class extends Controller {
   _flashMessage(message) {
     // Set the background color...
     // this is the same as lighten($primary, 70%)
-    message.style.backgroundColor = "#d9d9d9";
+    message
+      .getElementsByClassName("chat-message")[0]
+      .style
+      .backgroundColor = "#d9d9d9";
 
     // Then switch to original again
     // NOTE: could probably animate...
     setTimeout(() => {
-      message.style.backgroundColor = "";
+      message
+        .getElementsByClassName("chat-message")[0]
+        .style
+        .backgroundColor = "";
     }, 3000);
   }
 }
