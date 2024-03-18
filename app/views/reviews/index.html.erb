@@ -26,7 +26,9 @@
         <div class="col">
           <div class="card mb-2">
             <div class="card-body">
-              <h5 class="card-title"><%= review.user.display_name %></h5>
+              <%= link_to review.user, class: "review-user-link" do %>
+                <h5 class="card-title"><%= review.user.display_name %></h5>
+              <% end %>
               <p class="card-text">
                 Overall: <%= helper_star_rating(rating: review.overall) %>
               </p>

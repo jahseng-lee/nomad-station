@@ -139,8 +139,14 @@
     }
   }
 
-  .message-sender {
-    font-size: 0.75rem;
+  .message-sender-link {
+    font-size: 0.9rem;
     margin-left: 44px; // align with message
+
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
