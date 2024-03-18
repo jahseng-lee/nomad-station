@@ -16,7 +16,7 @@ module ReviewHelper
     stars.html_safe
   end
 
-  def helper_short_body(review:)
+  def helper_shorter_body(review:)
     review.body.length <= 50 ? review.body : review.body[0..47] + "..."
   end
 end

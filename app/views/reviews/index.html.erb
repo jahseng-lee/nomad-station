@@ -32,12 +32,15 @@
               </p>
               <% if review.body.present? %>
                 <p class="card-text">
-                  <%= helper_short_body(review: review) %>
+                  <%= helper_shorter_body(review: review) %>
                 </p>
               <% end %>
               <%= link_to(
                 "See full review",
-                location_review_path(review, location_id: @location.id),
+                location_review_path(
+                  review,
+                  location_id: review.location.id
+                ),
                 class: "btn btn-secondary"
               ) %>
             </div>

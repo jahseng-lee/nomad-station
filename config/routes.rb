@@ -41,7 +41,7 @@ Rails.application.routes.draw do
       get :profile_section
     end
   end
-  resources :users, only: [:update] do
+  resources :users, only: [:show, :update] do
     resources :profile_pictures, only: [:create, :update] do
       collection do
         get :upload_modal
