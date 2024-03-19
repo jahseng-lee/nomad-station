@@ -21,7 +21,7 @@ class UsersController < ApplicationController
 
       redirect_to profile_path
     else
-      render template: "profiles/show"
+      render template: "profiles/show", status: 422
     end
   end
 

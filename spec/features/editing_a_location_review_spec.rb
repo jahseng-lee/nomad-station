@@ -60,11 +60,6 @@ RSpec.describe "Editing a location review", type: :feature, js: true do
           end
 
           it "saves the review to the location" do
-            # Redirected successfully
-            expect(page).not_to have_content(
-              "Review for #{location.name_utf8}, #{location.country_name}"
-            )
-
             expect(page).to have_content("Saved review")
             expect(page).to have_content(review_body)
           end

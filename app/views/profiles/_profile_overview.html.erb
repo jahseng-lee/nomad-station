@@ -1,0 +1,35 @@
+<%= turbo_frame_tag "profile_overview" do %>
+  <div class="nav nav-pills mb-3">
+    <li class="nav-item">
+      <%= link_to(
+        "Overview",
+        profile_path,
+        class: "nav-link active"
+      ) %>
+    </li>
+
+    <li class="nav-item">
+      <%= link_to(
+        "Reviews",
+        reviews_profile_path,
+        class: "nav-link",
+        method: "GET"
+      ) %>
+    </li>
+  </div>
+
+  <div class="mb-3">
+    You've reviewed
+    <strong>
+      <%= user.reviews.count %>
+      location<%= user.reviews.count == 1 ? nil : "s" %>
+    </strong>
+  </div>
+
+  <%= turbo_frame_tag(
+    "subscription-status-section",
+    src: profile_section_subscriptions_path(format: :turbo_stream)
+  ) do %>
+    Loading subscription status...
+  <% end %>
+<% end %>

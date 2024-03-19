@@ -28,6 +28,16 @@
     <% end %>
   </div>
 
+  <% if @review.user == current_user %>
+    <%= link_to(
+      edit_location_review_path(@review, location_id: @location.id),
+      class: "btn btn-primary mb-2"
+    ) do %>
+      <i class="bi bi-pencil-fill" aria-hidden="true"></i>
+      Edit
+    <% end %>
+  <% end %>
+
   <div>
     <h3>
       Review for

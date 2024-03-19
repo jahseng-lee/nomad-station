@@ -1,0 +1,62 @@
+<%= turbo_frame_tag "profile_reviews" do %>
+  <div class="nav nav-pills mb-3">
+    <li class="nav-item">
+      <%= link_to(
+        "Overview",
+        overview_profile_path,
+        class: "nav-link",
+        method: "GET"
+      ) %>
+    </li>
+
+    <li class="nav-item">
+      <%= link_to(
+        "Reviews",
+        reviews_profile_path,
+        class: "nav-link active",
+        method: "GET"
+      ) %>
+    </li>
+  </div>
+
+  <% if user.reviews.any? %>
+    <% user.reviews.each do |review| %>
+      <% location = review.location %>
+
+      <div class="card mb-2">
+        <div class="card-body">
+          <h5 class="card-title">
+            Review for
+            <%= link_to(
+              review.location,
+              data: { turbo_frame: "_top" }
+            ) do %>
+              <span class="fw-bold">
+                <%= location.name_utf8 %>, <%= location.country_name %>
+              </span>
+            <% end %>
+          </h5>
+          <p class="card-text">
+            Overall: <%= helper_star_rating(rating: review.overall) %>
+          </p>
+          <% if review.body.present? %>
+            <p class="card-text">
+              <%= helper_short_body(review: review) %>
+            </p>
+          <% end %>
+          <%= link_to(
+            "See full review",
+            location_review_path(
+              review,
+              location_id: location.id
+            ),
+            class: "btn btn-secondary",
+            data: { turbo_frame: "_top" }
+          ) %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p class="fs-5">User hasn't added any reviews yet</p>
+  <% end %>
+<% end %>

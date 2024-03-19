@@ -34,7 +34,12 @@ Rails.application.routes.draw do
     resources :countries, only: [:edit, :update]
     resources :reviews, only: [:index, :show, :new, :create, :edit, :update]
   end
-  resource :profile, only: [:show]
+  resource :profile, only: [:show] do
+    collection do
+      get :overview
+      get :reviews
+    end
+  end
   resources :search_locations, only: [:index]
   resources :subscriptions, only: [] do
     collection do
