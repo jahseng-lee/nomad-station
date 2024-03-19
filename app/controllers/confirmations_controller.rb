@@ -4,11 +4,12 @@ class ConfirmationsController < Devise::ConfirmationsController
   def after_confirmation_path_for(resource_name, user)
     sign_in(user)
 
-    if user.admin?
-      root_path
-    else
-      choose_plan_path
-    end
+    #if user.admin?
+    #  root_path
+    #else
+    #  choose_plan_path
+    #end
+    root_path
   end
 end
 

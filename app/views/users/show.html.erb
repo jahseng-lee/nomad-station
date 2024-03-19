@@ -1,0 +1,73 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="user-info col col-12 col-lg-3">
+      <% if @user.profile_picture.present? %>
+        <div>
+          <%= image_tag(
+            @user.profile_picture.image_url(:main),
+            class: "profile-picture mb-3"
+          ) %>
+        </div>
+      <% else %>
+        <div role="img" aria-label="Profile picture" class="profile-picture placeholder mb-3">
+          <span><%= helper_user_initials(user: @user) %></span>
+        </div>
+      <% end %>
+      <div>
+        <h2><%= @user.display_name %></h2>
+        Joined
+        <span class="fw-bold">
+          <%= @user.created_at.strftime("%B %y") %>
+        </span>
+      </div>
+    </div>
+
+    <div class="user-reviews col col-12 col-lg-10">
+      <% if @user.reviews.any? %>
+        <% @user.reviews.each do |review| %>
+          <% location = review.location %>
+
+          <div class="card mb-2">
+            <div class="card-body">
+              <h5 class="card-title">
+                Review for
+                <%= link_to review.location do %>
+                  <span class="fw-bold">
+                    <%= location.name_utf8 %>, <%= location.country_name %>
+                  </span>
+                <% end %>
+              </h5>
+              <p class="card-text">
+                Overall: <%= helper_star_rating(rating: review.overall) %>
+              </p>
+              <% if review.body.present? %>
+                <p class="card-text">
+                  <%= helper_short_body(review: review) %>
+                </p>
+              <% end %>
+              <%= link_to(
+                "See full review",
+                location_review_path(
+                  review,
+                  location_id: location.id
+                ),
+                class: "btn btn-secondary"
+              ) %>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <p class="fs-5">User hasn't added any reviews yet</p>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%
+  set_meta_tags(
+    title: "#{@user.display_name}",
+    description: "Connect with #{@user.display_name} on Nomadstation today!",
+    index: true,
+    follow: true
+  )
+%>

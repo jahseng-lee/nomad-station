@@ -13,11 +13,9 @@
   %>
 
   <div class="mb-3">
-    <%= link_to(
-      location_reviews_path(location_id: @location.id),
-    ) do %>
+    <%= link_to :back do %>
       <i class="bi bi-chevron-left" aria-hidden="true"></i>
-      Back to all reviews
+      Back
     <% end %>
   </div>
 
@@ -30,14 +28,39 @@
     <% end %>
   </div>
 
+  <% if @review.user == current_user %>
+    <%= link_to(
+      edit_location_review_path(@review, location_id: @location.id),
+      class: "btn btn-primary mb-2"
+    ) do %>
+      <i class="bi bi-pencil-fill" aria-hidden="true"></i>
+      Edit
+    <% end %>
+  <% end %>
+
   <div>
-    <p class="h3">
-      Overall: <%= helper_star_rating(rating: @review.overall) %>
+    <h3>
+      Review for
+      <%= @location.name_utf8 %>, <%= @location.country_name %>
+      by
+      <%= link_to @review.user do %>
+        <%= @review.user.display_name %>
+      <% end %>
+    </h3>
+
+    <p>
+      <span class="fs-4 fw-bold">
+        Overall: <%= helper_star_rating(rating: @review.overall) %>
+      </span>
+      <br />
+      Fun: <%= helper_star_rating(rating: @review.fun) %>
+      <br />
+      Cost: <%= helper_star_rating(rating: @review.cost) %>
+      <br />
+      Internet: <%= helper_star_rating(rating: @review.internet) %>
+      <br />
+      Safety: <%= helper_star_rating(rating: @review.safety) %>
     </p>
-    <p>Fun: <%= helper_star_rating(rating: @review.fun) %></p>
-    <p>Cost: <%= helper_star_rating(rating: @review.cost) %></p>
-    <p>Internet: <%= helper_star_rating(rating: @review.internet) %></p>
-    <p>Safety: <%= helper_star_rating(rating: @review.safety) %></p>
 
     <% if @review.body.present? %>
       <p>

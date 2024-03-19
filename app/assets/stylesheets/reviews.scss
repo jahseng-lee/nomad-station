@@ -4,3 +4,11 @@
     min-width: 4rem;
   }
 }
+
+.review-user-link {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

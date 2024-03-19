@@ -1,5 +1,7 @@
 class ReviewsController < ApplicationController
-  before_action :authenticate_subscription!
+  before_action :authenticate_subscription!,
+    only: [:new, :create, :edit, :update]
+  skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
     @location = Location.find(params[:location_id])

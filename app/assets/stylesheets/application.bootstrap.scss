@@ -11,6 +11,7 @@ $primary: #262626;
 @import 'profiles';
 @import 'reviews';
 @import 'search_location';
+@import 'users';
 
 .delete-button {
   background: none;
@@ -73,5 +74,17 @@ $primary: #262626;
       cursor: default;
     }
   }
+}
+
+.user-info {
+  position: sticky;
+  top: 1rem;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
 }
 

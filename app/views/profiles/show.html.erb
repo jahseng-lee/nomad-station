@@ -20,8 +20,8 @@
     </div>
   <% end %>
 
-  <div class="row row-cols-lg-2 row-cols-1">
-    <div class="col">
+  <div class="row">
+    <div class="user-info col col-12 col-lg-3">
       <div class="mb-2">
         <% if @user.profile_picture.present? %>
           <div>
@@ -31,15 +31,30 @@
             ) %>
           </div>
 
+          <div>
+            Joined
+            <span class="fw-bold">
+              <%= @user.created_at.strftime("%B %y") %>
+            </span>
+          </div>
+
           <%= link_to(
             "Update profile picture",
             upload_modal_user_profile_pictures_path(user_id: current_user.id),
             class: "btn btn-primary",
             "data-turbo-stream": ""
           ) %>
+
         <% else %>
           <div role="img" aria-label="Profile picture" class="profile-picture placeholder mb-3">
             <span><%= helper_user_initials(user: current_user) %></span>
+          </div>
+
+          <div>
+            Joined
+            <span class="fw-bold">
+              <%= @user.created_at.strftime("%B %y") %>
+            </span>
           </div>
 
           <%= link_to(
@@ -59,23 +74,29 @@
         ) %>
       </div>
 
-      <%= form_for @user, data: { turbo_frame: "_top" } do |f| %>
-        <div class="mb-3">
-          <strong><%= f.label :email %></strong>
-          <%= f.text_field(
-            :email,
-            class: "form-control-plaintext",
-            disabled: true
-          ) %>
-        </div>
+      <div class="mb-3">
+        <strong>Email</strong>
+        <br />
+        <%= @user.email %>
+      </div>
 
+      <%= form_for @user, data: { turbo_frame: "_top" } do |f| %>
         <div class="row">
           <strong><%= f.label :display_name %></strong>
           <div class="col">
-            <div class="mb-3">
+            <div class="input-group mb-3">
               <%= f.text_field(
                 :display_name,
-                class: "form-control#{ @user.errors[:display_name].any? ? ' is-invalid' : nil}"
+                class: "form-control#{ @user.errors[:display_name].any? ? ' is-invalid' : nil}",
+                aria: {
+                  describedby: "update-display-name-button"
+                }
+              ) %>
+
+              <%= f.submit(
+                "Update",
+                class: "btn btn-primary",
+                id: "update-display-name-button"
               ) %>
 
               <% if @user.errors[:display_name].any? %>
@@ -85,24 +106,14 @@
               <% end %>
             </div>
           </div>
-
-          <div class="col">
-            <%= f.submit(
-              "Update",
-              class: "btn btn-primary"
-            ) %>
-          </div>
         </div>
       <% end %>
     </div>
 
-    <div class="col">
-      <%= turbo_frame_tag(
-        "subscription-status-section",
-        src: profile_section_subscriptions_path(format: :turbo_stream)
-      ) do %>
-        Loading subscription status...
-      <% end %>
+    <div class="col col-12 col-lg-9">
+      <%= render partial: "profiles/profile_overview",
+        locals: { user: @user }
+      %>
     </div>
   </div>
 </div>

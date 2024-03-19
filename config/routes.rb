@@ -21,7 +21,7 @@ Rails.application.routes.draw do
       patch :update_last_active
     end
   end
-  resource :choose_plan, only: [:show]
+  #resource :choose_plan, only: [:show]
   resources :locations, only: [:show, :edit, :update, :destroy] do
     member do
       get :upload_banner_image_modal
@@ -34,14 +34,19 @@ Rails.application.routes.draw do
     resources :countries, only: [:edit, :update]
     resources :reviews, only: [:index, :show, :new, :create, :edit, :update]
   end
-  resource :profile, only: [:show]
+  resource :profile, only: [:show] do
+    collection do
+      get :overview
+      get :reviews
+    end
+  end
   resources :search_locations, only: [:index]
   resources :subscriptions, only: [] do
     collection do
       get :profile_section
     end
   end
-  resources :users, only: [:update] do
+  resources :users, only: [:show, :update] do
     resources :profile_pictures, only: [:create, :update] do
       collection do
         get :upload_modal

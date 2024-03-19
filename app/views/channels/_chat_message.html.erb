@@ -1,8 +1,13 @@
 <%= turbo_frame_tag "chat-message-#{message.id}" do %>
   <% if message.sender != user %>
-    <span class="message-sender">
-      <%= message.sender.display_name %>
-    </span>
+    <%= link_to(
+      message.sender,
+      class: "message-sender-link",
+      target: "_top"
+    ) do %>
+        <%= message.sender.display_name %>
+      </span>
+    <% end %>
   <% end %>
 
   <div class="chat-message<%= message.sender == user ? ' chat-message-current-user'.html_safe : nil %>">

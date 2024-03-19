@@ -1,4 +1,14 @@
 class UsersController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:show]
+
+  def show
+    @user = User.find(params[:id])
+
+    if current_user && current_user == @user
+      redirect_to profile_path
+    end
+  end
+
   def update
     @user = User.find(params[:id])
 
@@ -11,7 +21,7 @@ class UsersController < ApplicationController
 
       redirect_to profile_path
     else
-      render template: "profiles/show"
+      render template: "profiles/show", status: 422
     end
   end
 

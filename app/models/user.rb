@@ -19,6 +19,8 @@ class User < ApplicationRecord
     length: { minimum: 5, maximum: 50 },
     uniqueness: true
 
+  after_create -> { self.update!(subscription_status: "free") }
+
   def subscription_status
     if self[:subscription_status].present?
       self[:subscription_status].capitalize
@@ -29,7 +31,8 @@ class User < ApplicationRecord
 
   def active_subscription?
     self.admin? ||
-      self[:subscription_status] == "active" ||
+      #self[:subscription_status] == "active" ||
+      self[:subscription_status] == "free" ||
       self[:subscription_status] == "trialing"
   end
 
