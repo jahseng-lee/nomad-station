@@ -5,7 +5,7 @@ class Channel < ApplicationRecord
     "Bugs"
   ]
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
 
   has_many :channel_members
   has_many :messages, class_name: "ChannelMessage"
