@@ -15,6 +15,6 @@ class ChannelMessage < ApplicationRecord
   end
 
   def sender?(user:)
-    @sender ||= user.present? && user == self[:sender]
+    user.present? && user == self.sender
   end
 end

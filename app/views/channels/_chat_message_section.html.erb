@@ -60,7 +60,8 @@
     <div class="d-md-none">
       <%= render partial: "chats/shared/mobile_user_channel_list",
         locals: {
-          channels: local_assigns[:channels] || user.chat_channels,
+          channels: local_assigns[:channels] ||
+            current_user.chat_channels,
           user: current_user
         }
       %>
