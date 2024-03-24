@@ -94,6 +94,12 @@ class ChannelsController < ApplicationController
   end
 
   def current_user_list
+    @channels = current_user.present? ? (
+      current_user.chat_channels
+    ) : (
+      Channel.default_channels
+    )
+
     respond_to do |format|
       format.turbo_stream
     end

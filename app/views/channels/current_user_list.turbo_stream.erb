@@ -2,6 +2,7 @@
   "joinable-channel-list",
   partial: "chats/current_user_channel_list",
   locals: {
+    channels: @channels,
     user: current_user
   }
 ) %>
@@ -10,6 +11,7 @@
   "mobile-joinable-channel-list",
   partial: "chats/current_user_channel_list",
   locals: {
+    channels: @channels,
     user: current_user,
     turbo_id: "mobile-channel-list"
   }
