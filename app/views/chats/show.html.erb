@@ -20,12 +20,15 @@
     <%= render partial: "layouts/navbar" %>
     <%= render partial: "chats/disconnected_modal" %>
 
-    <%= turbo_stream_from "user-#{current_user.id}-chat" %>
+    <% if current_user.present? %>
+      <%= turbo_stream_from "user-#{current_user.id}-chat" %>
+    <% end %>
 
     <div class="chat-screen-container row">
       <div class="channel-list-container col pe-0 d-none d-md-flex">
         <%= render partial: "chats/current_user_channel_list",
           locals: {
+            channels: @channels_list,
             user: current_user
           }
         %>
@@ -34,7 +37,11 @@
       <% if @channel.present? %>
         <div class="chat-message-section col col-md-9 ps-md-0">
           <%= render partial: "channels/chat_message_section",
-            locals: { channel: @channel, message: @message }
+            locals: {
+              channels: @channels_list,
+              channel: @channel,
+              message: @message
+            }
           %>
         </div>
       <% else %>
@@ -47,6 +54,7 @@
             <%= render partial: "chats/shared/mobile_user_channel_list",
               locals: {
                 user: current_user,
+                channels: @channels_list,
                 button_label: "Browse channels"
               }
             %>

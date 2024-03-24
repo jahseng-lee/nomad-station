@@ -3,12 +3,17 @@ require "securerandom"
 class ChatsController < ApplicationController
   layout false, only: [:show]
 
-  before_action :authenticate_subscription!, only: [:show]
+  skip_before_action :authenticate_user!
 
   def show
-    add_user_to_default_channels
+    if current_user.present?
+      add_user_to_default_channels if current_user.chat_channels.empty?
 
-    @channels = current_user.chat_channels
+      @channels_list = current_user.chat_channels
+    else
+      # Non-user
+      @channels_list = Channel.default_channels
+    end
   end
 
   def navbar_link
@@ -28,13 +33,11 @@ class ChatsController < ApplicationController
   private
 
   def add_user_to_default_channels
-    if current_user.chat_channels.empty?
-      Channel::DEFAULT_CHAT_CHANNELS.each do |channel_name|
-        ChannelMember.create!(
-          chat_channel: Channel.find_by!(name: channel_name),
-          user: current_user
-        )
-      end
+    Channel.default_channels.each do |channel|
+      ChannelMember.create!(
+        chat_channel: channel,
+        user: current_user
+      )
     end
   end
 end

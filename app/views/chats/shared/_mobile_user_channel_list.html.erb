@@ -11,6 +11,7 @@
     <%= render partial: "chats/current_user_channel_list",
       locals: {
         user: user,
+        channels: local_assigns[:channels] || user.chat_channels,
         turbo_id: "mobile-channel-list"
       }
     %>

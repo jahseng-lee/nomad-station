@@ -5,7 +5,7 @@
   <div class="channel-list">
     <%= render partial: "chats/shared/channel_list",
       locals: {
-        channels: user.chat_channels,
+        channels: local_assigns[:channels] || user.chat_channels,
         user: user
       }
     %>
@@ -22,7 +22,7 @@
         Join channel
       <% end %>
 
-      <% if user.admin? %>
+      <% if user&.admin? %>
         <%= link_to(
           new_channel_path,
           class: "btn btn-primary mx-2 mb-2",

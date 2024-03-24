@@ -3,16 +3,21 @@ class ChannelsController < ApplicationController
 
   layout false, only: [:show]
 
+  skip_before_action :authenticate_user!, only: [
+    :show,
+    :joinable,
+    :current_user_list
+  ]
+
   def show
     @channel = Channel.find(params[:id])
 
-    authorize(@channel)
-
-    @channels = current_user.chat_channels
+    @channels_list = current_user&.chat_channels ||
+      Channel.default_channels
     @messages = @channel.messages.order(created_at: :desc).limit(50)
     @message = ChannelMessage.new
 
-    if @channel.include?(user: current_user)
+    if current_user && @channel.include?(user: current_user)
       # NOTE this should probably be a background job
       @channel
         .channel_members
@@ -69,17 +74,22 @@ class ChannelsController < ApplicationController
     #@channels = Channel
     #  .left_joins(:channel_members)
     #  .where.not(channel_members: { user_id: current_user.id })
-    current_user_channels = Channel
-      .joins(:channel_members)
-      .where("channel_members.user_id = ?", current_user.id)
-      .pluck(:id)
+    if current_user.present?
+      current_user_channels = Channel
+        .joins(:channel_members)
+        .where("channel_members.user_id = ?", current_user.id)
+        .pluck(:id)
 
-    @channels = Channel
-      .where(id: Channel.pluck(:id) - current_user_channels)
-      .order(:last_action_at)
+      @channels = Channel
+        .where(id: Channel.pluck(:id) - current_user_channels)
+        .order(:last_action_at)
 
-    respond_to do |format|
-      format.turbo_stream
+      respond_to do |format|
+        format.turbo_stream
+      end
+    else
+      # Non-user
+      @channels = Channel.where.not(name: Channel::DEFAULT_CHAT_CHANNELS)
     end
   end
 

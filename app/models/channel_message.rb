@@ -13,4 +13,8 @@ class ChannelMessage < ApplicationRecord
   def body
     deleted? ? "Deleted message" : self[:body]
   end
+
+  def sender?(user:)
+    @sender ||= user.present? && user == self[:sender]
+  end
 end
