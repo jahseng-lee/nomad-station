@@ -91,7 +91,10 @@
           <%= link_to(
             "Sign up",
             new_user_registration_path,
-            class: "btn btn-success"
+            class: "btn btn-success",
+            data: {
+              "umami-event": "Signup button"
+            }
           ) %>
         <% end %>
       </div>
