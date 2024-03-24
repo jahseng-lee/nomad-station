@@ -520,7 +520,11 @@ def update_bali
 end
 
 def setup_default_chat_channels
+  if Channel.count != 0
+    puts "Already set up default chat channels"
+  end
   puts "Setting up default chat channels"
+
   Channel::DEFAULT_CHAT_CHANNELS.each do |channel_name|
     Channel.find_or_create_by!(
       name: channel_name,
