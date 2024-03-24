@@ -16,8 +16,8 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
-  <body>
-    <%= render partial: "layouts/navbar" %>
+  <body class="chat-body">
+    <%= render partial: "layouts/navbar", locals: { unfixed: true } %>
     <%= render partial: "chats/disconnected_modal" %>
 
     <% if current_user.present? %>

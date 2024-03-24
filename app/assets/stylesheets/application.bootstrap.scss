@@ -13,6 +13,10 @@ $primary: #262626;
 @import 'search_location';
 @import 'users';
 
+body {
+  padding-top: 4rem;
+}
+
 .delete-button {
   background: none;
 	color: inherit;
