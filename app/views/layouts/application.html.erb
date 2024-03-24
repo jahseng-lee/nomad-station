@@ -14,8 +14,10 @@
 
     <%= display_meta_tags site: "Nomadstation" %>
 
-    <% # Script for Umami analytics" %>
-    <script defer src="https://analytics.eu.umami.is/script.js" data-website-id="23fb09b1-16e0-4884-807b-19666fe3683b"></script>
+    <% if Rails.env.production? && !ENV["HEROKU_ENV"] %>
+      <% # Script for Umami analytics" %>
+      <script defer src="https://analytics.eu.umami.is/script.js" data-website-id="23fb09b1-16e0-4884-807b-19666fe3683b"></script>
+    <% end %>
   </head>
 
   <body>
