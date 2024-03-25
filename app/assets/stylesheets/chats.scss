@@ -61,7 +61,7 @@
             text-decoration: none;
 
             &:hover {
-              background-color: lighten($primary, 70%);
+              background-color: $background-link-hover;
             }
           }
         }

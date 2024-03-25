@@ -1,5 +1,7 @@
 // Bootstrap color overrides
 $primary: #262626;
+$background-link-hover: lighten($primary, 70%);
+$background-link-hover-dark: lighten($primary, 20%);
 
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
