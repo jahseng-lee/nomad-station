@@ -45,7 +45,7 @@ RSpec.describe "Location visas", type: :feature, js: true do
       before do
         visit location_path(location)
 
-        click_link "Visa"
+        click_link "Visas"
       end
 
       it "shows the generic visa information for a location" do
@@ -83,7 +83,7 @@ RSpec.describe "Location visas", type: :feature, js: true do
       before do
         visit location_path(location)
 
-        click_link "Visa"
+        click_link "Visas"
       end
 
       it "shows the generic visa information for a location" do

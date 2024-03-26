@@ -7,4 +7,11 @@ class VisaInformation < ApplicationRecord
     optional: true,
     class_name: "Country"
   belongs_to :country
+
+  def self.generic(country:)
+    VisaInformation.find_by!(
+      country: country,
+      citizenship_id: nil
+    )
+  end
 end

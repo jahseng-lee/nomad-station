@@ -1,0 +1,27 @@
+<%= render partial: "locations/header",
+  locals: {
+    location: @location,
+  }
+%>
+
+<div class="container mt-3">
+  <%= render partial: "locations/tabs",
+    locals: {
+      location: @location,
+    }
+  %>
+
+  <% unless current_user # && current_user.citizenship.present? %>
+    <div class="alert alert-warning" role="alert">
+      You're seeing generic visa information for
+      <%= @location.country_name %>.
+      <%= link_to(
+        "Add a citizenship to your profile",
+        "javascript:void(0)",
+      ) %>
+      to get specific visa information for you.
+    </div>
+  <% end %>
+
+  <%= @markdown.render(@visa_information.body).html_safe %>
+</div>
