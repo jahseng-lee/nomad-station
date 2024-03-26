@@ -9,10 +9,12 @@ class User < ApplicationRecord
     :trackable,
     :validatable
 
+  has_one :profile_picture
+
   has_many :channel_members
   has_many :chat_channels,
     through: :channel_members
-  has_one :profile_picture
+  has_many :citizenships
   has_many :reviews
 
   validates :display_name,

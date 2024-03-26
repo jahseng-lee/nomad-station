@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_26_062314) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_26_073845) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_26_062314) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "last_action_at"
+  end
+
+  create_table "citizenships", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "country_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_citizenships_on_country_id"
+    t.index ["user_id"], name: "index_citizenships_on_user_id"
   end
 
   create_table "countries", force: :cascade do |t|
