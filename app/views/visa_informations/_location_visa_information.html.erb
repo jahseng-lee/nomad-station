@@ -1,0 +1,44 @@
+<%= turbo_frame_tag "location-visa-information" do %>
+  <% if flash[:success_create_citizenship].present? %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <%= flash[:success_create_citizenship] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
+
+  <% if flash[:error_create_citizenship].present? %>
+    <div class="alert alert-danger" role="alert">
+      <%= flash[:error_create_citizenship] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
+
+  <% if user&.citizenships&.any? && visa_information.id.nil? %>
+    <div class="alert alert-warning" role="alert">
+      Couldn't find any visa information specific to citizens of
+      <%= user.citizenships.first.country.name %>. Showing generic
+      information instead.
+    </div>
+  <% end %>
+
+  <% unless user && user.citizenships.any? %>
+    <div class="alert alert-warning" role="alert">
+      You're seeing generic visa information for
+      <%= @location.country_name %>.
+      <%= link_to(
+        "Add a citizenship to your profile",
+        user.present? ? (
+          modal_new_user_citizenships_path(user_id: user&.id, location_id: @location.id)
+        ) : (
+          # Little hack for non-users - gets a 401 then sends them to
+          # the sign up page with the flash notification set
+          profile_path
+        ),
+        method: :get
+      ) %>
+      to get specific visa information for you.
+    </div>
+  <% end %>
+
+  <%= @markdown.render(visa_information.body).html_safe %>
+<% end %>

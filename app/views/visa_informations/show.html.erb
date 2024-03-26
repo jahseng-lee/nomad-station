@@ -11,17 +11,10 @@
     }
   %>
 
-  <% unless current_user && current_user.citizenships.any? %>
-    <div class="alert alert-warning" role="alert">
-      You're seeing generic visa information for
-      <%= @location.country_name %>.
-      <%= link_to(
-        "Add a citizenship to your profile",
-        "javascript:void(0)",
-      ) %>
-      to get specific visa information for you.
-    </div>
-  <% end %>
-
-  <%= @markdown.render(@visa_information.body).html_safe %>
+  <%= render partial: "visa_informations/location_visa_information",
+    locals: {
+      user: current_user,
+      visa_information: @visa_information
+    }
+  %>
 </div>

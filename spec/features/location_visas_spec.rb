@@ -31,7 +31,7 @@ RSpec.describe "Location visas", type: :feature, js: true do
     country.visa_informations << create(
       :visa_information,
       country_id: country.id,
-      citizenship_id: citizenship.id,
+      citizenship_id: other_citizenship.id,
       body: "Citizenship information no one :("
     )
   end
@@ -107,17 +107,20 @@ RSpec.describe "Location visas", type: :feature, js: true do
 
         it "opens a modal to add a citizenship" do
           within ".modal" do
-            expect(page).to have_content "Add a citizenship"
+            expect(page).to have_content "Add your citizenship"
           end
         end
 
         context "adding a citizenship" do
           before do
-            # TODO
+            find(".choices").click
+            find("div[data-value='#{citizenship.id}']").click
+
+            click_button "Add"
           end
 
           it "dismisses the modal and shows citizenship specific information" do
-            expect(page).not_to have_content "Add a citizenship"
+            expect(page).not_to have_content "Add your citizenship"
 
             expect(page).to have_content citizenship_visa_info
             within ".alert" do

@@ -5,11 +5,18 @@ class VisaInformationsController < ApplicationController
   def show
     @location = Location.find(params[:location_id])
 
-    # TODO add user_citizenships table
-    #if current_user && current_user.citizenships.any?
-    #end
-    @visa_information = VisaInformation.generic(
-      country: @location.country
-    )
+    if current_user && current_user.citizenships.any?
+      @visa_information = VisaInformation.find_by(
+        country_id: @location.country.id,
+        # Assume only one citizenship for now
+        citizenship_id: current_user.citizenships.first.country.id
+      )
+    end
+
+    if @visa_information.nil?
+      @visa_information = VisaInformation.generic(
+        country: @location.country
+      )
+    end
   end
 end

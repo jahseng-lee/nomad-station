@@ -10,7 +10,7 @@ class VisaInformation < ApplicationRecord
 
   def self.generic(country:)
     VisaInformation.find_by!(
-      country: country,
+      country_id: country.id,
       citizenship_id: nil
     )
   end

@@ -5,6 +5,7 @@ $background-link-hover-dark: lighten($primary, 20%);
 
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+@import 'choices.js/src/styles/choices';
 
 @import 'channels';
 @import 'chats';

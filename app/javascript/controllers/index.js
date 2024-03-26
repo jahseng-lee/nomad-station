@@ -10,6 +10,9 @@ application.register("chat-channel", ChatChannelController)
 import ChatTextareaController from "./chat_textarea_controller"
 application.register("chat-textarea", ChatTextareaController)
 
+import ChoicesSelectController from "./choices_select_controller"
+application.register("choices-select", ChoicesSelectController)
+
 import JoinableChannelListController from "./joinable_channel_list_controller"
 application.register("joinable-channel-list", JoinableChannelListController)
 

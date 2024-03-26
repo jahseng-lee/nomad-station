@@ -48,6 +48,12 @@ Rails.application.routes.draw do
     end
   end
   resources :users, only: [:show, :update] do
+    resources :citizenships, only: [:create] do
+      collection do
+        get :modal_new
+      end
+    end
+
     resources :profile_pictures, only: [:create, :update] do
       collection do
         get :upload_modal
