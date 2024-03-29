@@ -87,7 +87,7 @@ class ChatGpt
 
   private
 
-  def client
+  def self.client
     @client ||= OpenAI::Client.new
   end
 end
