@@ -48,9 +48,11 @@ Rails.application.routes.draw do
     end
   end
   resources :users, only: [:show, :update] do
-    resources :citizenships, only: [:create] do
-      collection do
-        get :modal_new
+    resources :locations do
+      resources :citizenships, only: [:create], controller: "locations/citizenships" do
+        collection do
+          get :modal_new
+        end
       end
     end
 

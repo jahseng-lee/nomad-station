@@ -14,6 +14,10 @@
 
         <%= form_for(
           [@user, Citizenship.new],
+          url: url_for(
+            controller: "locations/citizenships",
+            action: :create
+          ),
           data: {
             controller: "choices-select"
           }

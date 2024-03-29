@@ -28,7 +28,10 @@
       <%= link_to(
         "Add a citizenship to your profile",
         user.present? ? (
-          modal_new_user_citizenships_path(user_id: user&.id, location_id: @location.id)
+          modal_new_user_location_citizenships_path(
+            user_id: user&.id,
+            location_id: @location.id
+          )
         ) : (
           # Little hack for non-users - gets a 401 then sends them to
           # the sign up page with the flash notification set
