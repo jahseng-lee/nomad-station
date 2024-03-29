@@ -21,7 +21,7 @@ class ProfilesController < ApplicationController
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: turbo_stream.replace(
-          "profile_overview",
+          "profile-overview",
           partial: "profiles/profile_reviews",
           locals: {
             user: current_user

@@ -49,10 +49,23 @@ Rails.application.routes.draw do
   end
   resources :users, only: [:show, :update] do
     resources :locations do
-      resources :citizenships, only: [:create], controller: "locations/citizenships" do
+      # Citizenship actions specifically on the VisaInformation#show page
+      resources(
+        :citizenships,
+        only: [:create],
+        controller: "locations/citizenships"
+      ) do
         collection do
           get :modal_new
         end
+      end
+    end
+
+    # More general citizenships controller used for the profile page
+    # actions
+    resources :citizenships, only: [:create, :update] do
+      collection do
+        get :modal
       end
     end
 

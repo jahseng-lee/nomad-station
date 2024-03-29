@@ -1,0 +1,14 @@
+<% if flash[:success_save_citizenship].present? %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= flash[:success_save_citizenship] %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
+<% if flash[:error_save_citizenship].present? %>
+  <div class="alert alert-danger" role="alert">
+    <%= flash[:error_save_citizenship] %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+

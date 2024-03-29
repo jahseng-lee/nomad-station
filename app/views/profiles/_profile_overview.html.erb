@@ -1,4 +1,4 @@
-<%= turbo_frame_tag "profile_overview" do %>
+<%= turbo_frame_tag "profile-overview" do %>
   <div class="nav nav-pills mb-3">
     <li class="nav-item">
       <%= link_to(
@@ -18,12 +18,37 @@
     </li>
   </div>
 
-  <div class="mb-3">
-    You've reviewed
-    <strong>
-      <%= user.reviews.count %>
-      location<%= user.reviews.count == 1 ? nil : "s" %>
-    </strong>
+  <%= render partial: "shared/citizenship_alerts" %>
+
+  <div class="card mb-3">
+    <div class="card-header">
+      Citizenship
+    </div>
+    <div class="card-body">
+      <div class="mb-2">
+        <% if user.citizenship.nil? %>
+          <div class="alert alert-warning" role="alert">
+            Add a citizenship now to get
+            tailored citizenship information on location pages,
+            specifically for you.
+          </div>
+          You haven't added a citizenship.
+        <% else %>
+          <% # NOTE: assume one citizenship for now %>
+          You're a citizen of <%= user.citizenship.country.name %>
+        <% end %>
+      </div>
+
+      <div>
+        <%= link_to(
+          modal_user_citizenships_path(user_id: user.id),
+          class: "btn btn-primary",
+          method: :get
+        ) do %>
+          <%= user.citizenship.nil? ? "Add" : "Update" %>
+        <% end %>
+      </div>
+    </div>
   </div>
 
   <%= turbo_frame_tag(
@@ -32,4 +57,5 @@
   ) do %>
     Loading subscription status...
   <% end %>
+  </div>
 <% end %>

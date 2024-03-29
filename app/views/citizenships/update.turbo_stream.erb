@@ -1,0 +1,13 @@
+<%
+  # TODO this is identical to create, surely
+  # there's a way to refactor?
+%>
+<%= turbo_stream.remove(
+  "modal-new-citizenship"
+) %>
+
+<%= turbo_stream.replace(
+  "profile-overview",
+  partial: "profiles/profile_overview",
+  locals: { user: @user }
+) %>

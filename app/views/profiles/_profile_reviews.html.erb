@@ -20,6 +20,14 @@
   </div>
 
   <% if user.reviews.any? %>
+    <div class="mb-3">
+      You've reviewed
+      <strong>
+        <%= user.reviews.count %>
+        location<%= user.reviews.count == 1 ? nil : "s" %>
+      </strong>
+    </div>
+
     <% user.reviews.each do |review| %>
       <% location = review.location %>
 

@@ -19,11 +19,11 @@ module Locations
       )
 
       if @citizenship.save
-        flash.now[:success_create_citizenship] = "Added citizenship!" \
+        flash.now[:success_save_citizenship] = "Added citizenship!" \
           " From now on, you'll see visa information specific to your" \
           " citizenship."
       else
-        flash.now[:error_create_citizenship] = "Oops! Something went" \
+        flash.now[:error_save_citizenship] = "Oops! Something went" \
           " wrong. Please refresh and try again."
       end
 

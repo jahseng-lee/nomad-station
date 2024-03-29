@@ -9,6 +9,11 @@ export default class extends Controller {
   connect() {
     // Because we're letting turbo deal with showing a modal, just
     // reveal the modal as soon as it is loaded
-    const modal = new Modal(this.modalTarget, {}).show();
+    this.modal = new Modal(this.modalTarget, {});
+    this.modal.show();
+  }
+
+  disconnect() {
+    this.modal.hide();
   }
 }

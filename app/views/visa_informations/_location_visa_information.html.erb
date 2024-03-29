@@ -1,17 +1,5 @@
 <%= turbo_frame_tag "location-visa-information" do %>
-  <% if flash[:success_create_citizenship].present? %>
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <%= flash[:success_create_citizenship] %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  <% end %>
-
-  <% if flash[:error_create_citizenship].present? %>
-    <div class="alert alert-danger" role="alert">
-      <%= flash[:error_create_citizenship] %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  <% end %>
+  <%= render partial: "shared/citizenship_alerts" %>
 
   <% if user&.citizenships&.any? && visa_information.id.nil? %>
     <div class="alert alert-warning" role="alert">
