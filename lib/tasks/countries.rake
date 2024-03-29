@@ -7,7 +7,11 @@ namespace :countries do
       next if country.locations.empty?
 
       if Rails.env.production?
-        raise NotImplementedError, "TODO"
+        VisaInformation.create!(
+          country_id: country.id,
+          citizenship_id: nil,
+          body: ChatGpt.generate_generic_visa_info(country: country)
+        )
       else
         VisaInformation.create!(
           country_id: country.id,
@@ -25,7 +29,14 @@ namespace :countries do
 
       Country.find_each do |citizenship|
         if Rails.env.production?
-          raise NotImplementedError, "TODO"
+          VisaInformation.create!(
+            country_id: country.id,
+            citizenship_id: nil,
+            body: ChatGpt.generate_visa_info(
+              country: country,
+              citizenship_country: citizenship
+            )
+          )
         else
           VisaInformation.create!(
             country_id: country.id,
