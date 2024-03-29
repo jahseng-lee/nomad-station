@@ -63,7 +63,7 @@ namespace :countries do
       country = Country.find_by(name: row["country"])
       if country.nil?
         country = Country.create!(name: row["country"])
-        put "Created country: #{country.name}"
+        puts "Created country: #{country.name}"
       end
     end
   end
