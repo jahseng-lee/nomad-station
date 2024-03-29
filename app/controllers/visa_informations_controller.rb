@@ -7,9 +7,9 @@ class VisaInformationsController < ApplicationController
 
     if current_user && current_user.citizenships.any?
       @visa_information = VisaInformation.find_by(
-        country_id: @location.country.id,
+        country: @location.country,
         # Assume only one citizenship for now
-        citizenship_id: current_user.citizenships.first.country.id
+        citizenship: current_user.citizenships.first.country
       )
     end
 

@@ -18,20 +18,20 @@ RSpec.describe "Location visas", type: :feature, js: true do
   before do
     country.visa_informations << create(
       :visa_information,
-      country_id: country.id, # TODO: Why doesn't country: country work?
-      citizenship_id: nil, # TODO: Why doesn't citizenship: citizenship work?
+      country: country,
+      citizenship: nil,
       body: generic_visa_info
     )
     country.visa_informations << create(
       :visa_information,
-      country_id: country.id,
-      citizenship_id: citizenship.id,
+      country: country,
+      citizenship: citizenship,
       body: citizenship_visa_info
     )
     country.visa_informations << create(
       :visa_information,
-      country_id: country.id,
-      citizenship_id: other_citizenship.id,
+      country: country,
+      citizenship: other_citizenship,
       body: "Citizenship information no one :("
     )
   end

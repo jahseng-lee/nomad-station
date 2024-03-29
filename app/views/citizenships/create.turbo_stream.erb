@@ -8,8 +8,8 @@
   locals: {
     user: @user,
     visa_information: VisaInformation.find_by(
-      country_id: @location.country.id,
-      citizenship_id: @citizenship.country.id
+      country: @location.country,
+      citizenship: @citizenship.country
     )
   }
 ) %>

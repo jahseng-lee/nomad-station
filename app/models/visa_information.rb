@@ -3,15 +3,15 @@ class VisaInformation < ApplicationRecord
   #       visa information such as a non-user or user with no citizenship
   #       info
   belongs_to :citizenship,
-    foreign_key: :country_id,
+    foreign_key: :citizenship_id,
     optional: true,
     class_name: "Country"
   belongs_to :country
 
   def self.generic(country:)
     VisaInformation.find_by!(
-      country_id: country.id,
-      citizenship_id: nil
+      country: country,
+      citizenship: nil
     )
   end
 end
