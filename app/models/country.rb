@@ -8,7 +8,9 @@ class Country < ApplicationRecord
     }
 
   belongs_to :region, optional: true
+
   has_many :locations
+  has_many :visa_informations
 
   validates :name, presence: true
 end

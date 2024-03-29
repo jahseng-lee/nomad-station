@@ -1,0 +1,15 @@
+<%= turbo_stream.remove(
+  "modal-new-citizenship"
+) %>
+
+<%= turbo_stream.replace(
+  "location-visa-information",
+  partial: "visa_informations/location_visa_information",
+  locals: {
+    user: @user,
+    visa_information: VisaInformation.find_by(
+      country: @location.country,
+      citizenship: @citizenship.country
+    )
+  }
+) %>

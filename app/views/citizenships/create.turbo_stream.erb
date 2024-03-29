@@ -1,0 +1,9 @@
+<%= turbo_stream.remove(
+  "modal-new-citizenship"
+) %>
+
+<%= turbo_stream.replace(
+  "profile-overview",
+  partial: "profiles/profile_overview",
+  locals: { user: @user }
+) %>

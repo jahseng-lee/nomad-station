@@ -9,10 +9,12 @@ class User < ApplicationRecord
     :trackable,
     :validatable
 
+  has_one :profile_picture
+
   has_many :channel_members
   has_many :chat_channels,
     through: :channel_members
-  has_one :profile_picture
+  has_many :citizenships
   has_many :reviews
 
   validates :display_name,
@@ -21,6 +23,7 @@ class User < ApplicationRecord
 
   after_create -> { self.update!(subscription_status: "free") }
 
+  # Subscription accessors
   def subscription_status
     if self[:subscription_status].present?
       self[:subscription_status].capitalize
@@ -45,7 +48,9 @@ class User < ApplicationRecord
     !self.admin? &&
       self[:subscription_status].nil?
   end
+  # END: subscription accessors
 
+  # Channel/message accessors
   def unread_channel_count
     channel_members
       .joins(:chat_channel)
@@ -63,4 +68,11 @@ class User < ApplicationRecord
       .where("created_at > ?", member.last_active)
       .count
   end
+  # END: Channel/message accessors
+
+  # Citizenship accessors
+  def citizenship
+    @citizenship ||= citizenships.first
+  end
+  # END: citizenship accessors
 end

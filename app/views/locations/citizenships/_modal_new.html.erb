@@ -1,0 +1,54 @@
+<%= turbo_frame_tag "modal-new-citizenship" do %>
+  <div
+      class="modal"
+      tabindex="-1"
+      data-controller="modal"
+      data-modal-target="modal"
+      >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Add your citizenship</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <%= form_for(
+          [@user, Citizenship.new],
+          url: url_for(
+            controller: "locations/citizenships",
+            action: :create
+          ),
+          data: {
+            controller: "choices-select"
+          }
+        ) do |f| %>
+          <%= f.hidden_field :location_id, value: @location.id %>
+
+          <div class="modal-body">
+            <%= f.select(
+              :country_id,
+              options_for_select(
+                Country.order(:name).pluck(
+                  :name,
+                  :id
+                ),
+                selected: nil
+              ),
+              {},
+              data: {
+                "choices-select-target": "select"
+              }
+            ) %>
+          </div>
+
+          <div class="modal-footer">
+            <%= f.submit(
+              "Add",
+              class: "btn btn-primary"
+            ) %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

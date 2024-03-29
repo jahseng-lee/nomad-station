@@ -1,0 +1,20 @@
+<%= render partial: "locations/header",
+  locals: {
+    location: @location,
+  }
+%>
+
+<div class="container mt-3">
+  <%= render partial: "locations/tabs",
+    locals: {
+      location: @location,
+    }
+  %>
+
+  <%= render partial: "visa_informations/location_visa_information",
+    locals: {
+      user: current_user,
+      visa_information: @visa_information
+    }
+  %>
+</div>

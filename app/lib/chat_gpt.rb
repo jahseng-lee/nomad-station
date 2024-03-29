@@ -1,6 +1,5 @@
 class ChatGpt
   def self.generate_location_description(location:)
-    client = OpenAI::Client.new
     response = client.chat(
       parameters: {
         model: "gpt-3.5-turbo",
@@ -30,7 +29,6 @@ class ChatGpt
       " #{Tag.pluck(:name)}\n"\
       " Make your answer an array of tags and nothing else, as if you"\
       " were a JSON API. Limit the maximum tags to 6."
-    client = OpenAI::Client.new
     response = client.chat(
       parameters: {
         model: "gpt-4",
@@ -44,5 +42,52 @@ class ChatGpt
       }
     )
     response.dig("choices")[0].dig("message", "content")
+  end
+
+  def self.generate_generic_visa_info(country:)
+    prompt = "Could you write me an informational article that explains" \
+      " the visa options for digital nomads visiting #{country.name}?" \
+      " Don't include a title, introductory paragraph or any colourful" \
+      " language."
+    response = client.chat(
+      parameters: {
+        model: "gpt-4",
+        messages: [
+          {
+            role: "user",
+            content: prompt
+          }
+        ],
+        temperature: 1.0,
+      }
+    )
+    response.dig("choices")[0].dig("message", "content")
+  end
+
+  def self.generate_visa_info(country:, citizenship_country:)
+    prompt = "Could you write me an informational article that explains" \
+      " the visa options for a digital nomad who is a" \
+      " #{citizenship_country.name} citizen visiting #{country.name}?" \
+      " Don't include a title, introductory paragraph or any colourful" \
+      " language."
+    response = client.chat(
+      parameters: {
+        model: "gpt-4",
+        messages: [
+          {
+            role: "user",
+            content: prompt
+          }
+        ],
+        temperature: 1.0,
+      }
+    )
+    response.dig("choices")[0].dig("message", "content")
+  end
+
+  private
+
+  def client
+    @client ||= OpenAI::Client.new
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_17_082528) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_26_073845) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_17_082528) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "last_action_at"
+  end
+
+  create_table "citizenships", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "country_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_citizenships_on_country_id"
+    t.index ["user_id"], name: "index_citizenships_on_user_id"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -158,6 +167,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_17_082528) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "visa_informations", force: :cascade do |t|
+    t.bigint "country_id", null: false
+    t.bigint "citizenship_id"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["citizenship_id"], name: "index_visa_informations_on_citizenship_id"
+    t.index ["country_id", "citizenship_id"], name: "index_visa_informations_on_country_id_and_citizenship_id"
+    t.index ["country_id"], name: "index_visa_informations_on_country_id"
+  end
+
   add_foreign_key "banner_images", "locations"
   add_foreign_key "channel_messages", "channel_messages", column: "reply_to_id"
+  add_foreign_key "visa_informations", "countries", column: "citizenship_id"
 end
