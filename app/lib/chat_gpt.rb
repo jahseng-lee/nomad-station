@@ -47,6 +47,7 @@ class ChatGpt
   def self.generate_generic_visa_info(country:)
     prompt = "Could you write me an informational article that explains" \
       " the visa options for digital nomads visiting #{country.name}?" \
+      " List the available visa options in a numbered list." \
       " Don't include a title, introductory paragraph or any colourful" \
       " language."
     response = client.chat(
@@ -68,6 +69,7 @@ class ChatGpt
     prompt = "Could you write me an informational article that explains" \
       " the visa options for a digital nomad who is a" \
       " #{citizenship_country.name} citizen visiting #{country.name}?" \
+      " List the available visa options in a numbered list." \
       " Don't include a title, introductory paragraph or any colourful" \
       " language."
     response = client.chat(
