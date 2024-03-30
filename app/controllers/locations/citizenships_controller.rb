@@ -19,6 +19,15 @@ module Locations
       )
 
       if @citizenship.save
+        @visa_information = (
+          VisaInformation.find_by(
+            country: @location.country,
+            citizenship: @citizenship.country
+          )
+        ) || (
+          VisaInforation.generic(country: @location.country)
+        )
+
         flash.now[:success_save_citizenship] = "Added citizenship!" \
           " From now on, you'll see visa information specific to your" \
           " citizenship."

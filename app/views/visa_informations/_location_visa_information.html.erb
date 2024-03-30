@@ -1,7 +1,7 @@
 <%= turbo_frame_tag "location-visa-information" do %>
   <%= render partial: "shared/citizenship_alerts" %>
 
-  <% if user&.citizenships&.any? && visa_information.id.nil? %>
+  <% if user&.citizenships&.any? && visa_information.citizenship_id.nil? %>
     <div class="alert alert-warning" role="alert">
       Couldn't find any visa information specific to citizens of
       <%= user.citizenships.first.country.name %>. Showing generic
