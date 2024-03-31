@@ -66,6 +66,11 @@ class ChatGpt
   end
 
   def self.generate_visa_info(country:, citizenship_country:)
+    unless Rails.env.production?
+      return "Visa info. for citizenship: #{citizenship_country.name}," \
+        " country: #{country.name}."
+    end
+
     prompt = "Could you write me an informational article that explains" \
       " the visa options for a digital nomad who is a" \
       " #{citizenship_country.name} citizen visiting #{country.name}?" \

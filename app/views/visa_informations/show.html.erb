@@ -11,10 +11,9 @@
     }
   %>
 
-  <%= render partial: "visa_informations/location_visa_information",
+  <%= render partial: "visa_informations/loading_visa_information",
     locals: {
-      user: current_user,
-      visa_information: @visa_information
+      location: @location
     }
   %>
 </div>

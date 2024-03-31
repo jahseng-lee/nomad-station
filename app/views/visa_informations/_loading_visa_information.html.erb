@@ -1,0 +1,20 @@
+<%= turbo_frame_tag(
+  "location-visa-information",
+  src: content_location_visa_information_path(
+    location: location,
+    format: :turbo_stream
+  )
+) do %>
+  <%= render partial: "shared/citizenship_alerts" %>
+
+  <div class="fs-4">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <strong>Finding visa information...</strong>
+  </div>
+  <p>
+    This may take up to a minute
+  </p>
+<% end %>
+

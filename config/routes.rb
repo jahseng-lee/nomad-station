@@ -33,7 +33,11 @@ Rails.application.routes.draw do
     resources :banner_images, only: [:create, :update]
     resources :countries, only: [:edit, :update]
     resources :reviews, only: [:index, :show, :new, :create, :edit, :update]
-    resource :visa_information, only: [:show]
+    resource :visa_information, only: [:show] do
+      collection do
+        get :content
+      end
+    end
   end
   resource :profile, only: [:show] do
     collection do
