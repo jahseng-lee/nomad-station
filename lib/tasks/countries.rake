@@ -7,6 +7,12 @@ namespace :countries do
       next if country.locations.empty?
 
       if Rails.env.production?
+        # Skip if one already exists
+        next if VisaInformation.find_by(
+          country_id: country.id,
+          citizenship_id: nil
+        ).present?
+
         VisaInformation.create!(
           country_id: country.id,
           citizenship_id: nil,
@@ -86,6 +92,11 @@ namespace :countries do
           # This is a manually created list of "citzenship" countries
           # which will be initially excluded
           next if NON_SEED_CITIZENSHIPS.include?(citizenship.name)
+          # Skip if one already exists
+          next if VisaInformation.find_by(
+            country_id: country.id,
+            citizenship_id: citizenship.id
+          ).present?
 
           if country.id == citizenship.id
             VisaInformation.create!(
