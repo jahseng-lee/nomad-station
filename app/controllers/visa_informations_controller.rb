@@ -49,4 +49,17 @@ class VisaInformationsController < ApplicationController
       end
     end
   end
+
+  def report_issue_modal
+    @location = Location.find(params[:location_id])
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.append(
+          "site-modals",
+          partial: "visa_informations/report_issue_modal"
+        )
+      end
+    end
+  end
 end

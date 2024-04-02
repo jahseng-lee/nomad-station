@@ -71,6 +71,16 @@ RSpec.describe "Location visas", type: :feature, js: true do
           expect(page).to have_current_path(new_user_registration_path)
         end
       end
+
+      context "clicking on the link to 'Report issue'" do
+        before do
+          click_link "Report issue"
+        end
+
+        it "takes them to the sign up page" do
+          expect(page).to have_current_path(new_user_registration_path)
+        end
+      end
     end
   end
 
@@ -127,6 +137,45 @@ RSpec.describe "Location visas", type: :feature, js: true do
               expect(page).to have_content "Added citizenship! From now" \
                 " on, you'll see visa information specific to your" \
                 " citizenship."
+            end
+          end
+
+          context "clicking on the link to 'Report issue'" do
+            before do
+              click_link "Report issue"
+            end
+
+            it "opens a modal to report an issue" do
+              within ".modal" do
+                expect(page).to have_content "Report issue"
+              end
+            end
+
+            context "filling out the form and submitting" do
+              before do
+                select "Incorrect visa information", from:
+                  "issue_issue_type"
+                fill_in "issue_body", with:
+                  "I'm the US president. I can travel anywhere"
+
+                click_button "Report"
+              end
+
+              it "logs an issue" do
+                expect(page).to have_content "Thanks for reporting the" \
+                  " issue. Our team will look into it ASAP."
+
+                sign_out :user
+
+                # Sign in as user
+                admin = create(:user, admin: true)
+                sign_in user
+                visit root_path
+
+                click_link "Issues"
+
+                expect(page).to have_content "Incorrect visa information"
+              end
             end
           end
         end

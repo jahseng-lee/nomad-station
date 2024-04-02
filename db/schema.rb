@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_26_073845) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_02_082443) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -70,6 +70,19 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_26_073845) do
     t.text "police_number"
     t.text "fire_number"
     t.index ["region_id"], name: "index_countries_on_region_id"
+  end
+
+  create_table "issues", force: :cascade do |t|
+    t.text "issue_type", null: false
+    t.text "body"
+    t.jsonb "additional_information"
+    t.bigint "entity_id"
+    t.text "entity_type"
+    t.boolean "resolved", default: true, null: false
+    t.bigint "reporter_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reporter_id"], name: "index_issues_on_reporter_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -180,5 +193,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_26_073845) do
 
   add_foreign_key "banner_images", "locations"
   add_foreign_key "channel_messages", "channel_messages", column: "reply_to_id"
+  add_foreign_key "issues", "users", column: "reporter_id"
   add_foreign_key "visa_informations", "countries", column: "citizenship_id"
 end
