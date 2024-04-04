@@ -16,6 +16,9 @@
         <strong>Entity</strong>
       </div>
       <div class="col">
+        <strong>Reporter</strong>
+      </div>
+      <div class="col">
         <strong>Link</strong>
       </div>
       <div class="col-1">
@@ -36,6 +39,9 @@
               </div>
               <div class="col">
                 <%= issue.entity %>
+              </div>
+              <div class="col">
+                <%= issue.reporter.email %>
               </div>
               <div class="col">
                 <%= helper_issue_entity_link(issue: issue) %>
