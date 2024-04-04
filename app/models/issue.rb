@@ -9,9 +9,9 @@ class Issue < ApplicationRecord
   # enum issue_type: { other: "Other" } is actually saving it to the
   # DB as "other", with the capitalised string doing... nothing.
   # This contradicts the docs, so leaving for now...
-  MISSING_VISA_INFO = "Missing visa information",
-  INCORRECT_VISA_INFO = "Incorrect visa information",
-  ERROR_VISA_INFO = "Visa information is not loading/causing error",
+  MISSING_VISA_INFO = "Missing visa information"
+  INCORRECT_VISA_INFO = "Incorrect visa information"
+  ERROR_VISA_INFO = "Visa information is not loading/causing error"
   OTHER = "Other"
   ISSUE_TYPES = [
     MISSING_VISA_INFO,
@@ -24,6 +24,8 @@ class Issue < ApplicationRecord
   validate :issue_type_entity_match
   validate :entity_exists
 
+  scope :unresolved, -> { where(resolved: false) }
+
   def self.visa_issue_types
     [
       MISSING_VISA_INFO,
@@ -31,6 +33,18 @@ class Issue < ApplicationRecord
       ERROR_VISA_INFO,
       OTHER
     ]
+  end
+
+  def additional_information
+    JSON.parse(self[:additional_information])
+  end
+
+  def entity
+    return nil if entity_type.nil? || entity_id.nil?
+
+    if entity_type.constantize == Country
+      "Country: #{Country.find(entity_id).name}"
+    end
   end
 
   private

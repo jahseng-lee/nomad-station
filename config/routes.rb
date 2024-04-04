@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     end
   end
   #resource :choose_plan, only: [:show]
-  resources :issues, only: [:index, :show, :create, :update]
+  resources :issues, only: [:index, :create, :update]
   resources :locations, only: [:show, :edit, :update, :destroy] do
     member do
       get :upload_banner_image_modal

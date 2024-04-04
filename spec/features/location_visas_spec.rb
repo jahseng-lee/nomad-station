@@ -169,7 +169,7 @@ RSpec.describe "Location visas", type: :feature, js: true do
 
                 # Sign in as user
                 admin = create(:user, admin: true)
-                sign_in user
+                sign_in admin
                 visit root_path
 
                 click_link "Issues"

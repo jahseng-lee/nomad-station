@@ -1,26 +1,17 @@
 class IssuesController < ApplicationController
   def index
-    raise NotImplementedError, "TODO"
-  end
+    authorize(Issue)
 
-  def show
-    raise NotImplementedError, "TODO"
+    @issues = Issue.unresolved
   end
 
   def create
     @issue = Issue.new(create_params)
-
     authorize(@issue)
 
     respond_to do |format|
       format.turbo_stream do
         unless @issue.save
-          # TODO create a issues/create.turbo_stream.erb which:
-          #      * removes the modal
-          #      * inserts an alert
-          #        * can do this by making the existing alerts a turbo
-          #          frame and refreshing that; OR
-          #        * creating a new frame and just inserting
           render turbo_stream: turbo_stream.append(
             "modal-flash-error",
             partial: "issues/alert_error_create"
@@ -31,8 +22,23 @@ class IssuesController < ApplicationController
     end
   end
 
-  def update
-    raise NotImplementedError, "TODO"
+  def update # a.k.a. "Resolve"
+    # Weird update - just resolves the issue.
+    # The policy _should_ check the user is admin. Assume that no admins
+    # are trying to maliciously resolve all issues
+    @issue = Issue.find(params[:id])
+    authorize(@issue)
+
+    @issue.update!(resolved: true)
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(
+          "issue-#{@issue.id}",
+          partial: "issues/alert_success_resolve"
+        )
+      end
+    end
   end
 
   private

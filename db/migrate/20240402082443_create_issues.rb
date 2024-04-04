@@ -7,7 +7,7 @@ class CreateIssues < ActiveRecord::Migration[7.0]
 
       t.bigint :entity_id
       t.text :entity_type # i.e. "Location"
-      t.boolean :resolved, null: false, default: true
+      t.boolean :resolved, null: false, default: false, index: true
 
       t.references :reporter,
         null: true,

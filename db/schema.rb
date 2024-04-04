@@ -78,11 +78,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_02_082443) do
     t.jsonb "additional_information"
     t.bigint "entity_id"
     t.text "entity_type"
-    t.boolean "resolved", default: true, null: false
+    t.boolean "resolved", default: false, null: false
     t.bigint "reporter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reporter_id"], name: "index_issues_on_reporter_id"
+    t.index ["resolved"], name: "index_issues_on_resolved"
   end
 
   create_table "locations", force: :cascade do |t|
