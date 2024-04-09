@@ -1,0 +1,26 @@
+<%= turbo_frame_tag "update-visa-info-form" do %>
+  <% if flash[:success_update_visa].present? %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <%= flash[:success_update_visa] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
+
+  <% if flash[:error_update_visa].present? %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <%= flash[:error_update_visa] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
+
+  <%= form_for [@location, @visa_information] do |f| %>
+    <%
+      # Need to set the ID as the route is `resource`, not
+      # `resources`
+    %>
+    <%= hidden_field_tag :id, @visa_information.id %>
+
+    <%= f.text_area :body, class: "form-control mb-3", rows: 15 %>
+    <%= f.submit "Save", class: "btn btn-success" %>
+  <% end %>
+<% end %>

@@ -6,6 +6,50 @@ class VisaInformationsController < ApplicationController
     @location = Location.find(params[:location_id])
   end
 
+  def edit
+    @location = Location.find(params[:location_id])
+    @visa_information = params[:id].present? ? (
+      VisaInformation.find_by(id: params[:id])
+    ) : (
+      VisaInformation.generic(country: @location.country)
+    )
+    @visa_informations = VisaInformation
+      .includes(:citizenship)
+      .where(
+        country: @location.country
+      )
+      .order("countries.name")
+  end
+
+  def update
+    @location = Location.find(params[:location_id])
+    @visa_information = VisaInformation.find(params[:id])
+
+    @visa_information.assign_attributes(
+      body: update_params[:body]
+    )
+
+    if @visa_information.save
+      flash.now[:success_update_visa] = "Updated visa info."
+    else
+      flash.now[:error_update_visa] = "Couldn't update visa info." \
+        " Please try again."
+    end
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(
+          "update-visa-info-form",
+          partial: "visa_informations/update_visa_info_form",
+          locals: {
+            location: @location,
+            visa_information: @visa_information
+          }
+        )
+      end
+    end
+  end
+
   def content
     @location = Location.find(params[:location_id])
 
@@ -61,5 +105,11 @@ class VisaInformationsController < ApplicationController
         )
       end
     end
+  end
+
+  private
+
+  def update_params
+    params.require(:visa_information).permit(:body)
   end
 end

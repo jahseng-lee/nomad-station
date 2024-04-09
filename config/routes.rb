@@ -34,7 +34,7 @@ Rails.application.routes.draw do
     resources :banner_images, only: [:create, :update]
     resources :countries, only: [:edit, :update]
     resources :reviews, only: [:index, :show, :new, :create, :edit, :update]
-    resource :visa_information, only: [:show] do
+    resource :visa_information, only: [:show, :edit, :update] do
       collection do
         get :content
         get :report_issue_modal

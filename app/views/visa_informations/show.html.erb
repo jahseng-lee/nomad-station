@@ -24,6 +24,18 @@
 
     <div class="col">
       <% if current_user.present? %>
+        <% if current_user.admin? %>
+          <%= link_to(
+            edit_location_visa_information_path(
+              location_id: @location.id
+            ),
+            class: "btn btn-primary"
+          ) do %>
+            <i class="bi bi-pencil-fill"></i>
+            Edit
+          <% end %>
+        <% end %>
+
         <%= link_to "Report issue",
           report_issue_modal_location_visa_information_path,
           method: :get,
