@@ -1,0 +1,73 @@
+<div class="container mt-3">
+  <h1>
+    Issues
+  </h1>
+
+
+  <% if @issues.any? %>
+    <div class="row mb-3">
+      <div class="col">
+        <strong>Type</strong>
+      </div>
+      <div class="col">
+        <strong>Descrpition</strong>
+      </div>
+      <div class="col">
+        <strong>Entity</strong>
+      </div>
+      <div class="col">
+        <strong>Reporter</strong>
+      </div>
+      <div class="col">
+        <strong>Link</strong>
+      </div>
+      <div class="col-1">
+        <!-- Spacing for action buttons -->
+      </div>
+    </div>
+
+    <% @issues.each do |issue| %>
+      <%= turbo_frame_tag "issue-#{issue.id}" do %>
+        <div class="card mb-2">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col">
+                <strong><%= issue.issue_type %></strong>
+              </div>
+              <div class="col">
+                <%= issue.body || "No description" %>
+              </div>
+              <div class="col">
+                <%= issue.entity %>
+              </div>
+              <div class="col">
+                <%= issue.reporter.email %>
+              </div>
+              <div class="col">
+                <%= helper_issue_entity_link(issue: issue) %>
+              </div>
+              <div class="col-1">
+                <%= button_to(
+                  issue_path(issue),
+                  method: :put,
+                  class: "btn btn-success"
+                ) do %>
+                  <i class="bi bi-check2"></i>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% else %>
+    No issues at this time
+  <% end %>
+
+  <%
+    set_meta_tags(
+      index: false,
+      follow: false
+    )
+  %>
+</div>

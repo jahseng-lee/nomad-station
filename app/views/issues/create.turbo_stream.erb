@@ -1,0 +1,16 @@
+<%
+  # TODO create a issues/create.turbo_stream.erb which:
+  #      * inserts an alert
+  #        * can do this by making the existing alerts a turbo
+  #          frame and refreshing that; OR
+  #        * creating a new frame and just inserting
+%>
+
+<%= turbo_stream.remove(
+  "report-issue-modal"
+) %>
+
+<%= turbo_stream.append(
+  "success-report-issue",
+  partial: "issues/alert_success_create"
+) %>

@@ -1,0 +1,50 @@
+<div class="container mt-3">
+  <%= link_to location_visa_information_path(@location) do %>
+    <i class="bi bi-chevron-left"></i>
+    Back
+  <% end %>
+
+  <div class="row">
+    <div class="col-2 mt-2">
+      <strong>For citizens of...</strong>
+
+      <ul class="nav nav-pills flex-column">
+        <% @visa_informations.each do |visa_info| %>
+          <li class="nav-item">
+            <%= link_to(
+              visa_info.citizenship&.name || "Generic",
+              edit_location_visa_information_path(
+                location_id: @location.id,
+                id: visa_info.id
+              ),
+              class: "nav-link#{ visa_info.id == @visa_information&.id ? " active" : nil}"
+            ) %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="edit-visa-form col">
+      <h1 class="fs-3 mt-2 mb-3">
+        <%= helper_edit_visa_info_heading(
+          location: @location,
+          visa_information: @visa_information
+        ) %>
+      </h1>
+
+      <%= render partial: "visa_informations/update_visa_info_form",
+        locals: {
+          location: @location,
+          visa_information: @visa_information
+        }
+      %>
+    </div>
+  </div>
+</div>
+
+<%
+  set_meta_tags(
+    index: false,
+    follow: false
+  )
+%>

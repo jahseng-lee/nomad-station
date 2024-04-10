@@ -1,5 +1,5 @@
 # Controller responsible for adding citizenships from the
-# VisaInforation#show page. This differs from the CitizenshipsController
+# VisaInformation#show page. This differs from the CitizenshipsController
 # which is used on the Profile#show page
 module Locations
   class CitizenshipsController < ApplicationController
@@ -19,13 +19,9 @@ module Locations
       )
 
       if @citizenship.save
-        @visa_information = (
-          VisaInformation.find_by(
-            country: @location.country,
-            citizenship: @citizenship.country
-          )
-        ) || (
-          VisaInforation.generic(country: @location.country)
+        @visa_information = VisaInformation.find_by(
+          country: @location.country,
+          citizenship: @citizenship.country
         )
 
         flash.now[:success_save_citizenship] = "Added citizenship!" \

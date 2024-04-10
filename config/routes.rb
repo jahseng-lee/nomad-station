@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     end
   end
   #resource :choose_plan, only: [:show]
+  resources :issues, only: [:index, :create, :update]
   resources :locations, only: [:show, :edit, :update, :destroy] do
     member do
       get :upload_banner_image_modal
@@ -33,7 +34,12 @@ Rails.application.routes.draw do
     resources :banner_images, only: [:create, :update]
     resources :countries, only: [:edit, :update]
     resources :reviews, only: [:index, :show, :new, :create, :edit, :update]
-    resource :visa_information, only: [:show]
+    resource :visa_information, only: [:show, :edit, :update] do
+      collection do
+        get :content
+        get :report_issue_modal
+      end
+    end
   end
   resource :profile, only: [:show] do
     collection do

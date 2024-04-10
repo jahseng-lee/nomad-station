@@ -34,7 +34,7 @@
         <li class="nav-item">
           <%= turbo_frame_tag(
             "navbar-chat-link",
-            src: current_user.present? ? (
+            src: current_user&.present? ? (
               navbar_link_chat_path(
                 format: :turbo_stream,
                 active: request.path.include?("chat") || request.path.include?("channel")
@@ -71,6 +71,23 @@
             Profile
           <% end %>
         </li>
+
+        <% if current_user&.admin? %>
+          <li class="nav-item">
+            <%= link_to(
+              issues_path,
+              class: "nav-link",
+              data: {
+                controller: "navbar-link",
+                "navbar-link-active-paths-value": ['issues'],
+                "navbar-link-target": "link"
+              }
+            ) do %>
+              <i class="bi bi-exclamation-circle" aria-hidden="true"></i>
+              Issues
+            <% end %>
+          </li>
+        <% end %>
       </ul>
 
       <div class="navbar-actions">

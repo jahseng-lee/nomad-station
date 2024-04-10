@@ -1,0 +1,51 @@
+<%= turbo_frame_tag "report-issue-modal" do %>
+  <div
+      class="modal"
+      tabindex="-1"
+      data-controller="modal"
+      data-modal-target="modal"
+      >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Report issue</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <%= form_for Issue.new do |f| %>
+          <%= f.hidden_field :reporter_id, value: current_user.id %>
+          <%= f.hidden_field :entity_id, value: @location.country.id %>
+          <%= f.hidden_field :entity_type, value: "Country" %>
+          <%= f.hidden_field :additional_information, value: {
+            location: @location.name_utf8,
+            citizenship_country: current_user.citizenship.country.name
+          }.to_json %>
+
+          <div class="modal-body">
+            <%= turbo_frame_tag "modal-flash-error" %>
+
+            <%= f.select(
+              :issue_type,
+              options_for_select(
+                Issue.visa_issue_types
+              ),
+              {},
+              {
+                class: "form-select mb-3"
+              }
+            ) %>
+            <%= f.text_area(
+              :body,
+              class: "form-control",
+              placeholder: "Description (optional)"
+            ) %>
+          </div>
+
+          <div class="modal-footer">
+            <%= f.submit "Report", class: "btn btn-danger" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

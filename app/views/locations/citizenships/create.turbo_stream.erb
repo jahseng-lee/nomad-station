@@ -2,11 +2,23 @@
   "modal-new-citizenship"
 ) %>
 
-<%= turbo_stream.replace(
-  "location-visa-information",
-  partial: "visa_informations/location_visa_information",
-  locals: {
-    user: @user,
-    visa_information: @visa_information
-  }
-) %>
+<%=
+  if @visa_information.nil?
+    turbo_stream.replace(
+      "location-visa-information",
+      partial: "visa_informations/loading_visa_information",
+      locals: {
+        location: @location
+      }
+    )
+  else
+    turbo_stream.replace(
+      "location-visa-information",
+      partial: "visa_informations/location_visa_information",
+      locals: {
+        user: @user,
+        visa_information: @visa_information
+      }
+    )
+  end
+%>
