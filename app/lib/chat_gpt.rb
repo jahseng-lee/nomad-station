@@ -49,7 +49,9 @@ class ChatGpt
       " the visa options for digital nomads visiting #{country.name}?" \
       " List the available visa options in a numbered list." \
       " Don't include a title, introductory paragraph or any colourful" \
-      " language."
+      " language. <strong> tag the visa name for each visa with mark" \
+      " up, i.e. <strong>1. Work Visa:</strong>"
+
     response = client.chat(
       parameters: {
         model: "gpt-4",
@@ -76,7 +78,9 @@ class ChatGpt
       " #{citizenship_country.name} citizen visiting #{country.name}?" \
       " List the available visa options in a numbered list." \
       " Don't include a title, introductory paragraph or any colourful" \
-      " language."
+      " language. <strong> tag the visa name for each visa with mark" \
+      " up, i.e. <strong>1. Work Visa:</strong>"
+
     response = client.chat(
       parameters: {
         model: "gpt-4",
