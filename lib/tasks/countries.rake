@@ -109,7 +109,7 @@ namespace :countries do
 
           VisaInformation.create!(
             country_id: country.id,
-            citizenship_id: nil,
+            citizenship_id: citizenship.id,
             body: ChatGpt.generate_visa_info(
               country: country,
               citizenship_country: citizenship
