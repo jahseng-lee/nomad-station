@@ -12,21 +12,21 @@
     </li>
     <li class="nav-item">
       <%= link_to(
-        "Reviews",
-        location_reviews_path(location_id: location.id),
-        class: "nav-link",
-        data: {
-          "location-tabs-target": "reviewsLink"
-        }
-      ) %>
-    </li>
-    <li class="nav-item">
-      <%= link_to(
         "Visas",
         location_visa_information_path(location.id),
         class: "nav-link",
         data: {
           "location-tabs-target": "visaLink"
+        }
+      ) %>
+    </li>
+    <li class="nav-item">
+      <%= link_to(
+        "Reviews",
+        location_reviews_path(location_id: location.id),
+        class: "nav-link",
+        data: {
+          "location-tabs-target": "reviewsLink"
         }
       ) %>
     </li>
