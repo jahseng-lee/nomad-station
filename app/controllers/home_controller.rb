@@ -5,7 +5,9 @@ class HomeController < ApplicationController
 
   def index
     @pagy, @locations = pagy(
-      Location.all.ordered_for_search_results,
+      Location.all
+        .includes(:tags)
+        .ordered_for_search_results,
       items: 18
     )
   end
