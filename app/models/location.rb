@@ -35,12 +35,20 @@ class Location < ApplicationRecord
   end
 
   def review_summary
+    review_scores = reviews.pluck(
+      "avg(overall), "\
+      "avg(fun), "\
+      "avg(cost), "\
+      "avg(internet), "\
+      "avg(safety)"
+    ).first.map{ |avg| avg.to_f.round(1) }
+
     @review_summary ||= {
-      overall: reviews.average(:overall).round(1),
-      fun: reviews.average(:fun).round(1),
-      cost: reviews.average(:cost).round(1),
-      internet: reviews.average(:internet).round(1),
-      safety: reviews.average(:safety).round(1),
+      overall: review_scores[0],
+      fun: review_scores[1],
+      cost: review_scores[2],
+      internet: review_scores[3],
+      safety: review_scores[4],
     }
   end
 
