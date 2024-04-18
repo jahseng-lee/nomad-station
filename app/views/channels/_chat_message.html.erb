@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "chat-message-#{message.id}" do %>
-  <% unless message.sender?(user: current_user) %>
+  <% unless message.sender?(user: user) %>
     <%= link_to(
       message.sender,
       class: "message-sender-link",
@@ -10,7 +10,7 @@
     <% end %>
   <% end %>
 
-  <div class="chat-message<%= message.sender?(user: current_user) ? ' chat-message-current-user'.html_safe : nil %>">
+  <div class="chat-message<%= message.sender?(user: user) ? ' chat-message-current-user'.html_safe : nil %>">
     <% if message.sender.present? %>
       <% if message.sender.profile_picture.present? %>
         <div>
@@ -49,7 +49,7 @@
     </p>
 
     <div class="message-actions-container">
-      <% if message.sender?(user: current_user) || current_user&.admin? %>
+      <% if message.sender?(user: user) || user&.admin? %>
         <%= button_to(
           channel_channel_message_path(
             message,
