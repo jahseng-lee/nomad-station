@@ -44,9 +44,9 @@ Rails.application.configure do
   config.action_cable.mount_path = "/cable"
   config.action_cable.url = ENV["HEROKU_ENV"] == "staging" ?
     (
-      "wss://socket.staging.nomadstation.io/cable"
+      "wss://socket.staging.nomadstation.io/"
     ) : (
-      "wss://socket.nomadstation.io/cable"
+      "wss://socket.nomadstation.io/"
     )
   # config.action_cable.allowed_request_origins = [ "http://example.com", /http:\/\/example.*/ ]
 
