@@ -21,8 +21,7 @@ class User < ApplicationRecord
     length: { minimum: 5, maximum: 50 },
     uniqueness: true
 
-  after_create -> { self.update!(subscription_status: "free") }
-  after_create -> { UserMailer.notify_admin_signup(self) }
+  after_create :add_free_subscription, :mail_nomadstation_admin
 
   # Subscription accessors
   def subscription_status
@@ -76,4 +75,16 @@ class User < ApplicationRecord
     @citizenship ||= citizenships.first
   end
   # END: citizenship accessors
+
+  private
+
+  def add_free_subscription
+    self.update!(subscription_status: "free")
+  end
+
+  def mail_nomadstation_admin
+    UserMailer
+      .notify_admin_signup(self)
+      .deliver_later
+  end
 end

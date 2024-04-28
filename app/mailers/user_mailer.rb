@@ -1,12 +1,12 @@
 class UserMailer < ApplicationMailer
   include PostmarkRails::TemplatedMailerMixin
 
-  default "Message-ID" => lambda {"<#{SecureRandom.uuid}@nomadr.io>"}
+  default "Message-ID" => lambda {"<#{SecureRandom.uuid}@nomadstation.io>"}
   default from: "jahseng.lee@nomadstation.io"
 
-  def notify_admin_signup(record)
+  def notify_admin_signup(user)
     self.template_model = ApplicationMailer::DEFAULT_ARGS.merge({
-      user_email: record.email
+      user_email: user.email
     })
 
     mail(
