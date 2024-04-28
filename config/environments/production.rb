@@ -41,7 +41,7 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Mount Action Cable outside main process or domain.
-  # config.action_cable.mount_path = nil
+  config.action_cable.mount_path = "/cable"
   config.action_cable.url = ENV["HEROKU_ENV"] == "staging" ?
     (
       "wss://socket.staging.nomadstation.io/cable"
