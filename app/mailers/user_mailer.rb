@@ -10,7 +10,7 @@ class UserMailer < ApplicationMailer
     })
 
     mail(
-      to: "jahseng.lee@nomadstion.io",
+      to: "jahseng.lee@nomadsation.io",
       postmark_template_alias: "user-signed-up",
       track_opens: "true",
       message_stream: "outbound"
