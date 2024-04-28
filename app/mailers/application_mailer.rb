@@ -1,5 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "jahseng.lee@nomadstation.io"
   layout "mailer"
 
   DEFAULT_ARGS = {
