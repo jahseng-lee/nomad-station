@@ -4,7 +4,7 @@ class UserMailer < ApplicationMailer
   default "Message-ID" => lambda {"<#{SecureRandom.uuid}@nomadr.io>"}
   default from: "jahseng.lee@nomadstation.io"
 
-  def notify_admin(record)
+  def notify_admin_signup(record)
     self.template_model = ApplicationMailer::DEFAULT_ARGS.merge({
       user_email: record.email
     })
