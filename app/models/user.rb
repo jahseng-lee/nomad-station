@@ -22,6 +22,7 @@ class User < ApplicationRecord
     uniqueness: true
 
   after_create -> { self.update!(subscription_status: "free") }
+  after_create -> { UserMailer.notify_admin_signup(self) }
 
   # Subscription accessors
   def subscription_status
