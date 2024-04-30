@@ -7,7 +7,7 @@
     </div>
   </div>
 
-  <% if @locations.present? %>
+  <% unless @locations.nil? %>
     <%= render partial: "search_locations/location_search_section",
       locals: {
         region: @region,
