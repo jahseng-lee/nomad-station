@@ -7,13 +7,88 @@
     </div>
   </div>
 
-  <%= render partial: "search_locations/location_search_section",
-    locals: {
-      region: @region,
-      country: @country,
-      locations: @locations,
-    }
-  %>
+  <% if @locations.present? %>
+    <%= render partial: "search_locations/location_search_section",
+      locals: {
+        region: @region,
+        country: @country,
+        locations: @locations
+      }
+    %>
+  <% else %>
+    <% # Show placeholder loading elements %>
+    <%= turbo_frame_tag(
+      "loading-locations",
+      src: locations_home_path(format: :turbo_stream)
+    ) do %>
+      <div>
+        <div class="row mb-3">
+          <div class="col">
+            <select
+                class="form-select"
+                disabled>
+            </select>
+          </div>
+
+          <div class="col">
+            <select
+                class="form-select"
+                disabled>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <%= text_field(
+            "search",
+            :query,
+            disabled: true,
+            class: "form-control",
+          ) %>
+          <span class="input-group-text">
+            <i class="bi bi-search" aria-hidden="true"></i>
+          </span>
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="row row-cols-xl-3 row-cols-md-2 row-cols-1">
+        <% 18.times do %>
+          <div class="col">
+            <div class="location-card card overflow-hidden mb-3">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <% # normally where the location image would go %>
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title placeholder-glow">
+                      <span class="placeholder col-6"></span>
+                    </h5>
+                    <h6 class="card-subtitle mb-2 placeholder-glow">
+                      <span class="placeholder col-8"></span>
+                    </h6>
+                    <p class="card-text placeholder-glow">
+                      <span class="placeholder col-7"></span>
+                      <span class="placeholder col-4"></span>
+                      <span class="placeholder col-4"></span>
+                      <span class="placeholder col-6"></span>
+                      <span class="placeholder col-8"></span>
+                    </p>
+                  </div>
+
+                  <div class="card-footer placeholder-glow">
+                    <span class="placeholder col-7"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
 </div>
 
 <%

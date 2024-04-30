@@ -158,7 +158,9 @@
     <% end %>
   </div>
 
-  <div data-controller="pagy" class="pagination-nav-container">
-    <%== pagy_bootstrap_nav_js(@pagy) %>
-  </div>
+  <% if locations.length != 0 %>
+    <div data-controller="pagy" class="pagination-nav-container">
+      <%== pagy_bootstrap_nav_js(@pagy) %>
+    </div>
+  <% end %>
 </div>

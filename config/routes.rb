@@ -22,6 +22,11 @@ Rails.application.routes.draw do
     end
   end
   #resource :choose_plan, only: [:show]
+  resource :home, only: [:index] do
+    collection do
+      get :locations, controller: "home"
+    end
+  end
   resources :issues, only: [:index, :create, :update]
   resources :locations, only: [:show, :edit, :update, :destroy] do
     member do
