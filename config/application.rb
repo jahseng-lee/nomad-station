@@ -27,5 +27,7 @@ module NomadStation
     config.action_mailer.postmark_settings = {
       api_token: ENV["POSTMARK_API_TOKEN"]
     }
+
+    config.middleware.use Rack::Deflater
   end
 end
