@@ -5,7 +5,7 @@ class BannerImageUploader < Shrine
     magick = ImageProcessing::MiniMagick.source(original)
 
     {
-      thumbnail:  magick.resize_to_fill!(480, 480, gravity: "south-west"),
+      thumbnail:  magick.resize_to_fill!(240, 240, gravity: "south-west"),
     }
   end
 end
