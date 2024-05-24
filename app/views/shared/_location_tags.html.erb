@@ -1,6 +1,10 @@
 <% if location.tags.any? %>
   <div data-controller="location-tag-badges">
-    <% location.tags.order(:name).each do |tag| %>
+    <%
+      # NOTE: using #sort here instead of #order
+      #       stops additional queries for each location
+    %>
+    <% location.tags.sort{ |a, b| a.name <=> b.name }.each do |tag| %>
       <span class="location-tag-badge badge rounded-pill" data-location-badge data-tag-value="<%= tag.name %>">
         <%= helper_location_tag_icon(
           tag_name: tag.name

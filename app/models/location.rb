@@ -34,6 +34,12 @@ class Location < ApplicationRecord
     country.name
   end
 
+  def review_overall_summary
+    reviews.pluck(
+      "avg(overall)"
+    ).first{ |avg| avg.to_f.round(1) }
+  end
+
   def review_summary
     review_scores = reviews.pluck(
       "avg(overall), "\
