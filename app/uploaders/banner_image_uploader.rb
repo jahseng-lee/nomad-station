@@ -8,7 +8,7 @@ class BannerImageUploader < Shrine
 
     {
       banner: magick.resize_to_fill!(1600, 400),
-      thumbnail:  magick.resize_to_fill!(240, 240, gravity: "south-west"),
+      thumbnail:  magick.resize_to_fill!(360, 360, gravity: "south-west"),
     }
   end
 end
