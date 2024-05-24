@@ -1,7 +1,7 @@
 <% if location.banner_image.present? %>
   <div
       class="hero background-image-hero"
-      style="background-image: url('<%= @location.banner_image.image_url %>');"
+      style="background-image: url('<%= @location.banner_image.image_url(:banner) %>');"
       >
     <div class="hero-content mask p-5">
       <div class="title-section">
