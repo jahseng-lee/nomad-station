@@ -108,53 +108,57 @@
 
 <div id="search-results">
   <div class="row row-cols-xl-3 row-cols-md-2 row-cols-1">
-    <% @locations.each do |location| %>
-      <div class="col">
-        <%= link_to location, class: "location-search-result-link" do %>
-          <div class="location-card card overflow-hidden mb-3">
-            <div class="row g-0">
-              <div class="col-md-4">
-                <img
-                    src="<%= helper_location_thumbnail(location: location) %>"
-                    class="search-result-img img-fluid rounded-start"
-                    alt="Photo of <%= location.name_utf8 %>"
-                    width="520"
-                    height="360"
-                    >
-              </div>
-              <div class="col-md-8">
-                <div class="card-body">
-                  <p class="card-title h5"><%= location.name_utf8 %></p>
-                  <p class="card-subtitle h6 mb-2 text-body-secondary"><%= location.country_name %></p>
-                  <p class="card-text">
-                    <%= helper_location_short_description(
-                      location: location
-                    ) %>
-                  </p>
+    <% if @locations.any? %>
+      <% @locations.each do |location| %>
+        <div class="col">
+          <%= link_to location, class: "location-search-result-link" do %>
+            <div class="location-card card overflow-hidden mb-3">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img
+                      src="<%= helper_location_thumbnail(location: location) %>"
+                      class="search-result-img img-fluid rounded-start"
+                      alt="Photo of <%= location.name_utf8 %>"
+                      width="520"
+                      height="360"
+                      >
                 </div>
-
-                <div class="card-footer">
-                  <%= render partial: "shared/location_tags", locals: {
-                    location: location
-                  } %>
-
-                  <% if location.tags.any? && location.reviews.any? %>
-                    <hr />
-                  <% end %>
-
-                  <% if location.reviews.any? %>
-                    <div>
-                      <%= helper_review_overall_summary_star_rating(
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <p class="card-title h5"><%= location.name_utf8 %></p>
+                    <p class="card-subtitle h6 mb-2 text-body-secondary"><%= location.country_name %></p>
+                    <p class="card-text">
+                      <%= helper_location_short_description(
                         location: location
                       ) %>
-                    </div>
-                  <% end %>
+                    </p>
+                  </div>
+
+                  <div class="card-footer">
+                    <%= render partial: "shared/location_tags", locals: {
+                      location: location
+                    } %>
+
+                    <% if location.tags.any? && location.reviews.any? %>
+                      <hr />
+                    <% end %>
+
+                    <% if location.reviews.any? %>
+                      <div>
+                        <%= helper_review_overall_summary_star_rating(
+                          location: location
+                        ) %>
+                      </div>
+                    <% end %>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        <% end %>
-      </div>
+          <% end %>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="fs-4">Couldn't find any locations</p>
     <% end %>
   </div>
 
