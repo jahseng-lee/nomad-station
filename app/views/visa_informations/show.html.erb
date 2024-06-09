@@ -15,11 +15,25 @@
 
   <div class="row">
     <div class="col-10">
-      <%= render partial: "visa_informations/loading_visa_information",
-        locals: {
-          location: @location
-        }
-      %>
+      <% if @location.official_visa_link.present? %>
+        <div>
+          Official <%= @location.country_name %> visa info:
+          <%= link_to @location.official_visa_link, target: "_blank" do %>
+            <i class="bi bi-box-arrow-up-right"></i>
+            <%= @location.official_visa_link %>
+          <% end %>
+        </div>
+
+        <hr />
+      <% end %>
+
+      <div>
+        <%= render partial: "visa_informations/loading_visa_information",
+          locals: {
+            location: @location
+          }
+        %>
+      </div>
     </div>
 
     <div class="col">
