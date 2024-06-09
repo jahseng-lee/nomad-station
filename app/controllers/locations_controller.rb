@@ -94,6 +94,6 @@ class LocationsController < ApplicationController
   private
 
   def location_params
-    params.require(:location).permit(:description)
+    params.require(:location).permit(:description, :official_visa_link)
   end
 end

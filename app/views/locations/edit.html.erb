@@ -11,19 +11,21 @@
 
   <%= form_for @location do |f| %>
     <div class="mb-2">
-      <%= f.label :description, class: "form-label fw-bold" %>
+      <%= f.label :description, class: "form-label" %>
       <%= f.text_area :description,
         class: "form-control",
         rows: 8
       %>
     </div>
 
-    <div class="mb-3">
+    <div class="mb-2">
       <% if @location.description.present? %>
         <%= f.button "Auto-generate",
           type: :submit,
           data: {
-            turbo_confirm: "Are you sure? This location already has a description, this action will overwrite the existing data permanently"
+            turbo_confirm: "Are you sure? This location already has" \
+            " a description, this action will overwrite the existing" \
+            " data permanently"
           },
           class: "btn btn-danger",
           formaction: generate_description_location_path(@location)
@@ -35,6 +37,11 @@
           formaction: generate_description_location_path(@location)
         %>
       <% end %>
+    </div>
+
+    <div class="mb-2">
+      <%= f.label :official_visa_link, class: "form-label" %>
+      <%= f.text_field :official_visa_link, class: "form-control" %>
     </div>
 
     <%= f.button "Save",
